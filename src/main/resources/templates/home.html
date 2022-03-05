@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container center" style="height:100%">
+    <div class="row h-100">
+        <div class="col-12 my-auto mx-auto">
+            <h5>Hello <span style="color: #e0a800;font-weight: bold;" th:text="${#httpServletRequest.remoteUser}"></span></h5>
+        </div>
+    </div>
+</div>
+<a class="btn btn-light action-button" role="button" th:href="@{/logout}">Log Out</a>
+</body>
+</html>

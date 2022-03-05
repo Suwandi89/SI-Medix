@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <title>SI-Medix</title>
+</head>
+<body style="background-color: lightgray">
+<div class="middle-content">
+    <div class="center-section">
+        <img class="medix-logo" src="/img/Medix-logo.png">
+    </div>
+
+    <div class="login-label center">
+        <h2>Daftar akun</h2>
+    </div>
+
+    <form th:action="@{/signup}" th:object="${user}" method="POST">
+        <!-- success message -->
+        <div th:if="${param.success}">
+            <div class="alert alert-info">You've successfully registered!</div>
+        </div>
+
+        <!-- error message -->
+        <div th:if="${param.error}">
+            <div class="alert alert-danger">Sign Up failed! Your email has been registered.</div>
+        </div>
+
+        <div class="flex-1">
+            <div class="flex-2">
+                <div class="input-label"><b>First Name</b></div>
+                <input class="input-1" type="text" name="firstname" placeholder="First Name" required>
+            </div>
+            <div class="flex-2">
+                <div class="input-label"><b>Last Name</b></div>
+                <input class="input-1" type="text" name="lastname" placeholder="Last Name" required>
+            </div>
+        </div>
+
+        <div class="margin-top">
+            <div class="input-label"><b>Username</b></div>
+            <input class="input-1" type="text" name="username" placeholder="Username" required>
+        </div>
+
+        <div class="margin-top">
+            <div class="input-label"><b>Email</b></div>
+            <input class="input-1" type="email" name="email" placeholder="Email" required>
+        </div>
+
+        <div class="margin-top">
+            <div class="input-label"><b>Password</b></div>
+            <input class="input-1" type="password" name="password" placeholder="Password" required>
+        </div>
+
+        <div class="margin-top">
+            <div class="input-label"><b>Role</b></div>
+            <select name="role" class="input-1" required>
+                <option selected value="">--Pilih Role--</option>
+                <option value="2">Admin Khanza</option>
+                <option value="3">Manajer Rumah Sakit</option>
+            </select>
+        </div>
+
+        <div class="center-section">
+            <button class="login-button" type="submit">Daftar</button>
+        </div>
+    </form>
+    <h5 class="center margin-top">Sudah punya akun?&nbsp;<span><a href="/login">Login sekarang</a></span></h5>
+</div>
+</body>
+</html>
