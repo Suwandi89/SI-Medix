@@ -1,6 +1,7 @@
 package tk.propensi.medix.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,4 +41,14 @@ public class UserController {
         }
         return "redirect:/signup?success";
     }
+
+    @GetMapping(value = "/viewall")
+    public String viewAllUser(Authentication auth, Model model) {
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        List<UserModel> listUser = userService.getUserList();
+        model.addAttribute("listUser", listUser);
+        model.addAttribute("user", authUser);
+        return "viewall-user";
+    }
+
 }
