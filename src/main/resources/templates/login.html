@@ -21,7 +21,7 @@
     <form th:action="@{/login}" method="POST">
         <!-- error message -->
         <div th:if="${param.error}">
-            <div class="alert alert-danger">Invalid username or password</div>
+            <div class="alert alert-danger">Invalid username or password. If you have already registered please wait for your account to be accepted</div>
         </div>
 
         <!-- logout message -->
@@ -30,8 +30,8 @@
         </div>
 
         <div>
-            <div class="input-label"><b>Username atau email</b></div>
-            <input class="input-1" type="text" name="username" placeholder="Username atau email" required>
+            <div class="input-label"><b>Username</b></div>
+            <input class="input-1" type="text" name="username" placeholder="Username" required>
         </div>
 
         <div class="margin-top">
