@@ -1,10 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <head th:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    </head>
+    <head th:fragment="js">
+        <script
+                src="https://code.jquery.com/jquery-3.4.1.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFIBw8HfCJo="
+                crossorigin="anonymous"
+        ></script>
+        <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+    </head>
 </head>
-<body>
+<!-- <style>
+body {
+  margin: 0;
+}
 
+nav.ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 25%;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+li a {
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+li a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+} -->
+</style>
+<body>
+<nav th:fragment="navbar" class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-secondary text-decoration-none">
+        <span class="fs-4">SI-Medix</span>
+      </a>
+      <hr>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a href="#" class="nav-link active" aria-current="page">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+            Home
+          </a>
+        </li>
+        <li>
+          <a th:href="@{/}" class="nav-link text-secondary">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+            Pendaftar Rumah Sakit
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-secondary">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+            Rekam Medis
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-secondary">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+            Daftar User
+          </a>
+        </li>
+        <li>
+          <a href="#" class="nav-link text-secondary">
+            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+            Dashboard Utama
+          </a>
+        </li>
+      </ul>
+      <hr>
+      <div>
+        <a href="#" class="d-flex align-items-center text-danger text-decoration-none " >
+            <strong>logout</strong>
+          </a>
+      </div>
+</nav>
 </body>
 </html>
