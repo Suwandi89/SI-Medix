@@ -9,6 +9,7 @@ public interface UserService {
     public String encrypt(String password);
     List<UserModel> getUserList();
     UserModel getUserByUsername(String username);
-    boolean checkIfUserExist(String email);
+    void processRequest(String username,int status);
+    int checkIfUserExist(String username, String email);
 }
 
