@@ -36,8 +36,10 @@
                             </tr>
                         </tbody>
                     </table>
-                    <a class="btn btn-primary" th:href="@{/}">Terima User</a>
-                    <a class="btn btn-danger" th:href="@{/}">Tolak</a>
+                    <div th:if="${user.status} == 3">
+                        <a class="btn btn-primary" th:href="@{/pendaftar/}+${user.username}+'/accept'">Terima User</a>
+                        <a class="btn btn-danger" th:href="@{/pendaftar/}+${user.username}+'/decline'">Tolak</a>
+                    </div>
                 </div>
             </div>
         </div>
