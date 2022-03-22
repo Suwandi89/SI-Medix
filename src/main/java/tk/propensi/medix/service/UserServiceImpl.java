@@ -39,7 +39,19 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean checkIfUserExist(String email) {
-        return userDb.findByEmail(email) !=null ? true : false;
+    public void processRequest(String username, int status){
+        userDb.findByUsername(username).setStatus(status);
+    }
+
+    @Override
+    public int checkIfUserExist(String username, String email) {
+        int res = 0;
+        if (userDb.findByUsername(username) != null){
+            res = 1;
+        }
+        if (userDb.findByEmail(email) != null){
+            res = 2;
+        }
+        return res;
     }
 }

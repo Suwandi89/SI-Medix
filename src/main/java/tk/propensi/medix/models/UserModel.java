@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -25,16 +26,16 @@ public class UserModel implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max=200)
+    @Size(max=300)
     @Column(name="username", nullable = false)
     private String username;
 
     @NotNull
-    @Size(max=100)
+    @Size(max=200)
     @Column(name="firstname", nullable = false)
     private String firstname;
 
-    @Size(max=100)
+    @Size(max=200)
     @Column(name="lastname")
     private String lastname;
 
@@ -44,9 +45,12 @@ public class UserModel implements Serializable {
     private String email;
 
     @NotNull
-    @Lob
     @Column(name = "password",nullable = false)
     private String password;
+
+    @NotNull
+    @Column(name = "status",nullable = false)
+    private int status;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn
