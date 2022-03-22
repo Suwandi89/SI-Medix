@@ -1,6 +1,7 @@
 package tk.propensi.medix.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-    @GetMapping("/signup")
+    @GetMapping(value="/signup")
     public String signup(Model model){
         List<RoleModel> listRole = roleService.findAll();
         model.addAttribute("listRole",listRole);
@@ -32,12 +33,14 @@ public class UserController {
     }
 
     @PostMapping(value = "/signup")
-    private String addUserSubmit(@ModelAttribute UserModel user, Model model, RedirectAttributes redirectAttributes){
-        boolean flag = userService.checkIfUserExist(user.getEmail());
-        if (!flag){
+    private String addUserSubmit(@ModelAttribute UserModel user){
+        int flag = userService.checkIfUserExist(user.getUsername(), user.getEmail());
+        if (flag == 0){
             userService.addUser(user);
-        } else {
-            return "redirect:/signup?error";
+        } else if (flag == 1){
+            return "redirect:/signup?error1";
+        } else if (flag == 2){
+            return "redirect:/signup?error2";
         }
         return "redirect:/signup?success";
     }
@@ -46,7 +49,15 @@ public class UserController {
         UserModel user = userService.getUserByUsername(username);
         model.addAttribute("user", user);
         return "view-pendaftar";
-
-
     }
+
+    @GetMapping(value = "/viewall")
+    public String viewAllUser(Authentication auth, Model model) {
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        List<UserModel> listUser = userService.getUserList();
+        model.addAttribute("listUser", listUser);
+        model.addAttribute("user", authUser);
+        return "viewall-user";
+    }
+
 }
