@@ -18,6 +18,7 @@ import java.util.Set;
 @Service
 @Transactional
 public class UserDetailServiceImpl implements UserDetailsService {
+
     @Autowired
     private UserDB userDb;
 
