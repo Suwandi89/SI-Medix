@@ -39,7 +39,6 @@ public class UserModel implements Serializable {
     private String lastname;
 
     @NotNull
-    @Size(max=16)
     @Column(name="email", nullable = false)
     private String email;
 
