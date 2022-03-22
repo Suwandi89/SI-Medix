@@ -27,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/api/v1/**").permitAll()
                 .antMatchers("/api-docs").permitAll()
                 .antMatchers("/v3/api-docs/**").permitAll()
+                .antMatchers("/pendaftar/**","/viewall").hasAuthority("Admin Medix")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
