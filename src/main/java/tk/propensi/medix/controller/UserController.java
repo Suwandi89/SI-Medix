@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-    @GetMapping("/signup")
+    @GetMapping(value="/signup")
     public String signup(Model model){
         List<RoleModel> listRole = roleService.findAll();
         model.addAttribute("listRole",listRole);
@@ -36,10 +36,10 @@ public class UserController {
         if (flag == 0){
             userService.addUser(user);
         } else if (flag == 1){
-            return "redirect:/login?error1";
+            return "redirect:/signup?error1";
         } else if (flag == 2){
-            return "redirect:/login?error2";
+            return "redirect:/signup?error2";
         }
-        return "redirect:/login?success";
+        return "redirect:/signup?success";
     }
 }
