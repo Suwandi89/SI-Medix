@@ -16,21 +16,25 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{username}/accept")
+    @GetMapping("/pendaftar/{username}/accept")
     public String acceptRequest(
             @PathVariable String username,
             Model model
     ){
         userService.processRequest(username,1);
-        return "home";
+        UserModel user = userService.getUserByUsername(username);
+        model.addAttribute("user", user);
+        return "view-pendaftar";
     }
 
-    @GetMapping("/{username}/decline")
+    @GetMapping("/pendaftar/{username}/decline")
     public String declineRequest(
             @PathVariable String username,
             Model model
     ){
         userService.processRequest(username,2);
-        return "home";
+        UserModel user = userService.getUserByUsername(username);
+        model.addAttribute("user", user);
+        return "view-pendaftar";
     }
 }
