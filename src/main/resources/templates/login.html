@@ -24,21 +24,6 @@
             <div class="alert alert-danger">Invalid username or password. If you have already registered please wait for your account to be accepted</div>
         </div>
 
-        <!-- error message -->
-        <div th:if="${param.error1}">
-            <div class="alert alert-danger">Sign Up failed! Your username has been registered.</div>
-        </div>
-
-        <!-- error message -->
-        <div th:if="${param.error2}">
-            <div class="alert alert-danger">Sign Up failed! Your email has been registered.</div>
-        </div>
-
-        <!-- success message -->
-        <div th:if="${param.success}">
-            <div class="alert alert-info">You've successfully registered! Please wait for account approval</div>
-        </div>
-
         <!-- logout message -->
         <div th:if="${param.logout}">
             <div class="alert alert-info">You have been logged out.</div>
