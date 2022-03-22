@@ -50,7 +50,7 @@ public class UserModel implements Serializable {
 
     @NotNull
     @Column(name="status", nullable = false)
-    private boolean status;
+    private int status;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn
