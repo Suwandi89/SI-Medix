@@ -17,16 +17,27 @@
                 <div class="justify-content-center">
                     <h2>Detail Pendaftar</h2>
                     <br>
-                    <p th:text="'username    : ' + ${user.username}"></p>
-                    <p th:text="'Nama   : ' + ${user.firstname} + ' ' + ${user.lastname}  "></p>
-                    <p th:text="'Alamat Email: ' + ${user.email}"></p>
-                    <p th:if="${user.role.id} == 2">Mendaftar sebagai: Admin RS</p>
-                    <p th:if="${user.role.id} == 3">mendaftar sebagai: Manajer RS</p>
-                    <div class="d-flex justify-content-end">
-                        <a class="btn btn-primary" th:href="@{/}">Terima User</a>
-                        <a class="btn btn-danger" th:href="@{/}">Tolak</a>
-                    </div>
-                 
+                    <table class="table">
+            
+                        <tbody>
+                            <td>
+                                <p>Username</p>
+                                <p>Nama</p>
+                                <p>Alamat Email</p>
+                                <p>Mendaftar sebagai</p>
+                            </td>
+                            <td>
+                                <p th:text="${user.username}"></p>
+                                <p th:text=" ${user.firstname} + ' ' + ${user.lastname}"></p>
+                                <p th:text="${user.email}"></p>
+                                <p th:if="${user.role.id} == 2">Admin RS </p>
+                                <p th:if="${user.role.id} == 3">Manajer RS</p>
+                             </td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-primary" th:href="@{/}">Terima User</a>
+                            <a class="btn btn-danger" th:href="@{/}">Tolak</a>
                 </div>
             </div>
         </div>
