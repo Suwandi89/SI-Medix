@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import tk.propensi.medix.models.RoleModel;
@@ -39,5 +40,13 @@ public class UserController {
             return "redirect:/signup?error";
         }
         return "redirect:/signup?success";
+    }
+    @GetMapping("/pendaftar/{username}")
+    public String viewPendaftar(@PathVariable String username, Model model){
+        UserModel user = userService.getUserByUsername(username);
+        model.addAttribute("user", user);
+        return "view-pendaftar";
+
+
     }
 }

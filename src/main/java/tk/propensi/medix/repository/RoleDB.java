@@ -6,4 +6,5 @@ import tk.propensi.medix.models.RoleModel;
 
 @Repository
 public interface RoleDB extends JpaRepository<RoleModel,Long> {
+    
 }
