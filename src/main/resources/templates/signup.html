@@ -22,21 +22,6 @@
     <form th:action="@{/signup}" th:object="${user}" method="POST">
         <input type="hidden" value="3" name="status">
 
-        <!-- success message -->
-        <div th:if="${param.success}">
-            <div class="alert alert-info">You've successfully registered! Please wait for account approval</div>
-        </div>
-
-        <!-- error message -->
-        <div th:if="${param.error1}">
-            <div class="alert alert-danger">Sign Up failed! Your username has been registered.</div>
-        </div>
-
-        <!-- error message -->
-        <div th:if="${param.error2}">
-            <div class="alert alert-danger">Sign Up failed! Your email has been registered.</div>
-        </div>
-
         <div class="flex-1">
             <div class="flex-2">
                 <div class="input-label"><b>First Name</b></div>

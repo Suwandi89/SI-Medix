@@ -31,15 +31,15 @@ public class UserController {
     }
 
     @PostMapping(value = "/signup")
-    private String addUserSubmit(@ModelAttribute UserModel user, Model model, RedirectAttributes redirectAttributes){
+    private String addUserSubmit(@ModelAttribute UserModel user){
         int flag = userService.checkIfUserExist(user.getUsername(), user.getEmail());
         if (flag == 0){
             userService.addUser(user);
         } else if (flag == 1){
-            return "redirect:/signup?error1";
+            return "redirect:/login?error1";
         } else if (flag == 2){
-            return "redirect:/signup?error2";
+            return "redirect:/login?error2";
         }
-        return "redirect:/signup?success";
+        return "redirect:/login?success";
     }
 }
