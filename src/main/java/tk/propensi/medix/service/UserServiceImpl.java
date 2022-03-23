@@ -48,6 +48,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public void deleteUser(String username){
+        userDb.delete(userDb.findByUsername(username));
+    }
+
+    @Override
     public int checkIfUserExist(String username, String email) {
         int res = 0;
         if (userDb.findByUsername(username) != null){
