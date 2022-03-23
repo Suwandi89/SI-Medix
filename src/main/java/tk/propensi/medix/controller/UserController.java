@@ -44,6 +44,7 @@ public class UserController {
         }
         return "redirect:/signup?success";
     }
+
     @GetMapping("/pendaftar/{username}")
     public String viewPendaftar(@PathVariable String username, Model model){
         UserModel user = userService.getUserByUsername(username);
