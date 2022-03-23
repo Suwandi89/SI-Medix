@@ -14,6 +14,7 @@ import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.service.RoleService;
 import tk.propensi.medix.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -56,7 +57,13 @@ public class UserController {
     public String viewAllUser(Authentication auth, Model model) {
         UserModel authUser = userService.getUserByUsername(auth.getName());
         List<UserModel> listUser = userService.getUserList();
-        model.addAttribute("listUser", listUser);
+        List<UserModel> listUserRes = new ArrayList<UserModel>();
+        for (UserModel user : listUser){
+            if (user.getRole().getId() != 1){
+                listUserRes.add(user);
+            }
+        }
+        model.addAttribute("listUser", listUserRes);
         model.addAttribute("user", authUser);
         return "viewall-user";
     }
