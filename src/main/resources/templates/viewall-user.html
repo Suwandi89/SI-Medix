@@ -2,111 +2,75 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
         <link rel="stylesheet" th:href="@{/css/styles.css}"/>
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
-
-
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
         <object th:include="fragments/fragment :: js" th:remove="tag"></object>
         <object th:include="fragments/fragment :: title (current='List Pendaftar')" th:remove="tag"></object>
 </head>
 
 <body>
-
-    <div class="row"  style="height: 100vh; overflow: auto;">
-    <div th:replace="fragments/fragment :: navbar" class="col-sm-4"></div>
-    <div class="container m-4 col-sm-8">
-
-        
-        <div class="card m-4 p-8 col-sm-12">
+    <nav th:replace="fragments/fragment :: navbar('Pendaftar RS')" class="col-sm-4"></nav>
+    <div class="main-content">
+        <div class="card m-5 p-8 col-sm-10">
             <h3 class="center-align grey-text text-darken-1 p-4">List Pendaftar</h3>
             <div class="card-body">
-                
-                <div th:if="${listUser.size() != 0}">
-                    <table id="dtUserTable" class="table table-sm table-hover table-bordered" >
-                        <form th:action="@{/pendaftar/viewall/}">
-                            <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}"/>
-                            &nbsp;
-                            <input type="submit" value="Search" class="btn btn-success"/>
-                            &nbsp;
-                        </form>
-                        <div class="m-4 p-8 col-sm-12">
-                            <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Username</th>
-                                <th>Nama Depan</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                                <th>Detail Pendaftar</th>
 
-                            </tr>
-                            </thead>
-                            <tbody >
-                            <tr th:each="user, iterationStatus : ${listUser}">
-                                <td th:text="${iterationStatus.count}"></td>
-                                <td th:text="${user.username}"></td>
-                                <td th:text="${user.firstname}"></td>
-                                <td style="height 18px; overflow:auto;" th:text="${user.email}"></td>
-                                <td th:if="${user.status} == 1">Approved</td>
-                                <td th:if="${user.status} == 2">Not Approved</td>
-                                <td th:if="${user.status} == 3">Pending</td>
-                                <td>
-                                    <a th:href="@{/pendaftar/} + ${user.username}"
-                                    class="btn btn-primary">
-                                        Detail
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </div>
+                <form th:action="@{/viewall/}" class="m-8 p-2 col-sm-12">
+                    <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}"/>
+                    &nbsp;
+                    <input type="submit" value="Search" />
+                    &nbsp;
+                    <br>
+                </form>
+                <div th:if="${listUser.size() != 0}">
+                    <table id="dtUserTable" class="table table-sm table-hover table-bordered" style="margin-top: 10px;">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Username</th>
+                            <th>Nama Depan</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Detail Pendaftar</th>
+                            
+                        </tr>
+                        </thead>
+                        <tbody >
+                        <tr th:each="user, iterationStatus : ${listUser}">
+                            <td th:text="${iterationStatus.count}"></td>
+                            <td th:text="${user.username}"></td>
+                            <td th:text="${user.firstname}"></td>
+                            <td style="width: 18px; overflow:auto;" th:text="${user.email}"></td>
+                            <td th:if="${user.status} == 1">Approved</td>
+                            <td th:if="${user.status} == 2">Not Approved</td>
+                            <td th:if="${user.status} == 3">Pending</td>
+                            <td>
+                                <a th:href="@{/pendaftar/} + ${user.username}" class="btn btn-primary">
+                                    Detail
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
                     </table>
                 </div>
                 <div th:if="${listUser.size() == 0}">
                     <h5 class="indigo-text">Pendaftar tidak tersedia.</h5>
                 </div>
-
-                <footer>
-                   <nav aria-label="Page navigation example">
-                       Total Items: [[${totalItems}]] | Page [[${currentPage}]] of [[${totalPages}]]
-
-                       <ul class="pagination">
-                           <li class="page-item">
-                               <a  class="page-link" th:if="${currentPage > 1}" th:href="@{/pendaftar/viewall/page/1}">First</a>
-                               <span th:unless="${currentPage > 1}">First</span>
-                           </li>
-
-                           <li class="page-item">
-                               <a th:if="${currentPage > 1}" th:href="@{'/pendaftar/viewall/page/' + ${currentPage - 1}}">Previous</a>
-                               <span th:unless="${currentPage > 1}">Previous</span>
-                           </li>
-
-                           <li class="page-item">
-                                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                                        <a th:if="${i != currentPage}" th:href="@{'/pendaftar/viewall/page/' + ${i}}">[[${i}]]</a>
-                                        <span th:unless="${i != currentPage}">[[${i}]]</span>
-                                </span>
-                           </li>
-
-                           <li class="page-item">
-                               <a th:if="${currentPage < totalPages}" th:href="@{'/pendaftar/viewall/page/' + ${currentPage + 1}}">Next</a>
-                               <span th:unless="${currentPage < totalPages}">Next</span>
-                           </li>
-
-                           <li class="page-item">
-                               <a th:if="${currentPage < totalPages}" th:href="@{'/pendaftar/viewall/page/' + ${totalPages}}">Last</a>
-                               <span th:unless="${currentPage < totalPages}">Last</span>
-                           </li>
-                       </ul>
-                   </nav>
-                </footer>
-
             </div> 
         </div>       
     </div>
 </div>
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<!-- Paging JS -->
+<script type="text/javascript" src="/js/paging.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#dtUserTable').paging({limit:5});
+    });
+</script>
 </body>
 </html>

@@ -1,7 +1,6 @@
 package tk.propensi.medix.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -13,6 +12,7 @@ import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.service.RoleService;
 import tk.propensi.medix.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -23,7 +23,7 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-    @GetMapping(value="/signup")
+    @GetMapping("/signup")
     public String signup(Model model){
         List<RoleModel> listRole = roleService.findAll();
         model.addAttribute("listRole",listRole);
@@ -31,7 +31,7 @@ public class UserController {
         return "signup";
     }
 
-    @PostMapping(value = "/signup")
+    @PostMapping("/signup")
     private String addUserSubmit(@ModelAttribute UserModel user){
         int flag = userService.checkIfUserExist(user.getUsername(), user.getEmail());
         if (flag == 0){
@@ -43,6 +43,7 @@ public class UserController {
         }
         return "redirect:/signup?success";
     }
+
     @GetMapping("/pendaftar/{username}")
     public String viewPendaftar(@PathVariable String username, Model model){
         UserModel user = userService.getUserByUsername(username);
@@ -50,28 +51,19 @@ public class UserController {
         return "view-pendaftar";
     }
 
-    @RequestMapping(value = "/pendaftar/viewall/page/{pageNumber}")
-    public String getOnePage(Model model, @Param("keyword") String keyword,
-                              @PathVariable("pageNumber") int currentPage) {
-
-        Page<UserModel> page = userService.findPage(currentPage, keyword);
-        int totalPages = page.getTotalPages();
-        long totalItems = page.getTotalElements();
-        List<UserModel> listUser = page.getContent();
-
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("totalItems", totalItems);
-        model.addAttribute("listUser", listUser);
+    @RequestMapping(value = "/viewall")
+    public String viewAllUser(Authentication auth, Model model, @Param("keyword") String keyword) {
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        List<UserModel> listUser = userService.getUserList(keyword);
+        List<UserModel> listUserRes = new ArrayList<UserModel>();
+        for (UserModel user : listUser){
+            if (user.getRole().getId() != 1){
+                listUserRes.add(user);
+            }
+        }
+        model.addAttribute("listUser", listUserRes);
+        model.addAttribute("user", authUser);
         return "viewall-user";
-    }
-
-    @RequestMapping("/pendaftar/viewall")
-    public String getAllPages(Model model, @Param("keyword") String keyword){
-       if (keyword == null){
-           return getOnePage(model, null,1);
-       }
-        return getOnePage(model, keyword,1);
     }
 
 }
