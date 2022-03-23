@@ -52,6 +52,11 @@ public class UserModel implements Serializable {
     @Column(name = "status",nullable = false)
     private int status;
 
+    @NotNull
+    @Size(max=8000)
+    @Column(name = "link",nullable = false)
+    private String link;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn
     @OnDelete(action = OnDeleteAction.CASCADE)

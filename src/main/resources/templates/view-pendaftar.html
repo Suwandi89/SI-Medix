@@ -19,24 +19,28 @@
                 <div class="justify-content-center">
                     <h2>Detail Pendaftar</h2>
                     <br>
-                    <table class="table">
-
-                        <tbody>
-                        <td>
-                            <p>Username</p>
-                            <p>Nama</p>
-                            <p>Alamat Email</p>
-                            <p>Mendaftar sebagai</p>
-                        </td>
-                        <td>
-                            <p th:text="${user.username}"></p>
-                            <p th:text=" ${user.firstname} + ' ' + ${user.lastname}"></p>
-                            <p th:text="${user.email}"></p>
-                            <p th:if="${user.role.id} == 2">Admin RS </p>
-                            <p th:if="${user.role.id} == 3">Manajer RS</p>
-                        </td>
+                    <table class="table" style="width:100%;">
+                        <tr>
+                            <th style="width:30%;"></th>
+                            <th></th>
                         </tr>
-                        </tbody>
+                        <tr>
+                            <td>
+                                <p>Username</p>
+                                <p>Nama</p>
+                                <p>Alamat Email</p>
+                                <p>Mendaftar sebagai</p>
+                                <p>Link Dokumen</p>
+                            </td>
+                            <td>
+                                <p th:text="${user.username}"></p>
+                                <p th:text=" ${user.firstname} + ' ' + ${user.lastname}"></p>
+                                <p th:text="${user.email}"></p>
+                                <p th:if="${user.role.id} == 2">Admin RS </p>
+                                <p th:if="${user.role.id} == 3">Manajer RS</p>
+                                <p><a th:href="${user.link}" th:text="${user.link}"></a></p>
+                            </td>
+                        </tr>
                     </table>
                     <div class="d-flex flex-row">
                         <a class="btn btn-outline-primary mr-2" th:href="@{/viewall}">Kembali</a>
