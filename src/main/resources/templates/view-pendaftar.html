@@ -3,14 +3,18 @@
 
 <head>
     <title>Detail Pendaftar</title>
-    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
-    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 <body>
     <div class="row " style="height: 100vh; overflow: auto;">
 
-    <nav th:replace="fragments/fragment :: navbar" class="col-sm-4"></nav>
+    <nav th:replace="fragments/fragment :: navbar('Pendaftar RS')" class="col-sm-4"></nav>
 
         <div class="card m-4 p-4 col-sm-8">
             <div class="card-body">
@@ -36,9 +40,12 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div th:if="${user.status} == 3">
-                        <a class="btn btn-primary" th:href="@{/pendaftar/}+${user.username}+'/accept'">Terima User</a>
-                        <a class="btn btn-danger" th:href="@{/pendaftar/}+${user.username}+'/decline'">Tolak</a>
+                    <div class="d-flex flex-row">
+                        <a class="btn btn-outline-primary mr-2" th:href="@{/viewall}">Kembali</a>
+                        <div th:if="${user.status} == 3">
+                            <a class="btn btn-primary" th:href="@{/pendaftar/}+${user.username}+'/accept'">Terima User</a>
+                            <a class="btn btn-danger" th:href="@{/pendaftar/}+${user.username}+'/decline'">Tolak</a>
+                        </div>
                     </div>
                 </div>
             </div>
