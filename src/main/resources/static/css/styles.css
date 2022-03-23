@@ -2,6 +2,36 @@ body {
     font-family: 'Mulish', sans-serif;
 }
 
+.main {
+    height: 100vh;
+    margin-left: 270px; /* Same as the width of the sidenav */
+    padding: 0px 10px;
+}
+
+.main-content {
+    height: 100%;
+    margin-left: 270px; /* Same as the width of the sidenav */
+    padding: 0px 10px;
+}
+
+.card-section{
+    height: 85vh;
+}
+
+.nav-side{
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 270px;
+    position: fixed;
+    overflow-x: hidden;
+}
+
+.nav-component{
+    display: block;
+}
+
 .center-section{
     display: flex;
     justify-content: center;

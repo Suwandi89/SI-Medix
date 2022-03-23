@@ -12,18 +12,14 @@
 </head>
 
 <body>
-
-    <div class="row"  style="height: 100vh; overflow: auto;">
-    <div th:replace="fragments/fragment :: navbar('Pendaftar RS')" class="col-sm-4"></div>
-    <div class="container m-4 col-sm-8">
-
-        
-        <div class="card m-4 p-8 col-sm-12">
+    <nav th:replace="fragments/fragment :: navbar('Pendaftar RS')" class="col-sm-4"></nav>
+    <div class="main-content">
+        <div class="card m-5 p-8 col-sm-10">
             <h3 class="center-align grey-text text-darken-1 p-4">List Pendaftar</h3>
             <div class="card-body">
                 
                 <div th:if="${listUser.size() != 0}">
-                    <table id="dtUserTable" class="table table-sm table-hover table-bordered" >
+                    <table id="dtUserTable" class="table table-sm table-hover table-bordered" style="margin-top: 20px;">
                         <form th:action="@{/viewall/}" class="m-8 p-4 col-sm-12">
                             <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}"/>
                             &nbsp;
