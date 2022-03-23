@@ -17,16 +17,16 @@
         <div class="card m-5 p-8 col-sm-10">
             <h3 class="center-align grey-text text-darken-1 p-4">List Pendaftar</h3>
             <div class="card-body">
-                
+
+                <form th:action="@{/viewall/}" class="m-8 p-2 col-sm-12">
+                    <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}"/>
+                    &nbsp;
+                    <input type="submit" value="Search" />
+                    &nbsp;
+                    <br>
+                </form>
                 <div th:if="${listUser.size() != 0}">
-                    <table id="dtUserTable" class="table table-sm table-hover table-bordered" style="margin-top: 20px;">
-                        <form th:action="@{/viewall/}" class="m-8 p-4 col-sm-12">
-                            <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}"/>
-                            &nbsp;
-                            <input type="submit" value="Search" />
-                            &nbsp;
-                            <br>
-                        </form>
+                    <table id="dtUserTable" class="table table-sm table-hover table-bordered" style="margin-top: 10px;">
                         <thead>
                         <tr>
                             <th>No</th>
@@ -63,6 +63,14 @@
         </div>       
     </div>
 </div>
-
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<!-- Paging JS -->
+<script type="text/javascript" src="/js/paging.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#dtUserTable').paging({limit:5});
+    });
+</script>
 </body>
 </html>
