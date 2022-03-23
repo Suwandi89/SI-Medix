@@ -16,5 +16,5 @@ public interface UserDB extends JpaRepository<UserModel, Long> {
     UserModel findByEmail(String Email);
 
     @Query("SELECT u FROM UserModel u WHERE CONCAT(u.firstname, u.email, u.lastname, u.status) LIKE %?1%")
-    Page<UserModel> findByTitleContaining(String keyword, Pageable pageable);
+    public List<UserModel> search(String keyword);
 }

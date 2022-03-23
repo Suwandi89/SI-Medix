@@ -34,14 +34,11 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public Page<UserModel> findPage(int pageNumber, String keyword) {
-        Pageable pageable =  PageRequest.of(pageNumber - 1,5);
-
+    public List<UserModel> getUserList(String keyword){
         if (keyword != null){
-            return userDb.findByTitleContaining(keyword, pageable);
+            return userDb.search(keyword);
         }
-        return userDb.findAll((org.springframework.data.domain.Pageable) pageable);
-    }
+        return userDb.findAll();}
 
     @Override
     public UserModel getUserByUsername(String username){
