@@ -15,13 +15,14 @@
     <nav th:replace="fragments/fragment :: navbar('Pendaftar RS')" class="col-sm-4"></nav>
     <div class="main-content">
         <div class="card m-5 p-8 col-sm-10">
-            <h3 class="center-align grey-text text-darken-1 p-4">List Pendaftar</h3>
+            <h3 class="center-align grey-text text-darken-1" style="padding-left:12px;margin-top:20px;">List Pendaftar</h3>
             <div class="card-body">
-
                 <form th:action="@{/viewall/}" class="m-8 p-2 col-sm-12">
                     <input type="text" name="keyword" id="keyword" size="50" th:value="${keyword}"/>
                     &nbsp;
                     <input type="submit" value="Search" />
+                    &nbsp;
+                    <a class="btn btn-warning" th:href="@{/viewall/sorted}">Sort</a>
                     &nbsp;
                     <br>
                 </form>

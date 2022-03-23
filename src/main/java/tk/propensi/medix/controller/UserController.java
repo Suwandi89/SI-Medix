@@ -13,6 +13,8 @@ import tk.propensi.medix.service.RoleService;
 import tk.propensi.medix.service.UserService;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -65,5 +67,37 @@ public class UserController {
         model.addAttribute("user", authUser);
         return "viewall-user";
     }
+
+    @RequestMapping(value = "/viewall/sorted")
+    public String viewAllUserSorted(Authentication auth, Model model, @Param("keyword") String keyword) {
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        List<UserModel> listUser = userService.getUserList(keyword);
+        List<UserModel> listUserRes = new ArrayList<UserModel>();
+        for (UserModel user : listUser){
+            if (user.getRole().getId() != 1){
+                listUserRes.add(user);
+            }
+        }
+        Collections.sort(listUserRes, new StatusComparator());
+        model.addAttribute("listUser", listUserRes);
+        model.addAttribute("user", authUser);
+        return "viewall-user";
+    }
+
+
+    public class StatusComparator implements Comparator<UserModel> {
+        public int compare(UserModel user1, UserModel user2) {
+            if (user1.getStatus() == user2.getStatus()) {
+                return 0;
+            }
+            else if (user1.getStatus() < user2.getStatus()) {
+                return 1;
+            }
+            else {
+                return -1;
+            }
+        }
+    }
+
 
 }
