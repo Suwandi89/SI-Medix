@@ -38,31 +38,31 @@
       <hr>
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-          <a href="#" class="nav-link active" aria-current="page">
+          <a th:href="@{/}" class="nav-link active" aria-current="page">
             <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
             Home
           </a>
         </li>
         <li>
-          <a th:href="@{/}" class="nav-link text-secondary">
+          <a th:href="@{/rumahsakit/}" class="nav-link text-secondary">
             <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
             Pendaftar Rumah Sakit
           </a>
         </li>
         <li>
-          <a href="#" class="nav-link text-secondary">
+          <a th:href="@{'/rekaman/'}" class="nav-link text-secondary">
             <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
             Rekam Medis
           </a>
         </li>
         <li>
-          <a href="#" class="nav-link text-secondary">
+          <a th:href="@{'/pendaftar/viewall/'}" class="nav-link text-secondary">
             <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
             Daftar User
           </a>
         </li>
         <li>
-          <a href="#" class="nav-link text-secondary">
+          <a th:href="@{'/dashboard/'}" class="nav-link text-secondary">
             <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
             Dashboard Utama
           </a>
@@ -70,7 +70,7 @@
       </ul>
       <hr>
       <div>
-        <a href="#" class="d-flex align-items-center text-danger text-decoration-none " >
+        <a th:href="@{'/logout/'}" class="d-flex align-items-center text-danger text-decoration-none " >
             <strong>logout</strong>
           </a>
       </div>

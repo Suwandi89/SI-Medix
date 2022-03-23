@@ -1,6 +1,7 @@
 package tk.propensi.medix.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -49,13 +50,28 @@ public class UserController {
         return "view-pendaftar";
     }
 
-    @RequestMapping(value = "/viewall")
-    public String viewAllUser(Authentication auth, Model model, @Param("keyword") String keyword) {
-        UserModel authUser = userService.getUserByUsername(auth.getName());
-        List<UserModel> listUser = userService.getUserList(keyword);
+    @RequestMapping(value = "/pendaftar/viewall/page/{pageNumber}")
+    public String getOnePage(Model model, @Param("keyword") String keyword,
+                              @PathVariable("pageNumber") int currentPage) {
+
+        Page<UserModel> page = userService.findPage(currentPage, keyword);
+        int totalPages = page.getTotalPages();
+        long totalItems = page.getTotalElements();
+        List<UserModel> listUser = page.getContent();
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("totalItems", totalItems);
         model.addAttribute("listUser", listUser);
-        model.addAttribute("user", authUser);
         return "viewall-user";
+    }
+
+    @RequestMapping("/pendaftar/viewall")
+    public String getAllPages(Model model, @Param("keyword") String keyword){
+       if (keyword == null){
+           return getOnePage(model, null,1);
+       }
+        return getOnePage(model, keyword,1);
     }
 
 }

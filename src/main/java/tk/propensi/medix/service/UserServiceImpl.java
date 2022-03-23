@@ -1,7 +1,9 @@
 package tk.propensi.medix.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import tk.propensi.medix.models.UserModel;
@@ -30,12 +32,16 @@ public class UserServiceImpl implements UserService{
         return hashedPassword;
     }
 
+
     @Override
-    public List<UserModel> getUserList(String keyword){ 
+    public Page<UserModel> findPage(int pageNumber, String keyword) {
+        Pageable pageable =  PageRequest.of(pageNumber - 1,5);
+
         if (keyword != null){
-            return userDb.search(keyword);
+            return userDb.findByTitleContaining(keyword, pageable);
         }
-        return userDb.findAll();}
+        return userDb.findAll((org.springframework.data.domain.Pageable) pageable);
+    }
 
     @Override
     public UserModel getUserByUsername(String username){
