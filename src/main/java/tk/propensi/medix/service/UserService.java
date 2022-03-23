@@ -10,6 +10,7 @@ public interface UserService {
     List<UserModel> getUserList(String keyword);
     UserModel getUserByUsername(String username);
     void processRequest(String username,int status);
+    void deleteUser(String username);
     int checkIfUserExist(String username, String email);
     
 }
