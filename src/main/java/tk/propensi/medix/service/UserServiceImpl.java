@@ -31,7 +31,11 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public List<UserModel> getUserList(){ return userDb.findAll();}
+    public List<UserModel> getUserList(String keyword){ 
+        if (keyword != null){
+            return userDb.search(keyword);
+        }
+        return userDb.findAll();}
 
     @Override
     public UserModel getUserByUsername(String username){
