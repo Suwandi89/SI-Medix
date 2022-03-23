@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -7,86 +7,94 @@
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <title>SI-Medix</title>
 </head>
-<body style="background-color: lightgray">
-<div class="middle-content">
+<body class="bg-gray">
+<div class="main">
     <div class="center-section">
         <img class="medix-logo" src="/img/Medix-logo.png">
     </div>
+    <section class="signup">
+    <div class="container">
+        <div class="signup-content">
+            <div class="signup-form">
+                <h2 class="form-title">Daftar Akun</h2>
+                <form th:action="@{/signup}" th:object="${user}" method="POST" class="register-form">
+                    <input type="hidden" value="3" name="status">
+            
+                    <!-- error message -->
+                    <div th:if="${param.error1}">
+                        <div class="alert alert-danger">Sign Up failed! Your username has been registered.</div>
+                    </div>
+            
+                    <!-- error message -->
+                    <div th:if="${param.error2}">
+                        <div class="alert alert-danger">Sign Up failed! Your email has been registered.</div>
+                    </div>
+            
+                    <!-- success message -->
+                    <div th:if="${param.success}">
+                        <div class="alert alert-info">You've successfully registered! Please wait for account approval</div>
+                    </div>
+            
+            
+                    <div class="flex-1">
+                        <div class="flex-2 form-group">
+                            <label for="name"><i class="zmdi zmdi-face"></i></label>
+                            <input type="text" name="firstname" placeholder="First Name" required>
+                        </div>
+                        <div class="flex-2 form-group">
+                            <input type="text" name="lastname" placeholder="Last Name">
+                        </div>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                        <input type="text" name="username" placeholder="Username" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="email"><i class="zmdi zmdi-email"></i></label>
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div>
+            
+                    <div class="form-group">
+                        <select name="role" class="input-1" required>
+                            <option selected value="">--Pilih Role--</option>
+                            <option value="2">Admin Khanza</option>
+                            <option value="3">Manajer Rumah Sakit</option>
+                        </select>
+                    </div>
 
-    <div class="login-label center">
-        <h2>Daftar akun</h2>
+                    <div class="form-group margin-top form-group">
+                        <div class="input-label"><b>Link Bukti Keterangan Rumah Sakit</b></div>
+                        <input class="input-1" type="text" name="link" placeholder="Link Dokumen" required>
+                    </div>
+            
+                    <div class="row form-group margin-top" style="margin-bottom: 10px;">
+                        <div class="col-1"><input type="checkbox" name="check" id="checkboxsyarat" required></div>
+                        <div class="col-11"><span>&nbsp;Saya menyatakan bahwa seluruh data yang sudah diisi dan terdapat di dalam dokumen adalah benar dan dapat dipertanggungjawabkan</span><br></div>
+                    </div>
+            
+                    <div class="form-group center-section">
+                        <button class="login-button" type="submit">Daftar</button>
+                    </div>
+            
+                </form>
+            </div>
+            <div class="signup-image">
+                <figure><img src="/img/dashboard-person.jpg"></figure>
+                <h6 class="center margin-top">Sudah punya akun?&nbsp;<span><a href="/login" class="signup-image-link">Login sekarang</a></span></h6>
+            </div>
+        </div>
     </div>
-
-    <form th:action="@{/signup}" th:object="${user}" method="POST">
-        <input type="hidden" value="3" name="status">
-
-        <!-- error message -->
-        <div th:if="${param.error1}">
-            <div class="alert alert-danger">Sign Up failed! Your username has been registered.</div>
-        </div>
-
-        <!-- error message -->
-        <div th:if="${param.error2}">
-            <div class="alert alert-danger">Sign Up failed! Your email has been registered.</div>
-        </div>
-
-        <!-- success message -->
-        <div th:if="${param.success}">
-            <div class="alert alert-info">You've successfully registered! Please wait for account approval</div>
-        </div>
-
-
-        <div class="flex-1">
-            <div class="flex-2">
-                <div class="input-label"><b>First Name</b></div>
-                <input class="input-1" type="text" name="firstname" placeholder="First Name" required>
-            </div>
-            <div class="flex-2">
-                <div class="input-label"><b>Last Name</b></div>
-                <input class="input-1" type="text" name="lastname" placeholder="Last Name">
-            </div>
-        </div>
-
-        <div class="margin-top">
-            <div class="input-label"><b>Username</b></div>
-            <input class="input-1" type="text" name="username" placeholder="Username" required>
-        </div>
-
-        <div class="margin-top">
-            <div class="input-label"><b>Email</b></div>
-            <input class="input-1" type="email" name="email" placeholder="Email" required>
-        </div>
-
-        <div class="margin-top">
-            <div class="input-label"><b>Password</b></div>
-            <input class="input-1" type="password" name="password" placeholder="Password" required>
-        </div>
-
-        <div class="margin-top">
-            <div class="input-label"><b>Role</b></div>
-            <select name="role" class="input-1" required>
-                <option selected value="">--Pilih Role--</option>
-                <option value="2">Admin Khanza</option>
-                <option value="3">Manajer Rumah Sakit</option>
-            </select>
-        </div>
-
-        <div class="margin-top">
-            <div class="input-label"><b>Link Bukti Keterangan Rumah Sakit</b></div>
-            <input class="input-1" type="text" name="link" placeholder="Link Dokumen" required>
-        </div>
-
-        <div class="margin-top" style="margin-bottom: 10px;">
-            <input type="checkbox" name="check" id="checkboxsyarat" required><span>&nbsp;Saya menyatakan bahwa seluruh data yang sudah diisi dan terdapat di dalam dokumen adalah benar dan dapat dipertanggungjawabkan</span><br>
-        </div>
-
-        <div class="center-section">
-            <button class="login-button" type="submit">Daftar</button>
-        </div>
-    </form>
-    <h5 class="center margin-top">Sudah punya akun?&nbsp;<span><a href="/login">Login sekarang</a></span></h5>
+    </section>
 </div>
 </body>
 </html>
