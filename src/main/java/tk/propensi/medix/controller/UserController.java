@@ -22,7 +22,7 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
-    @GetMapping(value="/signup")
+    @GetMapping("/signup")
     public String signup(Model model){
         List<RoleModel> listRole = roleService.findAll();
         model.addAttribute("listRole",listRole);
@@ -30,7 +30,7 @@ public class UserController {
         return "signup";
     }
 
-    @PostMapping(value = "/signup")
+    @PostMapping("/signup")
     private String addUserSubmit(@ModelAttribute UserModel user){
         int flag = userService.checkIfUserExist(user.getUsername(), user.getEmail());
         if (flag == 0){
@@ -42,6 +42,7 @@ public class UserController {
         }
         return "redirect:/signup?success";
     }
+
     @GetMapping("/pendaftar/{username}")
     public String viewPendaftar(@PathVariable String username, Model model){
         UserModel user = userService.getUserByUsername(username);
