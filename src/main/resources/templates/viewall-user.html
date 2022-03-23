@@ -44,20 +44,18 @@
                         </thead>
                         <tbody >
                         <tr th:each="user, iterationStatus : ${listUser}">
-                            <div th:if="${user.role.id} != 1">
-                                <td th:text="${iterationStatus.count}"></td>
-                                <td th:text="${user.username}"></td>
-                                <td th:text="${user.firstname}"></td>
-                                <td style="width: 18px; overflow:auto;" th:text="${user.email}"></td>
-                                <td th:if="${user.status} == 1">Approved</td>
-                                <td th:if="${user.status} == 2">Not Approved</td>
-                                <td th:if="${user.status} == 3">Pending</td>
-                                <td>
-                                    <a th:href="@{/pendaftar/} + ${user.username}" class="btn btn-primary">
-                                        Detail
-                                    </a>
-                                </td>
-                            </div>
+                            <td th:text="${iterationStatus.count}"></td>
+                            <td th:text="${user.username}"></td>
+                            <td th:text="${user.firstname}"></td>
+                            <td style="width: 18px; overflow:auto;" th:text="${user.email}"></td>
+                            <td th:if="${user.status} == 1">Approved</td>
+                            <td th:if="${user.status} == 2">Not Approved</td>
+                            <td th:if="${user.status} == 3">Pending</td>
+                            <td>
+                                <a th:href="@{/pendaftar/} + ${user.username}" class="btn btn-primary">
+                                    Detail
+                                </a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
