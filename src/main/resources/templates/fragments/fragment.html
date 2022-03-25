@@ -11,29 +11,50 @@
       <head th:fragment="css">
           <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
           <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
       </head>
     
       <head th:fragment="js">
+          <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+          <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+          <script src="/js/main.js"></script>
           <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
-        </head>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
+      </head>
 
-        <head th:fragment="materializecss">
-            <!-- CSS -->
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-            <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        </head>
+    <head th:fragment="materializecss">
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
 
 </head>
 
 <body>
     <nav th:fragment="navbar(page)" class="nav-side d-flex flex-column flex-shrink-0 p-3 bg-light">
-        <div class="nav-component d-flex flex-row m-2">
+        <div class="nav-component d-flex flex-column m-2">
             <div class="d-flex">
                 <img class="medix-log-nav" src="/img/Medix-logo.png">
             </div>
-            <a href="/" class="align-items-center m-4 text-secondary text-decoration-none">
-                <span class="fs-4">SI-Medix</span>
-            </a>
+            <div class="user-button">
+                <div class="user-header">
+                    <img src="/img/default_avatar.png" class="user-menu-avatar">
+                    <span th:text="${authuser.firstname}"></span>
+                    <i class="fas fa-angle-down"></i>
+                </div>
+                <div class="user-menu collapse">
+                    <div>
+                        <a href="/myprofile"><i class="fas fa-user nav-collapse-icon"></i> My Profile</a>
+                    </div>
+                    <div class="mt-2">
+                        <a href="/changepassword"><i class="zmdi zmdi-lock"></i> Change Password</a>
+                    </div>
+                    <div class="mt-2">
+                        <a href="/logout"><i class="fas fa-sign-out-alt nav-collapse-icon"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+            </div>
         </div>
         <hr>
           <ul class="nav-component nav nav-pills flex-column mb-auto">
@@ -69,11 +90,6 @@
             </li>
           </ul>
       <hr>
-      <div>
-        <a href="/logout" class="d-flex align-items-center text-danger text-decoration-none " >
-            <strong>Logout</strong>
-        </a>
-      </div>
 </nav>
 </body>
 </html>

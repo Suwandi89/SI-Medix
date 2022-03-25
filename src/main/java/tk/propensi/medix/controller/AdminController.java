@@ -42,7 +42,7 @@ public class AdminController {
             }
         }
         model.addAttribute("listUser", listUserRes);
-        model.addAttribute("user", authUser);
+        model.addAttribute("authuser", authUser);
         return "viewall-user";
     }
 
@@ -67,7 +67,7 @@ public class AdminController {
             }
         }
         model.addAttribute("listUser", listUserRes);
-        model.addAttribute("user", authUser);
+        model.addAttribute("authuser", authUser);
         return "viewall-user";
     }
 

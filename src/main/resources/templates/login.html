@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/login.css}"/>
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <title>SI-Medix</title>
 </head>
 <body class="bg-gray">
     <div class="main">
-        <div class="center-section">
-            <img class="medix-logo" src="/img/Medix-logo.png">
-        </div>
         <section class="sign-in">
         <div class="container">
             <div class="signin-content">
@@ -23,6 +20,9 @@
                     <h6 class="center margin-top">Belum punya akun?&nbsp;<span><a href="/signup" class="signup-image-link">Daftar sekarang</a></span></h6>
                 </div>
                 <div class="signup-form">
+                    <div class="center-section">
+                        <img class="medix-logo-login" src="/img/Medix-logo.png">
+                    </div>
                     <h2 class="form-title">Login Akun</h2>
                     <form th:action="@{/login}" method="POST">
                         <!-- error message -->
@@ -36,14 +36,18 @@
                         </div>
                 
                         <div class="form-group">
-                            <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="username" placeholder="Username" required>
+                            <label for="username"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                            <input type="text" id="username" name="username" placeholder="Username" required>
                         </div>
-                
-                        <div class="form-group">
-                            <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" name="password" placeholder="Password" required>
+
+                        <div class="d-flex flex-row mt-3">
+                            <div class="form-group">
+                                <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" style="width: 450px;" id="password" name="password" placeholder="Password" required>
+                            </div>
+                            <i class="zmdi zmdi-eye-off eye-icon mt-3" id="eye" onclick="showPassword('password','eye')"></i>
                         </div>
+
                         <div class="form-group center-section">
                             <button class="login-button" type="submit">Login</button>
                         </div>
@@ -53,5 +57,18 @@
         </div>
         </section>
     </div>
+    <script type="text/javascript">
+        function showPassword(idElem, idEye) {
+            if (document.getElementById(idElem).type === "password") {
+                document.getElementById(idElem).type  = "text";
+                $('#'+idEye).removeClass('zmdi-eye-off');
+                $('#'+idEye).addClass('zmdi-eye');
+            } else {
+                document.getElementById(idElem).type = "password";
+                $('#'+idEye).removeClass('zmdi-eye');
+                $('#'+idEye).addClass('zmdi-eye-off');
+            }
+        }
+    </script>
 </body>
 </html>

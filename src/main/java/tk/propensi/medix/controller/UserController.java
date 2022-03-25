@@ -6,7 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import tk.propensi.medix.dto.ChangePasswordDTO;
 import tk.propensi.medix.models.RoleModel;
 import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.service.RoleService;
@@ -46,10 +46,98 @@ public class UserController {
         return "redirect:/signup?success";
     }
 
+    @GetMapping("/myprofile")
+    public String viewProfile(Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        model.addAttribute("error1", false);
+        model.addAttribute("error2", false);
+        model.addAttribute("success", false);
+        model.addAttribute("authuser", authUser);
+        return "myprofile";
+    }
+
+    @GetMapping("/changepassword")
+    public String changePassword(Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        ChangePasswordDTO changePasswordDTO = new ChangePasswordDTO();
+        model.addAttribute("fail", false);
+        model.addAttribute("success", false);
+        model.addAttribute("changePasswordDTO",changePasswordDTO);
+        model.addAttribute("authuser", authUser);
+        return "change-password";
+    }
+
+    @PostMapping("/changepassword")
+    public String changePasswordSubmit(@ModelAttribute ChangePasswordDTO form, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        boolean fail = false;
+        boolean success = false;
+        if (userService.matchPassword(authUser.getPassword(), form.oldPassword)){
+            userService.updatePassword(authUser, form.newPassword);
+            success = true;
+        } else {
+            fail = true;
+        }
+        model.addAttribute("fail", fail);
+        model.addAttribute("success", success);
+        model.addAttribute("authuser", authUser);
+        return "change-password";
+    }
+
+    @PostMapping("/updatePassword")
+    public String updatePasswordSubmit(@ModelAttribute UserModel userAwal, String username, String password, String password1, String password2, Model model){
+        UserModel user = userService.getUserByUsername(username);
+        if (userService.matchPassword(user.getPassword(), password)){
+            if(password1.equals(password2)){
+                userService.updatePassword(user, password1);
+            } else {
+                model.addAttribute("fail", true);
+            }
+        } else {
+            model.addAttribute("fail", true);
+        }
+        return "home";
+    }
+
+    @GetMapping("/editprofile")
+    public String editProfile(Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+
+        model.addAttribute("authuser", authUser);
+        model.addAttribute("user", authUser);
+        return "edit-profile";
+    }
+
+    @PostMapping("/editprofile")
+    public String editProfileSubmit(@ModelAttribute UserModel user, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        int flag = userService.checkIfUserExistExcept(authUser, user.getUsername(), user.getEmail());
+        boolean error1 = false;
+        boolean error2 = false;
+        boolean success = false;
+        if (flag == 0){
+            user.setId(authUser.getId());
+            userService.updateUser(user);
+            success = true;
+        } else if (flag == 1){
+            error1 = true;
+        } else if (flag == 2){
+            error2 = true;
+        }
+        model.addAttribute("error1", error1);
+        model.addAttribute("error2", error2);
+        model.addAttribute("success", success);
+        model.addAttribute("authuser", user);
+        model.addAttribute("user", user);
+        return "myprofile";
+    }
+
     @GetMapping("/pendaftar/{username}")
-    public String viewPendaftar(@PathVariable String username, Model model){
+    public String viewPendaftar(@PathVariable String username, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
         UserModel user = userService.getUserByUsername(username);
         model.addAttribute("user", user);
+        model.addAttribute("authuser", authUser);
         return "view-pendaftar";
     }
 
@@ -64,7 +152,7 @@ public class UserController {
             }
         }
         model.addAttribute("listUser", listUserRes);
-        model.addAttribute("user", authUser);
+        model.addAttribute("authuser", authUser);
         return "viewall-user";
     }
 
@@ -80,7 +168,7 @@ public class UserController {
         }
         Collections.sort(listUserRes, new StatusComparator());
         model.addAttribute("listUser", listUserRes);
-        model.addAttribute("user", authUser);
+        model.addAttribute("authuser", authUser);
         return "viewall-user";
     }
 
