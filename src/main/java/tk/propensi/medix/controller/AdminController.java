@@ -90,7 +90,7 @@ public class AdminController {
         helper.setTo(toEmail);
         helper.setSubject(subject);
 
-        helper.setText(body, true);
+        helper.setText(content, true);
 
         mailSender.send(message);
 
