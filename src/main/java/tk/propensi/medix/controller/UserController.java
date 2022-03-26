@@ -12,6 +12,9 @@ import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.service.RoleService;
 import tk.propensi.medix.service.UserService;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -34,10 +37,10 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    private String addUserSubmit(@ModelAttribute UserModel user){
+    private String addUserSubmit(@ModelAttribute UserModel user, HttpServletRequest request) throws UnsupportedEncodingException, MessagingException {
         int flag = userService.checkIfUserExist(user.getUsername(), user.getEmail());
         if (flag == 0){
-            userService.addUser(user);
+            userService.addUser(user, getSiteURL(request));
         } else if (flag == 1){
             return "redirect:/signup?error1";
         } else if (flag == 2){
@@ -147,7 +150,7 @@ public class UserController {
         List<UserModel> listUser = userService.getUserList(keyword);
         List<UserModel> listUserRes = new ArrayList<UserModel>();
         for (UserModel user : listUser){
-            if (user.getRole().getId() != 1){
+            if (user.getRole().getId() != 1 && user.isEnabled()){
                 listUserRes.add(user);
             }
         }
@@ -162,7 +165,7 @@ public class UserController {
         List<UserModel> listUser = userService.getUserList(keyword);
         List<UserModel> listUserRes = new ArrayList<UserModel>();
         for (UserModel user : listUser){
-            if (user.getRole().getId() != 1){
+            if (user.getRole().getId() != 1 && user.isEnabled()){
                 listUserRes.add(user);
             }
         }
@@ -187,5 +190,8 @@ public class UserController {
         }
     }
 
-
+    private String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
+    }
 }
