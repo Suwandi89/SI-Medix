@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 
 <head>
-    <title>404 Not Found</title>
+    <title>Verification Failed</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
@@ -10,15 +10,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-    <div class="error-section text-center">
-        <div class="row h-100">
-            <div class="col-12 my-auto mx-auto">
-                <img class="medix-log-nav" src="/img/Medix-logo.png">
-                <h2><span style="color: #e0a800;font-weight: bold;">404</span>&nbsp;Page Not Found</h2>
-                <a th:href="@{/}"> Kembali ke home</a>
-            </div>
+<div class="error-section text-center">
+    <div class="row h-100">
+        <div class="col-12 my-auto mx-auto">
+            <img class="medix-log-nav" src="/img/Medix-logo.png">
+            <h5><span style="color: #e0a800;font-weight: bold;">Maaf</span>,&nbsp;kami tidak dapat memverifikasi email anda. </h5>
+            <p class="text-muted">Email mungkin sudah diverifikasi, atau kode verifikasi salah.</p>
+            <a th:href="@{/login}"> Kembali ke login</a>
         </div>
     </div>
+</div>
 </body>
 
 </html>
