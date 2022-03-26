@@ -61,12 +61,12 @@
         function showPassword(idElem, idEye) {
             if (document.getElementById(idElem).type === "password") {
                 document.getElementById(idElem).type  = "text";
-                $('#'+idEye).removeClass('zmdi-eye-off');
-                $('#'+idEye).addClass('zmdi-eye');
+                document.getElementById(idEye).classList.remove('zmdi-eye-off');
+                document.getElementById(idEye).classList.add('zmdi-eye');
             } else {
                 document.getElementById(idElem).type = "password";
-                $('#'+idEye).removeClass('zmdi-eye');
-                $('#'+idEye).addClass('zmdi-eye-off');
+                document.getElementById(idEye).classList.remove('zmdi-eye');
+                document.getElementById(idEye).classList.add('zmdi-eye-off');
             }
         }
     </script>
