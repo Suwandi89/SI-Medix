@@ -1,5 +1,6 @@
 package tk.propensi.medix.controller;
 
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -58,6 +59,8 @@ public class BaseController {
         boolean error2 = false;
         if (user != null){
             if (!user.isEnabled()){
+                String randomCode = RandomString.make(64);
+                user.setVerificationCode(randomCode);
                 userService.sendVerificationEmail(user, getSiteURL(request));
                 success = true;
             } else {
