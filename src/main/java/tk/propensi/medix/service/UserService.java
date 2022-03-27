@@ -14,7 +14,8 @@ public interface UserService {
     public String encrypt(String password);
     List<UserModel> getUserList(String keyword);
     UserModel getUserByUsername(String username);
-    void processRequest(String username,int status);
+    UserModel getUserByEmail(String email);
+    boolean processRequest(String username,int status);
     void deleteUser(String username);
     int checkIfUserExist(String username, String email);
     int checkIfUserExistExcept(UserModel user, String username, String email);

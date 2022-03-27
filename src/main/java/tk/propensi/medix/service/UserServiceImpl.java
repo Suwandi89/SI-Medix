@@ -76,8 +76,18 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void processRequest(String username, int status){
-        userDb.findByUsername(username).setStatus(status);
+    public UserModel getUserByEmail(String email){
+        return userDb.findByEmail(email);
+    }
+
+    @Override
+    public boolean processRequest(String username, int status){
+        if (userDb.findByUsername(username).getStatus() == 3){
+            userDb.findByUsername(username).setStatus(status);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

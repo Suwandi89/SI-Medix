@@ -22,6 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
                 .antMatchers("/signup**").permitAll()
                 .antMatchers("/verify**").permitAll()
+                .antMatchers("/resendcode").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/jss/**").permitAll()
                 .antMatchers("/img/**").permitAll()

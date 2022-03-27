@@ -28,7 +28,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         if (user == null){
             throw new UsernameNotFoundException("Username not found");
         }
-        if ((user.getStatus() == 2) || (user.getStatus() == 3)){
+        if ((user.getStatus() == 2) || (user.getStatus() == 3) || (!user.isEnabled())){
             throw new UsernameNotFoundException("Access denied");
         }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();

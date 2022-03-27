@@ -15,6 +15,26 @@
     <div class="main-content">
         <div class="card m-5 p-8 col-sm-10">
             <h3 class="center-align grey-text text-darken-1" style="padding-left:12px;margin-top:20px;">List Pendaftar</h3>
+            <!-- success message -->
+            <div th:if="${successAcc}">
+                <div class="alert alert-info">Accept user success. Approval notification email has been sent to user.</div>
+            </div>
+
+            <!-- success message -->
+            <div th:if="${successDec}">
+                <div class="alert alert-info">Decline user success. Rejection notification email has been sent to user.</div>
+            </div>
+
+            <!-- error message -->
+            <div th:if="${errorAcc}">
+                <div class="alert alert-danger">Accept user failed! Maybe the user has been approved.</div>
+            </div>
+
+            <!-- error message -->
+            <div th:if="${errorDec}">
+                <div class="alert alert-danger">Decline user failed!</div>
+            </div>
+
             <div class="card-body">
                 <form th:action="@{/viewall}" class="m-8 p-2 col-sm-12">
                     <div class="row">

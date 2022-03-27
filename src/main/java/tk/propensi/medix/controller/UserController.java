@@ -37,7 +37,8 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    private String addUserSubmit(@ModelAttribute UserModel user, HttpServletRequest request) throws UnsupportedEncodingException, MessagingException {
+    private String addUserSubmit(@ModelAttribute UserModel user, HttpServletRequest request)
+            throws UnsupportedEncodingException, MessagingException {
         int flag = userService.checkIfUserExist(user.getUsername(), user.getEmail());
         if (flag == 0){
             userService.addUser(user, getSiteURL(request));
@@ -85,21 +86,6 @@ public class UserController {
         model.addAttribute("success", success);
         model.addAttribute("authuser", authUser);
         return "change-password";
-    }
-
-    @PostMapping("/updatePassword")
-    public String updatePasswordSubmit(@ModelAttribute UserModel userAwal, String username, String password, String password1, String password2, Model model){
-        UserModel user = userService.getUserByUsername(username);
-        if (userService.matchPassword(user.getPassword(), password)){
-            if(password1.equals(password2)){
-                userService.updatePassword(user, password1);
-            } else {
-                model.addAttribute("fail", true);
-            }
-        } else {
-            model.addAttribute("fail", true);
-        }
-        return "home";
     }
 
     @GetMapping("/editprofile")
