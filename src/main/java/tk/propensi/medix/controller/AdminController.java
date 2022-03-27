@@ -32,10 +32,12 @@ public class AdminController {
             @PathVariable String username,
             Model model
     ) throws MessagingException, UnsupportedEncodingException{
-        userService.processRequest(username,1);
+        boolean successAcc = userService.processRequest(username,1);
         UserModel user = userService.getUserByUsername(username);
-        String emailText = "Selamat "+user.getFirstname()+", pembuatan akun Medix anda sudah diterima. Silahkan login menggunakan akun anda.";
-        sendEmail(user.getEmail(),"Pembuatan akun Medix diterima", emailText);
+        if (successAcc){
+            String emailText = "Selamat "+user.getFirstname()+", pembuatan akun Medix anda sudah diterima. Silahkan login menggunakan akun anda.";
+            sendEmail(user.getEmail(),"Pembuatan akun Medix diterima", emailText);
+        }
         String keyword = null;
         UserModel authUser = userService.getUserByUsername(auth.getName());
         List<UserModel> listUser = userService.getUserList(keyword);
@@ -45,6 +47,8 @@ public class AdminController {
                 listUserRes.add(user1);
             }
         }
+        model.addAttribute("successAcc",successAcc);
+        model.addAttribute("errorAcc",!successAcc);
         model.addAttribute("listUser", listUserRes);
         model.addAttribute("authuser", authUser);
         return "viewall-user";
@@ -56,11 +60,13 @@ public class AdminController {
             @PathVariable String username,
             Model model
     ) throws MessagingException, UnsupportedEncodingException{
-        userService.processRequest(username,2);
+        boolean successDec = userService.processRequest(username,2);
         UserModel user = userService.getUserByUsername(username);
-        String emailText = "Mohon maaf "+user.getFirstname()+", pembuatan akun Medix anda ditolak. Mohon periksa kembali data diri serta bukti keterangan rumah sakit anda.";
-        sendEmail(user.getEmail(),"Pembuatan akun Medix ditolak",emailText);
-        userService.deleteUser(username);
+        if (successDec){
+            String emailText = "Mohon maaf "+user.getFirstname()+", pembuatan akun Medix anda ditolak. Mohon periksa kembali data diri serta bukti keterangan rumah sakit anda.";
+            sendEmail(user.getEmail(),"Pembuatan akun Medix ditolak",emailText);
+            userService.deleteUser(username);
+        }
         String keyword = null;
         UserModel authUser = userService.getUserByUsername(auth.getName());
         List<UserModel> listUser = userService.getUserList(keyword);
@@ -70,6 +76,8 @@ public class AdminController {
                 listUserRes.add(user1);
             }
         }
+        model.addAttribute("successDec",successDec);
+        model.addAttribute("errorDec",!successDec);
         model.addAttribute("listUser", listUserRes);
         model.addAttribute("authuser", authUser);
         return "viewall-user";
