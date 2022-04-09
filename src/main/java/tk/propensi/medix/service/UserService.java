@@ -15,7 +15,7 @@ public interface UserService {
     List<UserModel> getUserList(String keyword);
     UserModel getUserByUsername(String username);
     UserModel getUserByEmail(String email);
-    boolean processRequest(String username,int status);
+    boolean processRequest(String username,int status, String namaRumahSakit);
     void deleteUser(String username);
     int checkIfUserExist(String username, String email);
     int checkIfUserExistExcept(UserModel user, String username, String email);

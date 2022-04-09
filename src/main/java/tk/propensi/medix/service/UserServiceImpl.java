@@ -6,7 +6,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import tk.propensi.medix.models.RumahSakitModel;
 import tk.propensi.medix.models.UserModel;
+import tk.propensi.medix.repository.RumahSakitDB;
 import tk.propensi.medix.repository.UserDB;
 
 import javax.mail.MessagingException;
@@ -20,6 +22,9 @@ import java.util.List;
 public class UserServiceImpl implements UserService{
     @Autowired
     private UserDB userDb;
+
+    @Autowired
+    private RumahSakitDB rumahsakitDb;
 
     @Autowired
     private JavaMailSender mailSender;
@@ -81,9 +86,18 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean processRequest(String username, int status){
+    public boolean processRequest(String username, int status, String namaRumahSakit){
         if (userDb.findByUsername(username).getStatus() == 3){
             userDb.findByUsername(username).setStatus(status);
+            if (status == 1){
+                if (rumahsakitDb.findByNamaRumahSakit(namaRumahSakit) == null){
+                    RumahSakitModel rs = new RumahSakitModel();
+                    rs.setNamaRumahSakit(namaRumahSakit);
+                    rumahsakitDb.save(rs);
+                }
+                RumahSakitModel rumahsakit = rumahsakitDb.findByNamaRumahSakit(namaRumahSakit);
+                userDb.findByUsername(username).setRumahSakit(rumahsakit);
+            }
             return true;
         } else {
             return false;
