@@ -2,6 +2,8 @@ package tk.propensi.medix.service;
 
 import liquibase.exception.LiquibaseException;
 import liquibase.integration.spring.SpringLiquibase;
+import com.google.common.io.Resources;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,12 +20,18 @@ import tk.propensi.medix.repository.TenantRepository;
 import tk.propensi.medix.util.EncryptionService;
 
 import javax.sql.DataSource;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @EnableConfigurationProperties(LiquibaseProperties.class)
+@Log4j2
 public class TenantManagementServiceImpl implements TenantManagementService {
 
     private final EncryptionService encryptionService;
@@ -66,7 +74,7 @@ public class TenantManagementServiceImpl implements TenantManagementService {
     private static final String VALID_DATABASE_NAME_REGEXP = "[A-Za-z0-9_]*";
 
     @Override
-    public void createTenant(String tenantId, String db, String password) {
+    public void createTenant(String tenantId, String db, String password) throws Exception{
 
         // Verify db string to prevent SQL injection
         if (!db.matches(VALID_DATABASE_NAME_REGEXP)) {
@@ -95,11 +103,24 @@ public class TenantManagementServiceImpl implements TenantManagementService {
         tenantRepository.save(tenant);
     }
 
-    private void createDatabase(String db, String password) {
+    private void createDatabase(String db, String password) throws Exception{
         jdbcTemplate.execute((StatementCallback<Boolean>) stmt -> stmt.execute("CREATE DATABASE " + db));
-        jdbcTemplate.execute((StatementCallback<Boolean>) stmt -> stmt.execute("CREATE USER tenant1@'localhost' " + " IDENTIFIED BY '" + password + "'"));
-        jdbcTemplate.execute((StatementCallback<Boolean>) stmt -> stmt.execute("GRANT ALL PRIVILEGES ON " + db + ".* TO 'tenant1'@'localhost' "  + " IDENTIFIED BY '" + password + "'"));
         jdbcTemplate.execute((StatementCallback<Boolean>) stmt -> stmt.execute("FLUSH PRIVILEGES"));
+        jdbcTemplate.execute((StatementCallback<Boolean>) stmt -> stmt.execute("CREATE USER "+"'tenant1'@'localhost'" + " IDENTIFIED BY '" + password + "'"));
+        jdbcTemplate.execute((StatementCallback<Boolean>) stmt -> stmt.execute("GRANT ALL PRIVILEGES ON " + db + ".* TO 'tenant1'@'localhost' "  + " IDENTIFIED BY '" + password + "'"));
+        final String sql = readFile("query.sql");
+        final List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
+
+        if (rows.size() > 0) {
+            rows.forEach(row -> log.error(row.toString()));
+        } else {
+            log.info("Congrats, DONE");
+        }
+    }
+
+    private String readFile(final String relFilePath) throws IOException {
+        final URL url = Resources.getResource(relFilePath);
+        return Resources.toString(url, StandardCharsets.UTF_8);
     }
 
     private void runLiquibase(DataSource dataSource) throws LiquibaseException {

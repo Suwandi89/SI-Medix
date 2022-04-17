@@ -17,8 +17,13 @@ public class TenantsApiController {
     private TenantManagementService tenantManagementService;
 
     @PostMapping("/tenants")
-    public ResponseEntity<Void> createTenant(@RequestParam String tenantId, @RequestParam String db, @RequestParam String password) {
-        tenantManagementService.createTenant(tenantId, db, password);
+    public ResponseEntity<Void> createTenant(@RequestParam String tenantId, @RequestParam String db, @RequestParam String password) throws Exception{
+        try {
+            tenantManagementService.createTenant(tenantId, db, password);
+        } catch (Exception e){
+            throw new Exception("Error");
+        }
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
