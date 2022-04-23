@@ -8,7 +8,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import tk.propensi.medix.dto.ChangePasswordDTO;
+import tk.propensi.medix.dto.RumahSakitDTO;
 import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.service.UserService;
 
@@ -26,13 +30,14 @@ public class AdminController {
     @Autowired
     private JavaMailSender mailSender;
 
-    @GetMapping("/pendaftar/{username}/accept")
+    @PostMapping("/pendaftar/{username}/accept")
     public String acceptRequest(
+            @ModelAttribute RumahSakitDTO form,
             Authentication auth,
             @PathVariable String username,
             Model model
     ) throws MessagingException, UnsupportedEncodingException{
-        boolean successAcc = userService.processRequest(username,1);
+        boolean successAcc = userService.processRequest(username,1, form.namaRumahSakit);
         UserModel user = userService.getUserByUsername(username);
         if (successAcc){
             String emailText = "Selamat "+user.getFirstname()+", pembuatan akun Medix anda sudah diterima. Silahkan login menggunakan akun anda.";
@@ -60,7 +65,7 @@ public class AdminController {
             @PathVariable String username,
             Model model
     ) throws MessagingException, UnsupportedEncodingException{
-        boolean successDec = userService.processRequest(username,2);
+        boolean successDec = userService.processRequest(username,2,"test");
         UserModel user = userService.getUserByUsername(username);
         if (successDec){
             String emailText = "Mohon maaf "+user.getFirstname()+", pembuatan akun Medix anda ditolak. Mohon periksa kembali data diri serta bukti keterangan rumah sakit anda.";

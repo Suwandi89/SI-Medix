@@ -11,11 +11,11 @@ public interface UserService {
     void updateUser(UserModel user);
     boolean matchPassword(String newPassword, String oldPassword);
     void updatePassword(UserModel user, String newPassword);
-    public String encrypt(String password);
+    String encrypt(String password);
     List<UserModel> getUserList(String keyword);
     UserModel getUserByUsername(String username);
     UserModel getUserByEmail(String email);
-    boolean processRequest(String username,int status);
+    boolean processRequest(String username,int status, String namaRumahSakit);
     void deleteUser(String username);
     int checkIfUserExist(String username, String email);
     int checkIfUserExistExcept(UserModel user, String username, String email);
