@@ -2,65 +2,99 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
     
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <head th:fragment="css">
-        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+      <meta charset="UTF-8">
+
+      <head th:fragment="title">
+        <title th:text="'SI-MEDIX' + ' | ' + ${current}"></title>
+      </head>
+
+      <head th:fragment="css">
+          <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+      </head>
+    
+      <head th:fragment="js">
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+          <script type="text/javascript">
+              function collapseMenu(){
+                  if ($('.user-menu').hasClass('collapse')){
+                      $('.user-menu').removeClass('collapse');
+                  } else {
+                      $('.user-menu').addClass('collapse');
+                  }
+              }
+          </script>
+      </head>
+
+    <head th:fragment="materializecss">
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
-    <head th:fragment="js">
-        <script
-                src="https://code.jquery.com/jquery-3.4.1.min.js"
-                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFIBw8HfCJo="
-                crossorigin="anonymous"
-        ></script>
-        <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
-        <script th:src="@{/js/bootstrap.min.js}"></script>
-    </head>
+
 </head>
+
 <body>
-<nav th:fragment="navbar" class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-secondary text-decoration-none">
-        <span class="fs-4 ml-2">SI-Medix</span>
-      </a>
+    <nav th:fragment="navbar(page)" class="nav-side d-flex flex-column flex-shrink-0 p-3 bg-light">
+        <div class="nav-component d-flex flex-column m-2">
+            <div class="d-flex">
+                <img class="medix-log-nav" src="/img/Medix-logo.png">
+            </div>
+            <div class="user-button">
+                <div class="user-header" onclick="collapseMenu()">
+                    <img src="/img/default_avatar.png" class="user-menu-avatar">
+                    <span th:text="${authuser.firstname}"></span>
+                    <i class="fas fa-angle-down"></i>
+                </div>
+                <div class="user-menu collapse">
+                    <div>
+                        <a href="/myprofile"><i class="fas fa-user nav-collapse-icon"></i> My Profile</a>
+                    </div>
+                    <div class="mt-2">
+                        <a href="/changepassword"><i class="zmdi zmdi-lock"></i> Change Password</a>
+                    </div>
+                    <div class="mt-2">
+                        <a href="/logout"><i class="fas fa-sign-out-alt nav-collapse-icon"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        <hr>
+          <ul class="nav-component nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+              <a href="/" th:classappend="${page == 'Home'} ? active : text-secondary" class="nav-link" aria-current="page">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                Home
+              </a>
+            </li>
+            <li>
+              <a th:href="@{/viewall}" th:classappend="${page == 'Pendaftar RS'} ? active : text-secondary" class="nav-link">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                Pendaftar Rumah Sakit
+              </a>
+            </li>
+            <li>
+              <a href="#" th:classappend="${page == 'Rekam Medis'} ? active : text-secondary" class="nav-link">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                Rekam Medis
+              </a>
+            </li>
+            <li>
+              <a href="#" th:classappend="${page == 'Daftar User'} ? active : text-secondary" class="nav-link">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                Daftar User
+              </a>
+            </li>
+            <li>
+              <a href="#" th:classappend="${page == 'Dashboard'} ? active : text-secondary" class="nav-link">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+                Dashboard Utama
+              </a>
+            </li>
+          </ul>
       <hr>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-          <a href="#" class="nav-link active" aria-current="page">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-            Home
-          </a>
-        </li>
-        <li>
-          <a th:href="@{/}" class="nav-link text-secondary">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-            Pendaftar Rumah Sakit
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link text-secondary">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-            Rekam Medis
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link text-secondary">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-            Daftar User
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link text-secondary">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-            Dashboard Utama
-          </a>
-        </li>
-      </ul>
-      <hr>
-      <div>
-        <a href="#" class="d-flex align-items-center text-danger text-decoration-none  ml-2 " >
-            <strong>logout</strong>
-          </a>
-      </div>
 </nav>
 </body>
 </html>

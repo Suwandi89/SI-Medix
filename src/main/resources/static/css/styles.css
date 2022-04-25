@@ -2,7 +2,43 @@ body {
     font-family: 'Mulish', sans-serif;
 }
 
+.main {
+    height: 100vh;
+    margin-left: 270px; /* Same as the width of the sidenav */
+    padding: 0px 10px;
+}
+
+.main-content {
+    height: 100%;
+    margin-left: 270px; /* Same as the width of the sidenav */
+    padding: 0px 10px;
+}
+
+.card-section{
+    height: 85vh;
+}
+
+.nav-side{
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 270px;
+    position: fixed;
+    overflow-x: hidden;
+}
+
+.nav-component{
+    display: block;
+}
+
 .center-section{
+    display: flex;
+    justify-content: center;
+}
+
+.error-section{
+    height: 100vh;
     display: flex;
     justify-content: center;
 }
@@ -17,9 +53,15 @@ body {
     text-align: center;
 }
 
-.medix-logo{
-    height: 35%;
-    width: 35%;
+.medix-log-nav{
+    height: 90px;
+    width: 100px;
+    margin:auto;
+    padding-bottom: 20px;
+}
+
+.search-btn{
+    margin-left: 15px;
 }
 
 .flex-1{
@@ -66,4 +108,174 @@ body {
 
 button:hover {
     opacity: 0.8;
+}
+
+.paging-nav {
+    text-align: right;
+    padding-top: 2px;
+}
+
+.paging-nav a {
+    margin: auto 1px;
+    text-decoration: none;
+    display: inline-block;
+    padding: 1px 7px;
+    background: #91b9e6;
+    color: white;
+    border-radius: 3px;
+}
+
+.paging-nav .selected-page {
+    background: #187ed5;
+    font-weight: bold;
+}
+
+.paging-nav,
+#tableData {
+    width: 400px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+
+.bg-gray {
+  line-height: 1.8;
+  color: #222;
+  background: #f8f8f8;
+  font-weight: 400;
+}
+
+.user-button{
+    padding:10px;
+    margin: auto;
+    border-radius:10px;
+    width: max-content;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+    background-color: white;
+    color: #065168;
+    border: 2px solid #FFAA04;
+    height: max-content;
+}
+
+.user-menu{
+    position: relative;
+    background-color: white;
+    top: 0px;
+    left: 0px;
+    width: auto;
+    font-size: 14px;
+    color:gray;
+    display:flex;
+    flex-direction: column;
+    max-height:200px;
+    transition: all 0.5s;
+    overflow:hidden;
+    margin-top:20px;
+}
+
+.user-menu.collapse{
+    margin-top:0px;
+    max-height:0px;
+    display:block!important;
+}
+
+.user-menu a{
+    margin-top:10px;
+    margin-bottom:10px;
+    cursor: pointer;
+    color:black;
+}
+
+.user-menu a svg{
+    font-size: 18px;
+    margin-left:0px;
+}
+
+.user-header{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user-button svg{
+    margin-left:20px;
+    font-size: 26px;
+}
+
+.user-menu-avatar{
+    height:30px;
+    width: auto;
+    margin-right: 5px;
+}
+
+.card-no-border .card {
+    border-color: #d7dfe3;
+    border-radius: 4px;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05)
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem
+}
+
+.pro-img {
+    margin-top: -80px;
+    margin-bottom: 20px
+}
+
+.little-profile .pro-img img {
+    width: 128px;
+    height: 128px;
+    -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 100%
+}
+
+.m-b-0 {
+    margin-bottom: 0px
+}
+
+.m-t-10 {
+    margin-top: 10px
+}
+
+.m-t-20 {
+    margin-top: 20px
+}
+
+.profile-section{
+    margin-top: 70px;
+}
+
+.read-only{
+    background-color: lightgray;
+}
+
+.nav-collapse-icon{
+    height: 12px;
+    width: 12px;
+}
+
+hr {
+    border: 0;
+    clear:both;
+    display:block;
+    background-color:black;
+    width: 96%;
+    height: 1px;
+    opacity: .25;
+}
+
+.eye-icon{
+    margin-left: -30px;
+    opacity: 75%;
+    cursor: pointer;
+}
+
+.hide{
+    display: none;
 }

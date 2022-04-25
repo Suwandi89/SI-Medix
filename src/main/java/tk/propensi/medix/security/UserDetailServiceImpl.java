@@ -18,12 +18,19 @@ import java.util.Set;
 @Service
 @Transactional
 public class UserDetailServiceImpl implements UserDetailsService {
+
     @Autowired
     private UserDB userDb;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
         UserModel user = userDb.findByUsername(username);
+        if (user == null){
+            throw new UsernameNotFoundException("Username not found");
+        }
+        if ((user.getStatus() == 2) || (user.getStatus() == 3) || (!user.isEnabled())){
+            throw new UsernameNotFoundException("Access denied");
+        }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getRole()));
         return new User(user.getUsername(), user.getPassword(), grantedAuthorities);
