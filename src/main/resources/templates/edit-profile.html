@@ -37,6 +37,11 @@
                             <input type="text" class="read-only" id="username" name="username" placeholder="Username" th:value="*{username}" readonly>
                         </div>
 
+                        <div class="form-group" th:if="*{role.id != 1}">
+                            <label for="rumahSakit"><i class="fas fa-hospital material-icons-name"></i></label>
+                            <input type="text" class="read-only" id="rumahSakit" name="rumahSakit" placeholder="ID RS" th:value="*{rumahSakit.id}" readonly>
+                        </div>
+
                         <div class="form-group">
                             <label for="email"><i class="zmdi zmdi-email"></i></label>
                             <input type="email" id="email" name="email" placeholder="Email" th:value="*{email}" required>
