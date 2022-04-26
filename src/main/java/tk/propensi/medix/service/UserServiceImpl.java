@@ -73,7 +73,8 @@ public class UserServiceImpl implements UserService{
         if (keyword != null){
             return userDb.search(keyword);
         }
-        return userDb.findAll();}
+        return userDb.findAll();
+    }
 
     @Override
     public UserModel getUserByUsername(String username){

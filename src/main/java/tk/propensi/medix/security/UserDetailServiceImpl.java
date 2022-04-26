@@ -23,10 +23,10 @@ public class UserDetailServiceImpl implements UserDetailsService {
     private UserDB userDb;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
-        UserModel user = userDb.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
+        UserModel user = userDb.findByEmail(email);
         if (user == null){
-            throw new UsernameNotFoundException("Username not found");
+            throw new UsernameNotFoundException("Email not found");
         }
         if ((user.getStatus() == 2) || (user.getStatus() == 3) || (!user.isEnabled())){
             throw new UsernameNotFoundException("Access denied");
