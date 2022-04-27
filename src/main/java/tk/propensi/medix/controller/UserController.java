@@ -181,15 +181,23 @@ public class UserController {
     public String viewRumahSakit(@PathVariable String namaRumahSakit, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         RumahSakitModel rumahSakit = rumahSakitService.getRumahSakitByNamaRS(namaRumahSakit); 
-        String manajerRumahSakit = rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername();  
-        String adminRumahSakit = rumahSakitService.getUserRumahSakit(namaRumahSakit, 2).getUsername(); 
-        String namaManajer = rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getFirstname() + " " + 
-        rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getLastname(); 
+        
+        String manajerRumahSakit = (rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername() == null) 
+        ? "-" : rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername() ;  
+    
+        String adminRumahSakit = ((rumahSakitService.getUserRumahSakit(namaRumahSakit, 2).getUsername() == null) ? "-" :
+        rumahSakitService.getUserRumahSakit(namaRumahSakit, 2).getUsername()); 
+        
+        String namaManajer = ((rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername() == null) ? "-" :
+        rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getFirstname() + " " + 
+        rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getLastname() ); 
+    
         model.addAttribute("rumahSakit", rumahSakit);
         model.addAttribute("manajerRumahSakit", manajerRumahSakit); 
         model.addAttribute("adminRumahSakit", adminRumahSakit); 
         model.addAttribute("namaManajer", namaManajer); 
         model.addAttribute("authuser", authUser);
+        model.addAttribute("firstname", ""); 
         return "view-rumahsakit"; 
     }
 
