@@ -12,10 +12,10 @@
 <body>
     <nav th:replace="fragments/fragment :: navbar('Daftar RS')"></nav>
     <div class="main-content">
-        <div class="card p-4 m-5 col-sm-9 card-section">
+        <div class="card p-4 m-5 col-sm-9">
             <div class="card-body">
                 <div class="justify-content-center">
-                    <h2 th:text="Detail + ${rumahSakit.rumahSakitName}" ></h2>
+                    <h2 th:text="${'Detail' + ' ' + rumahSakit.namaRumahSakit}" ></h2>
                     <br>
                     <table class="table" style="width:100%;">
                         <tr>
@@ -30,9 +30,10 @@
                                 <p>Jenis</p>
                                 <p>Kelas</p>
                                 <p>Kepemilikan</p>
-
                                 <br>
-                                Alamat Rumah Sakit
+                                <br>
+                                <h6 class="text-primary font-weight-bold"> Alamat Rumah Sakit</h6>
+                                <br>
                                 <br>
                                 <p>Jalan</p>
                                 <p>Kelurahan</p>
@@ -40,8 +41,11 @@
                                 <p>Kabupaten/Kota</p>
                                 <p>Provinsi</p>
                                 <p>Kode Pos</p>
-
-                                Kontak Rumah Sakit
+                                <br>
+                                <br>
+                                <h6 class="text-primary font-weight-bold">Kontak Rumah Sakit</h6>
+                                <br>
+                                <br>
                                 <p>Nomor Telepon</p>
                                 <p>Email</p>
                                 <p>Admin PJ</p>
@@ -57,7 +61,7 @@
                                 <p th:text="${rumahSakit.kepemilikan}"></p>
 
                                 <p th:text="${rumahSakit.jalan}"></p>    
-                                <p th:text="${rumahSakit.kelurahan"></p>
+                                <p th:text="${rumahSakit.kelurahan}"></p>
                                 <p th:text="${rumahSakit.kecamatan}"></p>
                                 <p th:text="${rumahSakit.kabupaten}"></p>
                                 <p th:text="${rumahSakit.provinsi}"></p>

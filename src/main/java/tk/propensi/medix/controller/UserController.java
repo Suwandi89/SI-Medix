@@ -181,16 +181,19 @@ public class UserController {
     public String viewRumahSakit(@PathVariable String namaRumahSakit, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         RumahSakitModel rumahSakit = rumahSakitService.getRumahSakitByNamaRS(namaRumahSakit); 
-        
-        String manajerRumahSakit = (rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername() == null) 
-        ? "-" : rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername() ;  
+        String manajerRumahSakit = "";
+        String adminRumahSakit = "";
+        String namaManajer = "";
+
+        // String manajerRumahSakit = ((rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername() == null) 
+        // ? "-" : rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername()) ;  
     
-        String adminRumahSakit = ((rumahSakitService.getUserRumahSakit(namaRumahSakit, 2).getUsername() == null) ? "-" :
-        rumahSakitService.getUserRumahSakit(namaRumahSakit, 2).getUsername()); 
+        // String adminRumahSakit = ((rumahSakitService.getUserRumahSakit(namaRumahSakit, 2).getUsername() == null) ? "-" :
+        // rumahSakitService.getUserRumahSakit(namaRumahSakit, 2).getUsername()); 
         
-        String namaManajer = ((rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername() == null) ? "-" :
-        rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getFirstname() + " " + 
-        rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getLastname() ); 
+        // String namaManajer = ((rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername() == null) ? "-" :
+        // rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getFirstname() + " " + 
+        // rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getLastname() ); 
     
         model.addAttribute("rumahSakit", rumahSakit);
         model.addAttribute("manajerRumahSakit", manajerRumahSakit); 
