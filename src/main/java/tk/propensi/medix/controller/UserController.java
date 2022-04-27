@@ -8,9 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tk.propensi.medix.dto.ChangePasswordDTO;
 import tk.propensi.medix.dto.RumahSakitDTO;
+<<<<<<< HEAD
+=======
+import tk.propensi.medix.dto.RumahSakitDataDTO;
+>>>>>>> 55bf716c6d07e227a4a845199059daf09dfc39db
 import tk.propensi.medix.models.RoleModel;
+import tk.propensi.medix.models.RumahSakitModel;
 import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.service.RoleService;
+import tk.propensi.medix.service.RumahSakitService;
 import tk.propensi.medix.service.UserService;
 
 import javax.mail.MessagingException;
@@ -28,6 +34,9 @@ public class UserController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private RumahSakitService rumahSakitService;
 
     @GetMapping("/signup")
     public String signup(Model model){
@@ -164,6 +173,49 @@ public class UserController {
         return "viewall-user";
     }
 
+    @RequestMapping(value = "/viewall-admin")
+    public String viewAllAdmin(Authentication auth, Model model, @Param("keyword") String keyword) {
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        List<UserModel> listUser = userService.getUserList(keyword);
+        List<UserModel> listUserRes = new ArrayList<UserModel>();
+        for (UserModel user : listUser){
+            if (user.getRole().getId() == 2 && user.isEnabled() && user.getStatus() == 1){
+                listUserRes.add(user);
+            }
+        }
+        model.addAttribute("listUser", listUserRes);
+        model.addAttribute("authuser", authUser);
+        return "viewall-admin";
+    }
+
+    @GetMapping("/viewadmin/{username}")
+    public String viewAdmin(@PathVariable String username, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        UserModel user = userService.getUserByUsername(username);
+        RumahSakitModel rumahsakit = user.getRumahSakit();
+        model.addAttribute("rumahsakit", rumahsakit);
+        model.addAttribute("user", user);
+        model.addAttribute("authuser", authUser);
+        return "view-admin";
+    }
+
+    @GetMapping("/add-rsdata")
+    public String addRSData(Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        RumahSakitDataDTO rumahsakitData = new RumahSakitDataDTO();
+        model.addAttribute("rumahsakit",rumahsakitData);
+        model.addAttribute("authuser", authUser);
+        model.addAttribute("user", authUser);
+        return "add-rsdata";
+    }
+
+    @PostMapping("/add-rsdata")
+    public String addRSDataSubmit(@ModelAttribute RumahSakitDataDTO form, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        rumahSakitService.addRSData(authUser.getRumahSakit(),form);
+        model.addAttribute("authuser", authUser);
+        return "myprofile";
+    }
 
     public class StatusComparator implements Comparator<UserModel> {
         public int compare(UserModel user1, UserModel user2) {

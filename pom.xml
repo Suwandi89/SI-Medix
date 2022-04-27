@@ -73,6 +73,7 @@
 			<version>1.0.1.Final</version>
 		</dependency>
 		<dependency>
+<<<<<<< HEAD
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
 		</dependency>
@@ -104,6 +105,11 @@
 			<artifactId>rider-junit5</artifactId>
 			<version>1.13.0</version>
 			<scope>test</scope>
+=======
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+>>>>>>> 55bf716c6d07e227a4a845199059daf09dfc39db
 		</dependency>
 	</dependencies>
 

@@ -1,17 +1,20 @@
 package tk.propensi.medix.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import tk.propensi.medix.dto.ChangePasswordDTO;
+=======
+import org.springframework.web.bind.annotation.*;
+>>>>>>> 55bf716c6d07e227a4a845199059daf09dfc39db
 import tk.propensi.medix.dto.RumahSakitDTO;
 import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.service.UserService;
