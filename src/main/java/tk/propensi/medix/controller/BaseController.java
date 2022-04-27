@@ -26,7 +26,7 @@ public class BaseController {
     private String home(HttpServletRequest request, Model model) {
         UserModel user = userService.getUserByUsername(request.getRemoteUser());
         model.addAttribute("authuser",user);
-        return "home";
+        return "dashboard";
     }
 
     @RequestMapping("/login")
