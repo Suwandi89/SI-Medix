@@ -132,8 +132,6 @@ public class UserController {
     public String viewPendaftar(@PathVariable String username, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         UserModel user = userService.getUserByUsername(username);
-        RumahSakitDTO rumahsakit = new RumahSakitDTO();
-        model.addAttribute("rumahsakit",rumahsakit);
         model.addAttribute("user", user);
         model.addAttribute("authuser", authUser);
         return "view-pendaftar";
@@ -168,6 +166,42 @@ public class UserController {
         model.addAttribute("listUser", listUserRes);
         model.addAttribute("authuser", authUser);
         return "viewall-user";
+    }
+
+    @RequestMapping(value = "/viewall-rumahsakit")
+    public String viewAllRumahSakit(Authentication auth, Model model, @Param("keyword") String keyword){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        List<RumahSakitModel> listRumahSakit = rumahSakitService.getRumahSakitList(keyword); 
+        model.addAttribute("listRumahSakit", listRumahSakit); 
+        model.addAttribute("authuser", authUser);
+        return "viewall-rumahsakit"; 
+    }
+
+    @GetMapping(value = "/rumahsakit/{namaRumahSakit}")
+    public String viewRumahSakit(@PathVariable String namaRumahSakit, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        RumahSakitModel rumahSakit = rumahSakitService.getRumahSakitByNamaRS(namaRumahSakit); 
+        String manajerRumahSakit = "";
+        String adminRumahSakit = "";
+        String namaManajer = "";
+
+        // String manajerRumahSakit = ((rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername() == null) 
+        // ? "-" : rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername()) ;  
+    
+        // String adminRumahSakit = ((rumahSakitService.getUserRumahSakit(namaRumahSakit, 2).getUsername() == null) ? "-" :
+        // rumahSakitService.getUserRumahSakit(namaRumahSakit, 2).getUsername()); 
+        
+        // String namaManajer = ((rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername() == null) ? "-" :
+        // rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getFirstname() + " " + 
+        // rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getLastname() ); 
+    
+        model.addAttribute("rumahSakit", rumahSakit);
+        model.addAttribute("manajerRumahSakit", manajerRumahSakit); 
+        model.addAttribute("adminRumahSakit", adminRumahSakit); 
+        model.addAttribute("namaManajer", namaManajer); 
+        model.addAttribute("authuser", authUser);
+        model.addAttribute("firstname", ""); 
+        return "view-rumahsakit"; 
     }
 
     @RequestMapping(value = "/viewall-admin")
