@@ -35,6 +35,10 @@ public class RumahSakitServiceImpl implements RumahSakitService{
         return jumlahRumahSakit;
     }
 
+    public void updateRSData(RumahSakitModel rs){
+        rumahsakitDb.save(rs);
+    }
+
     public void addRSData(RumahSakitModel rumahSakit, RumahSakitDataDTO form){
         rumahSakit.setJalan(form.jalan);
         rumahSakit.setJenis(form.jenis);
