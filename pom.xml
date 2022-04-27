@@ -73,43 +73,9 @@
 			<version>1.0.1.Final</version>
 		</dependency>
 		<dependency>
-<<<<<<< HEAD
-			<groupId>org.liquibase</groupId>
-			<artifactId>liquibase-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.testcontainers</groupId>
-			<artifactId>junit-jupiter</artifactId>
-			<version>1.14.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.github.database-rider</groupId>
-			<artifactId>rider-spring</artifactId>
-			<version>1.13.0</version>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-simple</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.github.database-rider</groupId>
-			<artifactId>rider-junit5</artifactId>
-			<version>1.13.0</version>
-			<scope>test</scope>
-=======
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
->>>>>>> 55bf716c6d07e227a4a845199059daf09dfc39db
 		</dependency>
 	</dependencies>
 

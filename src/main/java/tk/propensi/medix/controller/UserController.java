@@ -8,10 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tk.propensi.medix.dto.ChangePasswordDTO;
 import tk.propensi.medix.dto.RumahSakitDTO;
-<<<<<<< HEAD
-=======
 import tk.propensi.medix.dto.RumahSakitDataDTO;
->>>>>>> 55bf716c6d07e227a4a845199059daf09dfc39db
 import tk.propensi.medix.models.RoleModel;
 import tk.propensi.medix.models.RumahSakitModel;
 import tk.propensi.medix.models.UserModel;

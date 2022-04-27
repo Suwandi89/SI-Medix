@@ -25,8 +25,6 @@ public class RumahSakitModel {
     @Column(name="namaRumahSakit", nullable = false)
     private String namaRumahSakit;
 
-<<<<<<< HEAD
-=======
     @Size(max=300)
     @Column(name="jenis")
     private String jenis;
@@ -74,5 +72,4 @@ public class RumahSakitModel {
     @Size(max=300)
     @Column(name="website")
     private String website;
->>>>>>> 55bf716c6d07e227a4a845199059daf09dfc39db
 }
