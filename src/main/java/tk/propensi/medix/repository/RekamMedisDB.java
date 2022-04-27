@@ -7,7 +7,5 @@ import org.springframework.stereotype.Repository;
 import tk.propensi.medix.models.ResumeMedisModel;
 
 public interface RekamMedisDB extends JpaRepository<ResumeMedisModel, Long>{
-    List<ResumeMedisModel> findAllByPersonid(String PersonID);
-    ResumeMedisModel findByPersonId (String person_id);
-    
+    List<ResumeMedisModel> findAllByPersonId(String personId);
 }

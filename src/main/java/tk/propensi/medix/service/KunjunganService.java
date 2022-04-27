@@ -5,6 +5,6 @@ import java.util.List;
 import tk.propensi.medix.models.KunjunganModel;
 
 public interface KunjunganService {
-    List<KunjunganModel> findAll();
+    KunjunganModel getKunjunganById(String personId);
     List<KunjunganModel> getPasienList(String keyword);
 }

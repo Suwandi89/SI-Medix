@@ -14,9 +14,10 @@ public class KunjunganServiceImpl implements KunjunganService{
     @Autowired
     KunjunganDB kunjunganDB;
 
+
     @Override
-    public List<KunjunganModel> findAll(){ 
-        return kunjunganDB.findAll();
+    public KunjunganModel getKunjunganById(String personId) {
+        return kunjunganDB.findByPersonId(personId);
     }
 
     @Override

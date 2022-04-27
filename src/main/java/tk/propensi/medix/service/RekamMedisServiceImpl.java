@@ -14,9 +14,9 @@ import javax.transaction.Transactional;
 public class RekamMedisServiceImpl implements RekamMedisService {
     
     @Autowired
-    RekamMedisDB rekamMedis;
+    RekamMedisDB rekamMedisDB;
 
-    public List<ResumeMedisModel> getRekamMedisByIdPasien (String IdPasien){
-        return rekamMedis.findAllByPersonid(IdPasien);
+    public List<ResumeMedisModel> getRekamMedisByPersonId (String personId){
+        return rekamMedisDB.findAllByPersonId(personId);
     }
 }

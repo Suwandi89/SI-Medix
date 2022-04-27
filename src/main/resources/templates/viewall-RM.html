@@ -5,16 +5,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <object th:include="fragments/fragment :: title (current='List Pendaftar')" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: title (current='Rekam Medis')" th:remove="tag"></object>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 
 <body>
-    <nav th:replace="fragments/fragment :: navbar('Pendaftar RS')" class="col-sm-4"></nav>
+    <nav th:replace="fragments/fragment :: navbar('Rekam Medis')" class="col-sm-4"></nav>
     <div class="main-content">
         <div class="card m-5 p-8 col-sm-10">
-            <h3 class="center-align grey-text text-darken-1" style="padding-left:12px;margin-top:20px;">List Pendaftar</h3>
+            <h3 class="center-align grey-text text-darken-1" style="padding-left:12px;margin-top:20px;">Rekam Medis</h3>
             <!-- success message -->
             <div th:if="${successAcc}">
                 <div class="alert alert-info">Accept user success. Approval notification email has been sent to user.</div>
@@ -43,7 +43,6 @@
                                 <input type="text" class="form-control" placeholder="Masukkan keyword..." id="keyword" name="keyword" th:value="${keyword}">
                                 <span class="search-btn">
                                     <button class="btn btn-primary" type="submit" id="btn-search">SEARCH</button>
-                                    <a class="btn btn-warning" th:href="@{/rekamMedis/sorted}">Sort</a>
                                 </span>
                             </div>
                         </div>
@@ -68,12 +67,12 @@
                         <tr th:each="pasien, iterationStatus : ${listPasien}">
                             <td th:text="${iterationStatus.count}"></td>
                             <td th:text="${pasien.nik}"></td>
-                            <td th:text="${pasien.nama_lengkap}"></td>
+                            <td th:text="${pasien.full_name}"></td>
                             <td th:if="${pasien.sex} == 1">Laki-laki</td>
                             <td th:if="${pasien.sex} == 2">Perempuan</td>
                             <td style="width: 18px; overflow:auto;" th:text="${pasien.email}"></td>
                             <td>
-                                <a th:href="@{/rekamMedis/} + ${pasien.person_id}" class="btn btn-primary">
+                                <a th:href="@{/rekamMedis/} + ${pasien.personId}" class="btn btn-primary">
                                     Detail
                                 </a>
                             </td>
