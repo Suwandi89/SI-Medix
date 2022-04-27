@@ -57,9 +57,21 @@ public class UserModel implements Serializable {
     @Column(name = "link",nullable = false)
     private String link;
 
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
+
+    @Column(name = "enabled")
+    private boolean enabled;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private RoleModel role;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private RumahSakitModel rumahSakit;
 }

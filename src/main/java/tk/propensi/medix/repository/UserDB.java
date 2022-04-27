@@ -17,4 +17,7 @@ public interface UserDB extends JpaRepository<UserModel, Long> {
 
     @Query("SELECT u FROM UserModel u WHERE CONCAT(u.firstname, u.email, u.lastname, u.status) LIKE %?1%")
     public List<UserModel> search(String keyword);
+
+    @Query("SELECT u FROM UserModel u WHERE u.verificationCode = ?1")
+    public UserModel findByVerificationCode(String code);
 }
