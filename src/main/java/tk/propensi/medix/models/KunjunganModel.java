@@ -29,7 +29,7 @@ public class KunjunganModel {
 
     @Size(max = 50)
     @Column(name = "person_id")
-    private String person_id;
+    private String personId;
 
     @Size(max = 50)
     @Column(name = "rm_id")

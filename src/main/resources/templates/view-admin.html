@@ -81,7 +81,7 @@
                             </td>
                             <td>
                                 <p th:text="${rumahsakit.namaRumahSakit}"></p>
-                                <div th:if="${rumahsakitjenis == ''}">
+                                <div th:if="${rumahsakit.jenis == ''}">
                                     <p>-</p>
                                 </div>
                                 <p th:text=" ${rumahsakit.jenis}"></p>

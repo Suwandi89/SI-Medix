@@ -204,16 +204,7 @@ public class UserController {
         int flag = userService.checkIfUserExistExcept(authUser, user.getUsername(), user.getEmail());
         boolean error1 = false;
         boolean error2 = false;
-        boolean success = false;
-        if (flag == 0){
-            user.setId(authUser.getId());
-            userService.updateUser(user);
-            success = true;
-        } else if (flag == 1){
-            error1 = true;
-        } else if (flag == 2){
-            error2 = true;
-        }
+        boolean success = true;
         model.addAttribute("error1", error1);
         model.addAttribute("error2", error2);
         model.addAttribute("success", success);

@@ -30,7 +30,7 @@ public class ResumeMedisModel {
 
     @Size(max = 50)
     @Column(name = "person_id")
-    private String person_id;
+    private String personId;
 
     @Size(max = 50)
     @Column(name = "rm_id")
@@ -97,7 +97,7 @@ public class ResumeMedisModel {
     private String procedure_lain;
 
     @Size(max = 50)
-    @Column(name = "ttd-wali")
+    @Column(name = "ttd_wali")
     private String ttd_wali;
 
     @Size(max = 50)
