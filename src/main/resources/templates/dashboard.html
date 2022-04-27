@@ -10,14 +10,13 @@
 </head>
 <body>
     <nav th:replace="fragments/fragment :: navbar('Dashboard')"></nav>
-
     <div class="main-content">
         <div class="row h-100 m-5 p-8">
             <div class="col-8 my-auto pl-0">
                 <h3>Selamat Datang,&nbsp;<span style="color: #e0a800;font-weight: bold;" th:text="${authuser.username}"></span></h3>
             </div>
             <div class="col-4">
-                <div class="card col-sm-11">
+                <div class="card col-sm-12">
                     <div class="widget-group d-flex flex-row mt-2">
                         <h5 class="center-align grey-text text-darken-1">Clock</h5>
                         <i class="zmdi zmdi-time ml-1 mt-1"></i>
@@ -28,11 +27,45 @@
                 </div>
             </div>
         </div>
-        <div class="row h-100 m-5 p-8">
-            <h6>Rekap Data Rumah Sakit</h6>
+        <div th:if="${authuser.role.id} == 1">
+            <div class="row h-100 ml-5">
+                <h6>Rekap Data Medix</h6>
+            </div>
+            <div class="row ml-5 mt-3">
+                <div class="card col-sm-3">
+                    <div class="widget-group d-flex flex-column mt-2">
+                        <h6 class="center-align grey-text text-muted mx-auto">Jumlah Admin Khanza</h6>
+                        <h2 class="center-align mx-auto" th:text="${jumlahAdminKhanza}"></h2>
+                    </div>
+                </div>
+                <div class="card col-sm-3 ml-4">
+                    <div class="widget-group d-flex flex-column mt-2">
+                        <h6 class="center-align grey-text text-muted mx-auto">Jumlah Rumah Sakit</h6>
+                        <h2 class="center-align mx-auto" th:text="${jumlahRumahSakit}"></h2>
+                    </div>
+                </div>
+                <div class="card col-sm-3 ml-4">
+                    <div class="widget-group d-flex flex-column mt-2">
+                        <h6 class="center-align grey-text text-muted mx-auto">Jumlah User Medix</h6>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row h-100 m-5 p-8">
-            <div id="myChart" style="width:100%; max-width:600px; height:500px;"></div>
+        <div th:if="${authuser.role.id} != 1">
+            <div class="row h-100 ml-5">
+                <h6>Rekap Data Rumah Sakit</h6>
+            </div>
+            <div class="row">
+                <div id="test-val-chart" style="width:100vw; height:500px;"></div>
+            </div>
+            <div class="row ml-5">
+                <div id="jk-chart" style="width:320px; height:240px;"></div>
+                <div id="konsultasi-chart" style="width:320px; height:240px;"></div>
+                <div id="bpjs-chart" style="width:320px; height:240px;"></div>
+            </div>
+            <div class="row">
+                <div id="obat-chart" style="width:100vw; height:500px;"></div>
+            </div>
         </div>
     </div>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
@@ -50,19 +83,19 @@
             var session = "AM";
 
             if(dy == 0){
-                dy = "Mon";
-            } else if(dy == 1){
-                dy = "Tue";
-            } else if(dy == 2){
-                dy = "Wed";
-            } else if(dy == 3){
-                dy = "Thu";
-            } else if(dy == 4){
-                dy = "Fri";
-            } else if(dy == 5){
-                dy = "Sat";
-            } else if(dy == 6){
                 dy = "Sun";
+            } else if(dy == 1){
+                dy = "Mon";
+            } else if(dy == 2){
+                dy = "Tue";
+            } else if(dy == 3){
+                dy = "Wed";
+            } else if(dy == 4){
+                dy = "Thu";
+            } else if(dy == 5){
+                dy = "Fri";
+            } else if(dy == 6){
+                dy = "Sat";
             }
 
             if(mt == 0){
@@ -118,24 +151,130 @@
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
-            // Set Data
-            var data = google.visualization.arrayToDataTable([
-                ['Price', 'Size'],
-                [50,7],[60,8],[70,8],[80,9],[90,9],
-                [100,9],[110,10],[120,11],
-                [130,14],[140,14],[150,15]
-            ]);
-            // Set Options
+            var jsonData = $.ajax({
+                url: "http://localhost:8080/api/v1/chartdata",
+                dataType: "json",
+                async: false
+            }).responseJSON;
+
+            var res = new Array();
+            res[0] = new Array("Month", "Test-val");
+            res[1] = new Array("Jan",jsonData[0]['Jan']);
+            res[2] = new Array("Feb",jsonData[0]['Feb']);
+            res[3] = new Array("Mar",jsonData[0]['Mar']);
+            res[4] = new Array("Apr",jsonData[0]['Apr']);
+            res[5] = new Array("May",jsonData[0]['May']);
+            res[6] = new Array("Jun",jsonData[0]['Jun']);
+            res[7] = new Array("Jul",jsonData[0]['Jul']);
+            res[8] = new Array("Aug",jsonData[0]['Aug']);
+            res[9] = new Array("Sep",jsonData[0]['Sep']);
+            res[10] = new Array("Oct",jsonData[0]['Oct']);
+            res[11] = new Array("Nov",jsonData[0]['Nov']);
+            res[12] = new Array("Dec",jsonData[0]['Dec']);
+
+            var data = new google.visualization.arrayToDataTable(res);
+
+            //Set options
             var options = {
-                title: 'House Prices vs. Size',
-                hAxis: {title: 'Square Meters'},
-                vAxis: {title: 'Price in Millions'},
-                legend: 'none'
+                title: 'Jumlah Hasil Lab',
+                hAxis: {title: 'Month'},
+                vAxis: {title: 'Test-val', minValue: 0},
+                seriesType: "area",
+                series: {5: {type: "line"}}
             };
+
             // Draw
-            var chart = new google.visualization.LineChart(document.getElementById('myChart'));
+            // Create and draw the visualization.
+            var chart = new google.visualization.ComboChart(document.getElementById('test-val-chart'));
             chart.draw(data, options);
 
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawPieChart1);
+
+        // Draw the chart and set the chart values
+        function drawPieChart1() {
+            var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['Work', 8],
+                ['Eat', 2],
+                ['TV', 4],
+                ['Gym', 2],
+                ['Sleep', 8]
+            ]);
+
+            // Optional; add a title and set the width and height of the chart
+            var options = {'title':'Perbandingan Jenis Kelamin Pasien', 'width':320, 'height':240};
+
+            // Display the chart inside the <div> element with id="piechart"
+            var chart = new google.visualization.PieChart(document.getElementById('jk-chart'));
+            chart.draw(data, options);
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawPieChart2);
+
+        // Draw the chart and set the chart values
+        function drawPieChart2() {
+            var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['Work', 8],
+                ['Eat', 2],
+                ['TV', 4],
+                ['Gym', 2],
+                ['Sleep', 8]
+            ]);
+
+            // Optional; add a title and set the width and height of the chart
+            var options = {'title':'Jenis Konsultasi', 'width':320, 'height':240};
+
+            // Display the chart inside the <div> element with id="piechart"
+            var chart = new google.visualization.PieChart(document.getElementById('konsultasi-chart'));
+            chart.draw(data, options);
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawPieChart3);
+
+        // Draw the chart and set the chart values
+        function drawPieChart3() {
+            var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['Work', 8],
+                ['Eat', 2],
+                ['TV', 4],
+                ['Gym', 2],
+                ['Sleep', 8]
+            ]);
+
+            // Optional; add a title and set the width and height of the chart
+            var options = {'title':'Jumlah Pasien yang Menggunakan BPJS', 'width':320, 'height':240};
+
+            // Display the chart inside the <div> element with id="piechart"
+            var chart = new google.visualization.PieChart(document.getElementById('bpjs-chart'));
+            chart.draw(data, options);
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawBarChart);
+
+        function drawBarChart() {
+            // Define the chart to be drawn.
+            var data = google.visualization.arrayToDataTable([
+                ['Year', 'Asia'],
+                ['2012',  900],
+                ['2013',  1000],
+                ['2014',  1170],
+                ['2015',  1250],
+                ['2016',  1530]
+            ]);
+
+            var options = {title: 'Tipe Obat yang Paling Sering Terjual'};
+
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart'));
+            chart.draw(data, options);
         }
     </script>
 </body>

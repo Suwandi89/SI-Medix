@@ -5,5 +5,6 @@ import tk.propensi.medix.models.RumahSakitModel;
 
 public interface RumahSakitService {
     RumahSakitModel getRumahSakitByNamaRS(String namaRS);
+    int getJumlahRumahSakit();
     void addRSData(RumahSakitModel rumahSakit, RumahSakitDataDTO form);
 }

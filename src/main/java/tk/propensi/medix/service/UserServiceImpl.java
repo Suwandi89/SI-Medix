@@ -6,6 +6,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import tk.propensi.medix.models.LabResultModel;
 import tk.propensi.medix.models.RumahSakitModel;
 import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.repository.RumahSakitDB;
@@ -15,6 +16,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -84,6 +86,23 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserModel getUserByEmail(String email){
         return userDb.findByEmail(email);
+    }
+
+    @Override
+    public int getJumlahAdminKhanza() {
+        int jumlahAdminKhanza = 0;
+        Iterable<UserModel> userListAll = userDb.findAll();
+
+        List<UserModel> userList = new ArrayList<>();
+        userListAll.forEach(userList::add);
+
+        for(UserModel user : userList){
+            if(user.getRole().getId() == 2 && user.getStatus() == 1){
+                jumlahAdminKhanza++;
+            }
+        }
+
+        return jumlahAdminKhanza;
     }
 
     @Override
