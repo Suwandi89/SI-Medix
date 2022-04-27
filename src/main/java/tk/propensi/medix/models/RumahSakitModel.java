@@ -80,7 +80,7 @@ public class RumahSakitModel {
     @Column(name="website")
     private String website;
 
-    @OneToMany(mappedBy = "rumahsakit", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "rumahSakit", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private List<UserModel> userRumahSakit;
