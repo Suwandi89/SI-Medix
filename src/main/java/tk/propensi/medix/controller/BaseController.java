@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import tk.propensi.medix.dto.EmailDTO;
 import tk.propensi.medix.models.UserModel;
+import tk.propensi.medix.service.RumahSakitService;
 import tk.propensi.medix.service.UserService;
 
 import javax.mail.MessagingException;
@@ -22,10 +23,15 @@ public class BaseController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RumahSakitService rumahSakitService;
+
     @GetMapping("/")
     private String home(HttpServletRequest request, Model model) {
         UserModel user = userService.getUserByUsername(request.getRemoteUser());
         model.addAttribute("authuser",user);
+        model.addAttribute("jumlahAdminKhanza",userService.getJumlahAdminKhanza());
+        model.addAttribute("jumlahRumahSakit",rumahSakitService.getJumlahRumahSakit());
         return "dashboard";
     }
 
