@@ -11,39 +11,19 @@
 </head>
 
 <body>
-    <nav th:replace="fragments/fragment :: navbar('Pendaftar RS')" class="col-sm-4"></nav>
+    <nav th:replace="fragments/fragment :: navbar('Daftar Admin')" class="col-sm-4"></nav>
     <div class="main-content">
         <div class="card m-5 p-8 col-sm-10">
-            <h3 class="center-align grey-text text-darken-1" style="padding-left:12px;margin-top:20px;">List Pendaftar</h3>
-            <!-- success message -->
-            <div th:if="${successAcc}">
-                <div class="alert alert-info">Accept user success. Approval notification email has been sent to user.</div>
-            </div>
-
-            <!-- success message -->
-            <div th:if="${successDec}">
-                <div class="alert alert-info">Decline user success. Rejection notification email has been sent to user.</div>
-            </div>
-
-            <!-- error message -->
-            <div th:if="${errorAcc}">
-                <div class="alert alert-danger">Accept user failed! Maybe the user has been approved.</div>
-            </div>
-
-            <!-- error message -->
-            <div th:if="${errorDec}">
-                <div class="alert alert-danger">Decline user failed!</div>
-            </div>
+            <h3 class="center-align grey-text text-darken-1" style="padding-left:12px;margin-top:20px;">List Admin</h3>
 
             <div class="card-body">
-                <form th:action="@{/viewall}" class="m-8 p-2 col-sm-12">
+                <form th:action="@{/viewall-admin}" class="m-8 p-2 col-sm-12">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Masukkan keyword..." id="keyword" name="keyword" th:value="${keyword}">
                                 <span class="search-btn">
                                     <button class="btn btn-primary" type="submit" id="btn-search">SEARCH</button>
-                                    <a class="btn btn-warning" th:href="@{/viewall/sorted}">Sort</a>
                                 </span>
                             </div>
                         </div>
@@ -52,15 +32,16 @@
                     <br>
                 </form>
                 <div th:if="${listUser.size() != 0}">
-                    <table id="dtUserTable" class="table table-sm table-hover table-advance" style="margin-top: 10px;">
+                    <table id="dtUserTable" class="table table-sm table-hover table-bordered" style="margin-top: 10px;">
                         <thead>
                         <tr>
                             <th>No</th>
                             <th>Username</th>
                             <th>Nama Depan</th>
+                            <th>Nama Belakang</th>
+                            <th>Asal RS</th>
                             <th>Email</th>
-                            <th>Status</th>
-                            <th>Detail Pendaftar</th>
+                            <th>Detail</th>
                             
                         </tr>
                         </thead>
@@ -69,12 +50,11 @@
                             <td th:text="${iterationStatus.count}"></td>
                             <td th:text="${user.username}"></td>
                             <td th:text="${user.firstname}"></td>
+                            <td th:text="${user.lastname}"></td>
+                            <td th:text="${user.rumahSakit.namaRumahSakit}"></td>
                             <td style="width: 18px; overflow:auto;" th:text="${user.email}"></td>
-                            <td th:if="${user.status} == 1">Approved</td>
-                            <td th:if="${user.status} == 2">Not Approved</td>
-                            <td th:if="${user.status} == 3">Pending</td>
                             <td>
-                                <a th:href="@{/pendaftar/} + ${user.username}" class="btn btn-primary">
+                                <a th:href="@{/viewadmin/} + ${user.username}" class="btn btn-primary">
                                     Detail
                                 </a>
                             </td>
@@ -83,7 +63,7 @@
                     </table>
                 </div>
                 <div th:if="${listUser.size() == 0}">
-                    <h5 class="indigo-text">Pendaftar tidak tersedia.</h5>
+                    <h5 class="indigo-text">Admin tidak tersedia.</h5>
                 </div>
             </div> 
         </div>       

@@ -230,6 +230,57 @@ public class UserController {
         return "view-admin";
     }
 
+    @PostMapping("/viewadmin/{username}")
+    public String viewAdmin(@ModelAttribute RumahSakitModel rumahsakit, @PathVariable String username, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        UserModel user = userService.getUserByUsername(username);
+        rumahSakitService.updateRSData(rumahsakit);
+        int flag = userService.checkIfUserExistExcept(authUser, user.getUsername(), user.getEmail());
+        boolean error1 = false;
+        boolean error2 = false;
+        boolean success = true;
+        model.addAttribute("error1", error1);
+        model.addAttribute("error2", error2);
+        model.addAttribute("success", success);
+        model.addAttribute("authuser", authUser);
+        model.addAttribute("rumahsakit", rumahsakit);
+        model.addAttribute("user", user);
+        return "view-admin";
+    }
+
+    @GetMapping("/update-admin/{username}")
+    public String updateAdmin(@PathVariable String username, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        UserModel user = userService.getUserByUsername(username);
+
+        model.addAttribute("authuser", authUser);
+        model.addAttribute("user", user);
+        return "update-admin";
+    }
+
+    @PostMapping("/update-admin")
+    public String updateAdminSubmit(@ModelAttribute UserModel user, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        int flag = userService.checkIfUserExistExcept(user, user.getUsername(), user.getEmail());
+        boolean error1 = false;
+        boolean error2 = false;
+        boolean success = false;
+        if (flag == 0){
+            userService.updateUser(user);
+            success = true;
+        } else if (flag == 1){
+            error1 = true;
+        } else if (flag == 2){
+            error2 = true;
+        }
+        model.addAttribute("error1", error1);
+        model.addAttribute("error2", error2);
+        model.addAttribute("success", success);
+        model.addAttribute("authuser", user);
+        model.addAttribute("user", user);
+        return "view-admin";
+    }
+
     @GetMapping("/add-rsdata")
     public String addRSData(Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
