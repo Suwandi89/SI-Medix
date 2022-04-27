@@ -152,7 +152,7 @@
 
         function drawChart() {
             var jsonData = $.ajax({
-                url: "http://localhost:8080/api/v1/chartdata",
+                url: "https://si-medix.herokuapp.com/api/v1/chartdata",
                 dataType: "json",
                 async: false
             }).responseJSON;
