@@ -6,25 +6,59 @@ import tk.propensi.medix.models.KunjunganModel;
 import tk.propensi.medix.repository.KunjunganDB;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
 public class KunjunganServiceImpl implements KunjunganService{
     @Autowired
-    KunjunganDB kunjunganDB;
-
+    private KunjunganDB kunjunganDb;
 
     @Override
-    public KunjunganModel getKunjunganById(String personId) {
-        return kunjunganDB.findByPersonId(personId);
+    public int getJumlahJenisKelaminPria(Long idrs){
+        int jumlah = 0;
+        Iterable<KunjunganModel> kunjunganListAll = kunjunganDb.findAll();
+
+        List<KunjunganModel> kunjunganList = new ArrayList<>();
+        kunjunganListAll.forEach(kunjunganList::add);
+
+        for (KunjunganModel kunjungan : kunjunganList){
+            if((kunjungan.getSex().equals("Pria")) && (kunjungan.getRumahSakit().getId() == idrs)){
+                jumlah++;
+            }
+        }
+
+        return jumlah;
     }
 
     @Override
-    public List<KunjunganModel> getPasienList(String keyword){ 
-        if (keyword != null){
-            return kunjunganDB.search(keyword);
+    public int getJumlahJenisKelaminWanita(Long idrs) {
+        int jumlah = 0;
+        Iterable<KunjunganModel> kunjunganListAll = kunjunganDb.findAll();
+
+        List<KunjunganModel> kunjunganList = new ArrayList<>();
+        kunjunganListAll.forEach(kunjunganList::add);
+
+        for (KunjunganModel kunjungan : kunjunganList) {
+            if ((kunjungan.getSex().equals("Wanita")) && (kunjungan.getRumahSakit().getId() == idrs)) {
+                jumlah++;
+            }
         }
-        return kunjunganDB.findAll();
+
+        return jumlah;
+    }
+
+    @Override
+    public KunjunganModel getKunjunganById(String personId) {
+        return kunjunganDb.findByPersonId(personId);
+    }
+
+    @Override
+    public List<KunjunganModel> getPasienList(String keyword){
+        if (keyword != null) {
+            return kunjunganDb.search(keyword);
+        }
+        return kunjunganDb.findAll();
     }
 }

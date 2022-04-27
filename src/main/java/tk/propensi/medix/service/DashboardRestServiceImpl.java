@@ -15,6 +15,9 @@ public class DashboardRestServiceImpl implements DashboardRestService{
     @Autowired
     private LabResultDB labResultDb;
 
+    @Autowired
+    private KunjunganService kunjunganService;
+
     public List<HashMap> getChartData(Long idrs){
 
         Iterable<LabResultModel> labResultModels = labResultDb.findAll();
@@ -46,6 +49,14 @@ public class DashboardRestServiceImpl implements DashboardRestService{
         List<HashMap> arr = new ArrayList<>();
 
         arr.add(hash_map);
+
+        // Creating an empty HashMap
+        HashMap<String, Integer> hash_map2 = new HashMap<String, Integer>();
+
+        hash_map2.put("Pria",kunjunganService.getJumlahJenisKelaminPria(idrs));
+        hash_map2.put("Wanita",kunjunganService.getJumlahJenisKelaminWanita(idrs));
+
+        arr.add(hash_map2);
 
         return arr;
 
