@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tk.propensi.medix.dto.ChangePasswordDTO;
+import tk.propensi.medix.dto.RumahSakitDTO;
 import tk.propensi.medix.models.RoleModel;
 import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.service.RoleService;
@@ -125,6 +126,8 @@ public class UserController {
     public String viewPendaftar(@PathVariable String username, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         UserModel user = userService.getUserByUsername(username);
+        RumahSakitDTO rumahsakit = new RumahSakitDTO();
+        model.addAttribute("rumahsakit",rumahsakit);
         model.addAttribute("user", user);
         model.addAttribute("authuser", authUser);
         return "view-pendaftar";
