@@ -5,13 +5,63 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <object th:include="fragments/fragment :: title (current='List Pendaftar')" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: title (current='List Rumah Sakit')" th:remove="tag"></object>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 <body>
-
-
+    <nav th:replace="fragments/fragment :: navbar('List Rumah Sakit')" class="col-sm-4"></nav>
+    <div class="main-content">
+        <div class="card-body">
+            <form th:action="@{/viewall-rumahsakit}" class="m-8 p-2 col-sm-12">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Masukkan keyword..." id="keyword" name="keyword" th:value="${keyword}">
+                            <span class="search-btn">
+                                <button class="btn btn-primary" type="submit" id="btn-search">SEARCH</button>
+                                <a class="btn btn-warning" th:href="@{/viewall-rumahsakit/sorted}">Sort</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                &nbsp;
+                <br>
+            </form>
+            <div th:if="${listRumahSakit.size() != 0}">
+                <table id="dtUserTable" class="table table-sm table-hover table-bordered" style="margin-top: 10px;">
+                    <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Lokasi</th>
+                        <th>Jenis</th>
+                        <th>Kelas</th>
+                        <th>Kepemilikan</th>
+                        <th>Detail</th>
+                        
+                    </tr>
+                    </thead>
+                    <tbody >
+                    <tr th:each="rumahSakit, iterationStatus : ${listRumahSakit}">
+                        <td th:text="${iterationStatus.count}"></td>
+                        <td th:text="${rumahSakit.namaRumahSakit}"></td>
+                        <td th:text="${rumahSakit.provinsi}"></td>
+                        <td th:text="${rumahSakit.kelas}"></td>
+                        <td th:text="${rumahSakit.kepemilikan}"></td>
+                        <td>
+                            <a th:href="@{/rumahsakit/} + ${rumahSakit.namaRumahSakit}" class="btn btn-primary">
+                                Detail
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:if="${listRumahSakit.size() == 0}">
+                <h5 class="indigo-text">Rumah Sakit tidak tersedia.</h5>
+            </div>
+        </div> 
+    </div>
     
 </body>
 </html>

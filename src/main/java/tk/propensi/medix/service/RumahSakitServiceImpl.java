@@ -6,6 +6,8 @@ import tk.propensi.medix.dto.RumahSakitDataDTO;
 import tk.propensi.medix.models.RumahSakitModel;
 import tk.propensi.medix.repository.RumahSakitDB;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 @Service
@@ -16,6 +18,13 @@ public class RumahSakitServiceImpl implements RumahSakitService{
 
     public RumahSakitModel getRumahSakitByNamaRS(String namaRS){
         return rumahsakitDb.findByNamaRumahSakit(namaRS);
+    }
+
+    public List<RumahSakitModel> getRumahSakitList(String keyword){
+        if (keyword != null){
+            //return rumahsakitDb.search(keyword);
+        }
+        return rumahsakitDb.findAll();
     }
 
     public void addRSData(RumahSakitModel rumahSakit, RumahSakitDataDTO form){

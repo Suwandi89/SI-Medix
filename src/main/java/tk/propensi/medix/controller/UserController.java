@@ -168,9 +168,17 @@ public class UserController {
         return "viewall-user";
     }
 
+    @RequestMapping(value = "/viewall-rumahsakit")
+    public String viewAllRumahSakit(Authentication auth, Model model, @Param("keyword") String keyword){
+        List<RumahSakitModel> listRumahSakit = rumahSakitService.getRumahSakitList(keyword); 
+        model.addAttribute("listRumahSakit", listRumahSakit); 
+        return "viewall-rumahsakit"; 
+    }
 
-    @GetMapping(value = "/rumahsakit/{username}")
-    public String viewRumahSakit(@PathVariable String username, Authentication auth, Model model){
+    @GetMapping(value = "/rumahsakit/{namaRumahSakit}")
+    public String viewRumahSakit(@PathVariable String namaRumahSakit, Authentication auth, Model model){
+        RumahSakitModel rumahSakit = rumahSakitService.getRumahSakitByNamaRS(namaRumahSakit); 
+        model.addAttribute("rumahSakit", rumahSakit);  
         return "view-rumahsakit"; 
     }
 
