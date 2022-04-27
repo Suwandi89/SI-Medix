@@ -202,20 +202,7 @@ public class UserController {
         UserModel user = userService.getUserByUsername(username);
         rumahSakitService.updateRSData(rumahsakit);
         int flag = userService.checkIfUserExistExcept(authUser, user.getUsername(), user.getEmail());
-        boolean error1 = false;
-        boolean error2 = false;
-        boolean success = false;
-        if (flag == 0){
-            user.setId(authUser.getId());
-            userService.updateUser(user);
-            success = true;
-        } else if (flag == 1){
-            error1 = true;
-        } else if (flag == 2){
-            error2 = true;
-        }
-        model.addAttribute("error1", error1);
-        model.addAttribute("error2", error2);
+        boolean success = true;
         model.addAttribute("success", success);
         model.addAttribute("authuser", authUser);
         model.addAttribute("rumahsakit", rumahsakit);
