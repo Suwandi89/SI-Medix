@@ -179,6 +179,9 @@ public class UserController {
     public String viewRumahSakit(@PathVariable String namaRumahSakit, Authentication auth, Model model){
         RumahSakitModel rumahSakit = rumahSakitService.getRumahSakitByNamaRS(namaRumahSakit); 
         model.addAttribute("rumahSakit", rumahSakit);  
+        String manajerRumahSakit = "";  
+        String adminRumahSakit = ""; 
+        String namaManajer = ""; 
         return "view-rumahsakit"; 
     }
 
