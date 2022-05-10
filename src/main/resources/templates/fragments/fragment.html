@@ -69,12 +69,14 @@
                 Dashboard
               </a>
             </li>
+
             <li>
               <a th:href="@{/viewall}" th:classappend="${page == 'Pendaftar RS'} ? active : text-secondary" class="nav-link">
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
                 Pendaftar Rumah Sakit
               </a>
             </li>
+
             <li>
               <a th:href="@{/viewall-admin}" th:classappend="${page == 'Daftar Admin'} ? active : text-secondary" class="nav-link">
                   <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
@@ -82,7 +84,7 @@
               </a>
             </li>
             <li>
-              <a href="#" th:classappend="${page == 'Daftar RS'} ? active : text-secondary" class="nav-link">
+              <a th:href="@{/viewall-rumahsakit}" th:classappend="${page == 'Daftar RS'} ? active : text-secondary" class="nav-link">
                   <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
                   Daftar Rumah Sakit
               </a>
@@ -93,6 +95,7 @@
                 Rekam Medis
               </a>
             </li>
+
             <li>
               <a href="#" th:classappend="${page == 'Daftar User'} ? active : text-secondary" class="nav-link">
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>

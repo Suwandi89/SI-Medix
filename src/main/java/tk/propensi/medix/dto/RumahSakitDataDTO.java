@@ -23,14 +23,16 @@ public class RumahSakitDataDTO {
     }
 
     public void setKepemilikan(String kepemilikan) {
-        this.kelas = kelas;
+        this.kepemilikan = kepemilikan;
     }
 
     public void setJalan(String jalan) {
         this.jalan = jalan;
     }
 
-    public void setKelurahan(String kelurahan) { this.kelurahan = kelurahan;}
+    public void setKelurahan(String kelurahan) { 
+        this.kelurahan = kelurahan;
+    }
 
     public void setKecamatan(String kecamatan) {
         this.kecamatan = kecamatan;

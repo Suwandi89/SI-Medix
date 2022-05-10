@@ -7,6 +7,8 @@ import tk.propensi.medix.models.RumahSakitModel;
 import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.repository.RumahSakitDB;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,40 @@ public class RumahSakitServiceImpl implements RumahSakitService{
     public RumahSakitModel getRumahSakitByNamaRS(String namaRS){
         return rumahsakitDb.findByNamaRumahSakit(namaRS);
     }
+
+
+    public List<RumahSakitModel> getRumahSakitList(String keyword){
+        if (keyword != null){
+            //return rumahsakitDb.search(keyword);
+        }
+        return rumahsakitDb.findAll();
+    }
+
+    public UserModel getUserRumahSakit(String namaRS, int role){
+        List<UserModel> listUser = rumahsakitDb.findByNamaRumahSakit(namaRS).getUserRumahSakit();         
+        UserModel user = null; 
+        if (role == 1) {
+            for (UserModel userModel : listUser) {
+                if (userModel.getRole().getId() == 1) {
+                    user = userModel; 
+                }
+            }
+        } else if (role == 2){
+            for (UserModel userModel : listUser) {
+                if (userModel.getRole().getId() == 2) {
+                    user = userModel; 
+                }
+            }
+        } else if (role == 3){
+            for (UserModel userModel : listUser) {
+                if (userModel.getRole().getId() == 3) {
+                    user = userModel; 
+                }
+            }
+        } 
+        
+        return user; 
+    }; 
 
     public int getJumlahRumahSakit(){
         int jumlahRumahSakit = 0;
@@ -38,6 +74,7 @@ public class RumahSakitServiceImpl implements RumahSakitService{
     public void updateRSData(RumahSakitModel rs){
         rumahsakitDb.save(rs);
     }
+
 
     public void addRSData(RumahSakitModel rumahSakit, RumahSakitDataDTO form){
         rumahSakit.setJalan(form.jalan);
