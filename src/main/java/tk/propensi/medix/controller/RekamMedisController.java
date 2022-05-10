@@ -40,7 +40,8 @@ public class RekamMedisController {
     @GetMapping("/rekamMedis/{personId}")
     public String detailRM(@PathVariable("personId") String personId, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
-        KunjunganModel kunjungan = kunjunganService.getKunjunganById(personId);
+        List<KunjunganModel> listKunjungan = kunjunganService.getKunjunganById(personId);
+        KunjunganModel kunjungan = listKunjungan.get(0);
         List<ResumeMedisModel> listRM = rekamMedisService.getRekamMedisByPersonId(personId);
         model.addAttribute("listRM", listRM);
         model.addAttribute("kunjungan", kunjungan);
