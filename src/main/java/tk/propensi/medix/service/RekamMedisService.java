@@ -6,4 +6,6 @@ import tk.propensi.medix.models.ResumeMedisModel;
 
 public interface RekamMedisService {
     List<ResumeMedisModel> getRekamMedisByPersonId (String personId);
+    ResumeMedisModel getRekamMedisByResumeID(String resumeMedisID);
+    void memberiFlag(String resumeMedisID);
 }

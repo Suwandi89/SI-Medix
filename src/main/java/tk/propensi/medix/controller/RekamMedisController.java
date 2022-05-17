@@ -47,4 +47,24 @@ public class RekamMedisController {
         model.addAttribute("authuser", authUser);
         return "detailRM";
     }
+
+    @GetMapping("/rekamMedis/{personId}/{rekamMedisID}")
+    public String detailRM(@PathVariable("personId") String personId, @PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
+        model.addAttribute("rm", rm);
+        model.addAttribute("authuser", authUser);
+        return "detailRekamMedis";
+    }
+
+    @GetMapping("/rekamMedis/flag/{rekamMedisID}")
+    public String flagRM(@PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
+        rekamMedisService.memberiFlag(rekamMedisID);
+        model.addAttribute("rm", rm);
+        model.addAttribute("authuser", authUser);
+
+        return "detailRekamMedis";
+    }
 }
