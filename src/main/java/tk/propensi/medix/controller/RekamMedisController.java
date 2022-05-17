@@ -15,6 +15,7 @@ import tk.propensi.medix.models.ResumeMedisModel;
 import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.service.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -69,5 +70,38 @@ public class RekamMedisController {
         model.addAttribute("authuser", authUser);
         model.addAttribute("kunjungan", kunjungan);
         return "redirect:/rekamMedis/" + rm.getPersonId() + "/" + rekamMedisID;
+    }
+
+    @RequestMapping(value = "/viewall-flagged")
+    public String viewAllFlagged(Authentication auth, Model model, @Param("keyword") String keyword) {
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        List<ResumeMedisModel> listRekamMedis = rekamMedisService.getRekamMedisList(keyword);
+        List<ResumeMedisModel> listRekamMedisRes = new ArrayList<>();
+        for (ResumeMedisModel rm : listRekamMedis){
+            if (rm.getKomen_flag() != null){
+                listRekamMedisRes.add(rm);
+            }
+        }
+        model.addAttribute("listRekamMedis", listRekamMedisRes);
+        model.addAttribute("authuser", authUser);
+        return "viewall-flagged";
+    }
+
+    @GetMapping("/rekamMedis/flag/{personId}/{rekamMedisID}")
+    public String detailFlaggedRM(@PathVariable("personId") String personId, @PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
+        model.addAttribute("rm", rm);
+        model.addAttribute("authuser", authUser);
+        return "detailFlaggedRekamMedis";
+    }
+    @GetMapping("/rekamMedis/unflag/{rekamMedisID}")
+    public String unflag(@PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
+        rekamMedisService.unflag(rekamMedisID);
+        model.addAttribute("rm", rm);
+        model.addAttribute("authuser", authUser);
+        return "redirect:/viewall-flagged";
     }
 }
