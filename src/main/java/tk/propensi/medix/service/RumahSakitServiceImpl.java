@@ -10,6 +10,8 @@ import tk.propensi.medix.repository.RumahSakitDB;
 import java.util.List;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -20,6 +22,7 @@ public class RumahSakitServiceImpl implements RumahSakitService{
     public RumahSakitModel getRumahSakitByNamaRS(String namaRS){
         return rumahsakitDb.findByNamaRumahSakit(namaRS);
     }
+
 
     public List<RumahSakitModel> getRumahSakitList(String keyword){
         if (keyword != null){
@@ -53,6 +56,25 @@ public class RumahSakitServiceImpl implements RumahSakitService{
         
         return user; 
     }; 
+
+    public int getJumlahRumahSakit(){
+        int jumlahRumahSakit = 0;
+        Iterable<RumahSakitModel> rumahSakitListAll = rumahsakitDb.findAll();
+
+        List<RumahSakitModel> rumahSakitList = new ArrayList<>();
+        rumahSakitListAll.forEach(rumahSakitList::add);
+
+        for (RumahSakitModel rs : rumahSakitList){
+            jumlahRumahSakit++;
+        }
+
+        return jumlahRumahSakit;
+    }
+
+    public void updateRSData(RumahSakitModel rs){
+        rumahsakitDb.save(rs);
+    }
+
 
     public void addRSData(RumahSakitModel rumahSakit, RumahSakitDataDTO form){
         rumahSakit.setJalan(form.jalan);

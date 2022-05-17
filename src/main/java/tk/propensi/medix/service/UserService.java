@@ -1,6 +1,8 @@
 package tk.propensi.medix.service;
 
+
 import tk.propensi.medix.models.RumahSakitModel;
+import org.springframework.data.domain.Page;
 import tk.propensi.medix.models.UserModel;
 
 import javax.mail.MessagingException;
@@ -19,6 +21,7 @@ public interface UserService {
     List<UserModel> getUserList(String keyword);
     UserModel getUserByUsername(String username);
     UserModel getUserByEmail(String email);
+    int getJumlahAdminKhanza();
     boolean processRequest(String username,int status, String namaRumahSakit);
     void deleteUser(String username);
     int checkIfUserExist(String username, String email);
