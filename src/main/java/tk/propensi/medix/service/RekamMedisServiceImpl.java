@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 @Service
 @Transactional
 public class RekamMedisServiceImpl implements RekamMedisService {
-    
+
     @Autowired
     RekamMedisDB rekamMedisDB;
 
