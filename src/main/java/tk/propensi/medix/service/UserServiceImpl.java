@@ -7,7 +7,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import tk.propensi.medix.models.LabResultModel;
 import tk.propensi.medix.models.RumahSakitModel;
 import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.repository.RumahSakitDB;

@@ -24,7 +24,7 @@ public class KunjunganServiceImpl implements KunjunganService{
         kunjunganListAll.forEach(kunjunganList::add);
 
         for (KunjunganModel kunjungan : kunjunganList){
-            if((kunjungan.getSex().equals("Pria")) && (kunjungan.getRumahSakit().getId() == idrs)){
+            if((kunjungan.getSex().equals("1")) && (kunjungan.getRumahSakit().getId() == idrs)){
                 jumlah++;
             }
         }
@@ -41,7 +41,7 @@ public class KunjunganServiceImpl implements KunjunganService{
         kunjunganListAll.forEach(kunjunganList::add);
 
         for (KunjunganModel kunjungan : kunjunganList) {
-            if ((kunjungan.getSex().equals("Wanita")) && (kunjungan.getRumahSakit().getId() == idrs)) {
+            if ((kunjungan.getSex().equals("2")) && (kunjungan.getRumahSakit().getId() == idrs)) {
                 jumlah++;
             }
         }
