@@ -21,15 +21,16 @@ public class RekamMedisServiceImpl implements RekamMedisService {
     }
 
     public ResumeMedisModel getRekamMedisByResumeID(String resumeMedisId){
-        System.out.println("service: " + rekamMedisDB.findByResumeMedisID(resumeMedisId).getResumeMedisID());
         return rekamMedisDB.findByResumeMedisID(resumeMedisId);
 
 
     }
 
-    public void memberiFlag(String resumeMedisID){
+    public void memberiFlag(String resumeMedisID, String komen_flag){
         ResumeMedisModel flagged_rm = getRekamMedisByResumeID(resumeMedisID);
+        flagged_rm.setKomen_flag(komen_flag);
         flagged_rm.set_flagged(true);
+        
 
     }
 

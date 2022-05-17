@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 import tk.propensi.medix.models.KunjunganModel;
 import tk.propensi.medix.models.ResumeMedisModel;
 import tk.propensi.medix.models.UserModel;
@@ -57,14 +59,15 @@ public class RekamMedisController {
         return "detailRekamMedis";
     }
 
-    @GetMapping("/rekamMedis/flag/{rekamMedisID}")
-    public String flagRM(@PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
+    @PostMapping("/rekamMedis/flag/{rekamMedisID}")
+    public String flagRM(@PathVariable("rekamMedisID") String rekamMedisID, @RequestParam(value = "komen_flag") String komen_flag, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
-        rekamMedisService.memberiFlag(rekamMedisID);
+        KunjunganModel kunjungan = kunjunganService.getKunjunganById(rm.getPersonId());
+        rekamMedisService.memberiFlag(rekamMedisID, komen_flag);
         model.addAttribute("rm", rm);
         model.addAttribute("authuser", authUser);
-
-        return "redirect:/";
+        model.addAttribute("kunjungan", kunjungan);
+        return "redirect:/rekamMedis/" + rm.getPersonId() + "/" + rekamMedisID;
     }
 }
