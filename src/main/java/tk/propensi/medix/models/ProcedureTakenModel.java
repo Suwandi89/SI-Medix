@@ -194,7 +194,7 @@ public class ProcedureTakenModel {
     private int bhp;
 
     @Column(name = "bpako")
-    private int bpake;
+    private int bpako;
 
     @Column(name = "dokter")
     private int dokter;
@@ -217,8 +217,8 @@ public class ProcedureTakenModel {
     private String invoice_ids;
 
     @Size(max = 50)
-    @Column(name = "desc")
-    private String desc;
+    @Column(name = "description")
+    private String description;
 
     @Size(max = 50)
     @Column(name = "konsul_ids")
