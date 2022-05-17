@@ -152,4 +152,7 @@ public class ResumeMedisModel {
     @Column
     private boolean is_flagged;
 
+    @Size(max = 400)
+    @Column(name = "komen_flag")
+    private String komen_flag;
 }
