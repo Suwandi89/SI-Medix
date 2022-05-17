@@ -30,6 +30,7 @@ public class ChartDataRestController {
         try {
             return dashboardRestService.getChartData(authUser.getRumahSakit().getId());
         } catch (Exception e) {
+            System.out.println(e);
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Tidak ada ChartData"
             );
