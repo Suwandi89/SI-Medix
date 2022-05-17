@@ -65,6 +65,6 @@ public class RekamMedisController {
         model.addAttribute("rm", rm);
         model.addAttribute("authuser", authUser);
 
-        return "redirect:/";
+        return "detailRekamMedis";
     }
 }
