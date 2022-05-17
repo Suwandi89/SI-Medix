@@ -67,12 +67,7 @@ public class RekamMedisController {
         rekamMedisService.memberiFlag(rekamMedisID, komen_flag);
         model.addAttribute("rm", rm);
         model.addAttribute("authuser", authUser);
-<<<<<<< HEAD
         model.addAttribute("kunjungan", kunjungan);
         return "redirect:/rekamMedis/" + rm.getPersonId() + "/" + rekamMedisID;
-=======
-
-        return "detailRekamMedis";
->>>>>>> 6820be22cb4a563f86ce29da8462756bd56cedd4
     }
 }
