@@ -33,6 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/api-docs").permitAll()
                 .antMatchers("/v3/api-docs/**").permitAll()
                 .antMatchers("/pendaftar/**","/viewall","/viewall-flagged").hasAuthority("Admin Medix")
+                .antMatchers("/rekamMedis/**").hasAuthority("Admin Khanza")
+                .antMatchers("/rekamMedisFlag/**").hasAuthority("Admin Medix")
                 //.antMatchers("/rumahsakit/**", "/viewall-rumahsakit").permitAll()
                 .antMatchers("/rumahsakit/**", "/viewall-rumahsakit").hasAnyAuthority("Admin Medix", "Admin Khanza")
                 .anyRequest().authenticated()

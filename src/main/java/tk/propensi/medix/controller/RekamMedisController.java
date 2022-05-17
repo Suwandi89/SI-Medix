@@ -87,7 +87,7 @@ public class RekamMedisController {
         return "viewall-flagged";
     }
 
-    @GetMapping("/rekamMedis/flag/{personId}/{rekamMedisID}")
+    @GetMapping("/rekamMedisFlag/flag/{personId}/{rekamMedisID}")
     public String detailFlaggedRM(@PathVariable("personId") String personId, @PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
@@ -95,7 +95,7 @@ public class RekamMedisController {
         model.addAttribute("authuser", authUser);
         return "detailFlaggedRekamMedis";
     }
-    @GetMapping("/rekamMedis/unflag/{rekamMedisID}")
+    @GetMapping("/rekamMedisFlag/unflag/{rekamMedisID}")
     public String unflag(@PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);

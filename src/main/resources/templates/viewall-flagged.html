@@ -50,12 +50,12 @@
                         <td th:text="${rm.alasan_masuk_ri}"></td>
                         <td th:text="${rm.created_date}"></td>
                         <td>
-                            <a th:href="@{/rekamMedis/flag/} + ${rm.personId} + '/' + ${rm.resumeMedisID}" class="btn btn-primary">
+                            <a th:href="@{/rekamMedisFlag/flag/} + ${rm.personId} + '/' + ${rm.resumeMedisID}" class="btn btn-primary">
                                 Click here
                             </a>
                         </td>
                         <td>
-                            <a th:href="@{/rekamMedis/unflag/} + ${rm.resumeMedisID}" class="btn btn-danger">
+                            <a th:href="@{/rekamMedisFlag/unflag/} + ${rm.resumeMedisID}" class="btn btn-danger">
                                 Unflag
                             </a>
                         </td>

@@ -125,11 +125,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="container">
-                    <h4><u>Komentar Flag</u></h4>
-                    <ul>
-                        <p th:text="${rm.komen_flag}"></p>
-                    </ul>
+                <hr size="0.5" width="70%" color="#D0C9C0">
+            </div>
+        </div>
+        <div class="container">
+            <h4><u>Komentar Flag</u></h4>
+            <ul>
+                <p th:text="${rm.komen_flag}"></p>
+            </ul>
+            <div>
+                <div class="row">
+                    <div class="col-md-10 offset-md-10">
+                        <a th:href="@{/rekamMedisFlag/unflag/} + ${rm.resumeMedisID}" class="btn btn-danger">
+                            Unflag
+                        </a>
                 </div>
             </div>
         </div>
