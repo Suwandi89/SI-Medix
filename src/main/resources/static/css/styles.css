@@ -60,8 +60,27 @@ body {
     padding-bottom: 20px;
 }
 
+.zip-logo{
+    height: 50%;
+    width: 50%;
+    margin-left: 85px;
+}
+
 .search-btn{
     margin-left: 15px;
+}
+
+.download-button{
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 9px 25px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.download-button:hover{
+    background-color: RoyalBlue;
 }
 
 .flex-1{

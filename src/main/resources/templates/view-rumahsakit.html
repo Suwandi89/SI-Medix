@@ -34,7 +34,6 @@
                                 <br>
                                 <h6 class="text-primary font-weight-bold"> Alamat Rumah Sakit</h6>
                                 <br>
-                                <br>
                                 <p>Jalan</p>
                                 <p>Kelurahan</p>
                                 <p>Kecamatan</p>
@@ -45,7 +44,6 @@
                                 <br>
                                 <h6 class="text-primary font-weight-bold">Kontak Rumah Sakit</h6>
                                 <br>
-                                <br>
                                 <p>Nomor Telepon</p>
                                 <p>Email</p>
                                 <p>Admin PJ</p>
@@ -54,23 +52,77 @@
                             </td>
                             <td>
                                 <p th:text="${rumahSakit.id}"></p>
+                                <div th:if="${rumahSakit.id == ''}">
+                                    <p>-</p>
+                                </div>
                                 <p th:text=" ${manajerRumahSakit}"></p>
+                                <div th:if="${manajerRumahSakit == ''}">
+                                    <p>-</p>
+                                </div>
                                 <p th:text="${adminRumahSakit}"></p>
+                                <div th:if="${adminRumahSakit == ''}">
+                                    <p>-</p>
+                                </div>
                                 <p th:text="${rumahSakit.jenis}"></p>
+                                <div th:if="${rumahSakit.jenis == ''}">
+                                    <p>-</p>
+                                </div>
                                 <p th:text="${rumahSakit.kelas}"></p>
+                                <div th:if="${rumahSakit.kelas == ''}">
+                                    <p>-</p>
+                                </div>
                                 <p th:text="${rumahSakit.kepemilikan}"></p>
-
-                                <p th:text="${rumahSakit.jalan}"></p>    
+                                <div th:if="${rumahSakit.kepemilikan == ''}">
+                                    <p>-</p>
+                                </div>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <p th:text="${rumahSakit.jalan}"></p>
+                                <div th:if="${rumahSakit.jalan == ''}">
+                                    <p>-</p>
+                                </div>
                                 <p th:text="${rumahSakit.kelurahan}"></p>
+                                <div th:if="${rumahSakit.kelurahan == ''}">
+                                    <p>-</p>
+                                </div>
                                 <p th:text="${rumahSakit.kecamatan}"></p>
+                                <div th:if="${rumahSakit.kecamatan == ''}">
+                                    <p>-</p>
+                                </div>
                                 <p th:text="${rumahSakit.kabupaten}"></p>
+                                <div th:if="${rumahSakit.kabupaten == ''}">
+                                    <p>-</p>
+                                </div>
                                 <p th:text="${rumahSakit.provinsi}"></p>
+                                <div th:if="${rumahSakit.provinsi == ''}">
+                                    <p>-</p>
+                                </div>
                                 <p th:text="${rumahSakit.kodepos}"></p>
-
+                                <div th:if="${rumahSakit.kodepos == ''}">
+                                    <p>-</p>
+                                </div>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
                                 <p th:text="${rumahSakit.notelp}"></p>
+                                <div th:if="${rumahSakit.notelp == ''}">
+                                    <p>-</p>
+                                </div>
                                 <p th:text="${rumahSakit.email}"></p>
+                                <div th:if="${rumahSakit.email == ''}">
+                                    <p>-</p>
+                                </div>
                                 <p th:text="${namaManajer}"></p>
+                                <div th:if="${namaManajer == ''}">
+                                    <p>-</p>
+                                </div>
                                 <p th:text="${rumahSakit.website}"></p>
+                                <div th:if="${rumahSakit.website == ''}">
+                                    <p>-</p>
+                                </div>
                             </td>
                         </tr>
 

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import tk.propensi.medix.dto.ChangePasswordDTO;
-import tk.propensi.medix.dto.RumahSakitDTO;
 import tk.propensi.medix.dto.RumahSakitDataDTO;
 import tk.propensi.medix.models.RoleModel;
 import tk.propensi.medix.models.RumahSakitModel;
@@ -297,6 +296,13 @@ public class UserController {
         rumahSakitService.addRSData(authUser.getRumahSakit(),form);
         model.addAttribute("authuser", authUser);
         return "myprofile";
+    }
+
+    @GetMapping("/infografis")
+    public String infografis(Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        model.addAttribute("authuser", authUser);
+        return "infografis";
     }
 
     public class StatusComparator implements Comparator<UserModel> {
