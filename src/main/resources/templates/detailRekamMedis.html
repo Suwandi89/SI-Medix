@@ -66,12 +66,14 @@
 <nav th:replace="fragments/fragment :: navbar('Rekam Medis')"></nav>
 <div class="main-content">
   <div class="card-body">
-    <div class="justify-content-center">
+    <div class="d-flex justify-content-start ">
       <span class="back-btn">
         <a th:href="@{/rekamMedis/} + ${rm.personId}" class="btn btn-primary">Kembali</a>
       </span>
       <span>
-        <button type="button" id="toggleButton" class="btn btn-primary" onclick="toggleHide()">Hide Data</button>
+        <form th:action="@{/rekamMedis/hide/} + ${rekamMedisID}" method="post">
+          <input  class="btn btn-danger mx-2" type="submit" name="Hide Data" onclick="confirmHide()" value="Hide Data"/>
+      </form>
       </span>
     </div>
     
@@ -105,28 +107,19 @@
                                     <p>Tanggal Modifikasi</p>
                                 </td>
                                 <td>
-                                    <p th:text="${rm.resumeMedisID}"></p>
-                                    <p id="alasanMasuk" th:text="${rm.alasan_masuk_ri}"></p>
-                                    <p id="keadaanUmum" th:text="${rm.keadaan_umum}"></p>
-                                    <p id="idRS" th:text="${rm.hospital_id}"></p>
-                                    <p id="dataCreate" th:text="${rm.created_date}"></p>
-                                    <p id="dataModif" th:text="${rm.modified_date}"> </p>
-                                </td>
-                                <td style="width: 0px;">
-                                  <button type="button" class="btn btn-primary hideButton" onclick="">Hide</button>
-                                  <button type="button" class="btn btn-primary hideButton" onclick="">Hide</button>
-                                  <button type="button" class="btn btn-primary hideButton" onclick="">Hide</button>
-                                  <button type="button" class="btn btn-primary hideButton" onclick="">Hide</button>
-                                  <button type="button" class="btn btn-primary hideButton" onclick="">Hide</button>
-                                  <button type="button" class="btn btn-primary hideButton" onclick="">Hide</button>
+                                    <p  th:text="${rm.resumeMedisID}"></p>
+                                    <p  th:text="${rm.alasan_masuk_ri}"></p>
+                                    <p  th:text="${rm.keadaan_umum}"></p>
+                                    <p  th:text="${rm.hospital_id}"></p>
+                                    <p  th:text="${rm.created_date}"></p>
+                                    <p  th:text="${rm.modified_date}"> </p>
                                 </td>
                             </tr>
                 
                         </table>
                         <div class="container">
-                          <div id="diagnosa" class="row">
+                          <div class="row">
                             <h5><u>Diagnosa</u></h5> 
-                            <button type="button" class="btn btn-primary mx-2 hideButton" onclick="">Hide</button>
                           </div>
                           <div>
                             <ul>
@@ -137,7 +130,7 @@
                         
 
                         <div class="container">
-                            <div id="obat" class="row">
+                            <div class="row">
                                 <div class="col-sm-4">
                                     <h5><u>Obat Selama Perawatan</u></h5>
                                         <ul>
@@ -151,7 +144,7 @@
                                     </ul>
                                   </div>
                                   <div  class="col-sm-4">
-                                  <button type="button" class="btn btn-primary hideButton" onclick="">Hide</button>
+                                
                                   </div>
 
                             </div>
@@ -193,23 +186,13 @@
 <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 <script>
   
-  function toggleHide(){
-    var elem = document.getElementById("toggleButton"); 
-    var buttons = document.getElementsByClassName('hideButton');
-    console.log(buttons); 
-    if (elem.innerHTML=="Hide Data"){
-      elem.innerHTML="Confirm Changes" ; 
-      for (let i = 0; i < buttons.length; i++) {
-      buttons[i].setAttribute("hidden", true)
-      }
-    } else if (elem.innerHTML=="Confirm Changes"){
-      elem.innerHTML = "Hide Data" ; 
-      for (let i = 0; i < buttons.length; i++) {
-      buttons[i].removeAttribute("hidden")
-      }
+  function confirmHide() {
+    var txt
+    if (confirm("Apakah Anda ingin menyembunyikan rekam medis?")){
+      txt = "Rekam Medis berhasil disembunyikan"
     }
   }
-  
+
   function openForm() {
     document.getElementById("myForm").style.display = "block";
   }

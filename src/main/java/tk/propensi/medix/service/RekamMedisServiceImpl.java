@@ -6,6 +6,7 @@ import tk.propensi.medix.repository.KunjunganDB;
 import tk.propensi.medix.models.*;
 import tk.propensi.medix.repository.RekamMedisDB;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -24,6 +25,21 @@ public class RekamMedisServiceImpl implements RekamMedisService {
         return rekamMedisDB.findByResumeMedisID(resumeMedisId);
 
 
+    }
+
+    public List<ResumeMedisModel> filterHidden (List<ResumeMedisModel> listResume){
+        List<ResumeMedisModel> filtered = new ArrayList<ResumeMedisModel>(); 
+        for (ResumeMedisModel resumeMedisModel : listResume) {
+            if (!resumeMedisModel.is_hidden()) {
+                filtered.add(resumeMedisModel); 
+            }
+        }
+        return filtered; 
+    }; 
+
+    public void hideData(String resumeMedisID){
+        ResumeMedisModel resumeMedis = getRekamMedisByResumeID(resumeMedisID); 
+        resumeMedis.set_hidden(true);
     }
 
     public void memberiFlag(String resumeMedisID, String komen_flag){
