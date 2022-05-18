@@ -66,11 +66,17 @@
 <nav th:replace="fragments/fragment :: navbar('Rekam Medis')"></nav>
 <div class="main-content">
   <div class="card-body">
-    <div class="justify-content-center">
-            <span class="back-btn">
-                  <a th:href="@{/rekamMedis/} + ${rm.personId}" class="btn btn-primary">Kembali</a>
-            </span>
+    <div class="d-flex justify-content-start ">
+      <span class="back-btn">
+        <a th:href="@{/rekamMedis/} + ${rm.personId}" class="btn btn-primary">Kembali</a>
+      </span>
+      <span>
+        <form th:action="@{/rekamMedis/hide/} + ${rekamMedisID}" method="post">
+          <input  class="btn btn-danger mx-2" type="submit" name="Hide Data" onclick="confirmHide()" value="Hide Data"/>
+      </form>
+      </span>
     </div>
+    
   </div>
 
   <div class="card p-4 m-5 col-sm-9 card-section">
@@ -101,35 +107,46 @@
                                     <p>Tanggal Modifikasi</p>
                                 </td>
                                 <td>
-                                    <p th:text="${rm.resumeMedisID}"></p>
-                                    <p th:text="${rm.alasan_masuk_ri}"></p>
-                                    <p th:text="${rm.keadaan_umum}"></p>
-                                    <p th:text="${rm.hospital_id}"></p>
-                                    <p th:text="${rm.created_date}"></p>
-                                    <p th:text="${rm.modified_date}"> </p>
+                                    <p  th:text="${rm.resumeMedisID}"></p>
+                                    <p  th:text="${rm.alasan_masuk_ri}"></p>
+                                    <p  th:text="${rm.keadaan_umum}"></p>
+                                    <p  th:text="${rm.hospital_id}"></p>
+                                    <p  th:text="${rm.created_date}"></p>
+                                    <p  th:text="${rm.modified_date}"> </p>
                                 </td>
                             </tr>
+                
                         </table>
-
-                        <h4><u>Diagnosa</u></h4>
-                        <ul>
-                           <p th:text="${rm.diagnosa}"></p>
-                        </ul>
+                        <div class="container">
+                          <div class="row">
+                            <h5><u>Diagnosa</u></h5> 
+                          </div>
+                          <div>
+                            <ul>
+                              <p th:text="${rm.diagnosa}"></p>
+                           </ul>
+                          </div>
+                        </div>
+                        
 
                         <div class="container">
                             <div class="row">
-                                <div class="col-sm-6">
-                                    <h4><u>Obat Selama Perawatan</u></h4>
+                                <div class="col-sm-4">
+                                    <h5><u>Obat Selama Perawatan</u></h5>
                                         <ul>
                                             <p th:text="${rm.obat_selama_perawatan}"></p>
                                         </ul>
                                 </div>
-                                <div class="col-sm-6">
-                                    <h3><u>Obat Pulang</u></h3>
+                                <div class="col-sm-4">
+                                    <h5><u>Obat Pulang</u></h5>
                                     <ul>
                                         <p th:text="${rm.obat_pulang}"></p>
                                     </ul>
-                                </div>
+                                  </div>
+                                  <div  class="col-sm-4">
+                                
+                                  </div>
+
                             </div>
                         </div>
                         <div class="container" th:if="${rm.is_flagged == false}">
@@ -165,6 +182,14 @@
 </body>
 <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 <script>
+  
+  function confirmHide() {
+    var txt
+    if (confirm("Apakah Anda ingin menyembunyikan rekam medis?")){
+      txt = "Rekam Medis berhasil disembunyikan"
+    }
+  }
+
   function openForm() {
     document.getElementById("myForm").style.display = "block";
   }

@@ -45,7 +45,8 @@ public class RekamMedisController {
         UserModel authUser = userService.getUserByUsername(auth.getName());
         KunjunganModel kunjungan = kunjunganService.getKunjunganById(personId);
         List<ResumeMedisModel> listRM = rekamMedisService.getRekamMedisByPersonId(personId);
-        model.addAttribute("listRM", listRM);
+        List<ResumeMedisModel> listFiltered = rekamMedisService.filterHidden(listRM); 
+        model.addAttribute("listRM", listFiltered);
         model.addAttribute("kunjungan", kunjungan);
         model.addAttribute("authuser", authUser);
         return "detailRM";
@@ -58,6 +59,17 @@ public class RekamMedisController {
         model.addAttribute("rm", rm);
         model.addAttribute("authuser", authUser);
         return "detailRekamMedis";
+    }
+
+    @PostMapping("/rekamMedis/hide/{rekamMedisID}")
+    public String hideDataRM(@PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
+        rekamMedisService.hideData(rekamMedisID);
+        model.addAttribute("rm", rm);
+        model.addAttribute("authuser", authUser);
+        
+        return "redirect:/rekamMedis/" + rm.getPersonId(); 
     }
 
     @PostMapping("/rekamMedis/flag/{rekamMedisID}")

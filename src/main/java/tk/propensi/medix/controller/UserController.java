@@ -180,9 +180,9 @@ public class UserController {
     public String viewRumahSakit(@PathVariable String namaRumahSakit, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         RumahSakitModel rumahSakit = rumahSakitService.getRumahSakitByNamaRS(namaRumahSakit); 
-        String manajerRumahSakit = "";
-        String adminRumahSakit = "";
-        String namaManajer = "";
+        String manajerRumahSakit = "-";
+        String adminRumahSakit = "-";
+        String namaManajer = "-";
 
         // String manajerRumahSakit = ((rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername() == null) 
         // ? "-" : rumahSakitService.getUserRumahSakit(namaRumahSakit, 3).getUsername()) ;  
