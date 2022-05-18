@@ -93,6 +93,17 @@ public class RekamMedisController {
         return "detailRekamMedis";
     }
 
+    @PostMapping("/rekamMedis/hide/{rekamMedisID}")
+    public String hideDataRM(@PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
+        rekamMedisService.hideData(rekamMedisID);
+        model.addAttribute("rm", rm);
+        model.addAttribute("authuser", authUser);
+
+        return "redirect:/rekamMedis/" + rm.getPersonId();
+    }
+
     @PostMapping("/rekamMedis/flag/{rekamMedisID}")
     public String flagRM(@PathVariable("rekamMedisID") String rekamMedisID, @RequestParam(value = "komen_flag") String komen_flag, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());

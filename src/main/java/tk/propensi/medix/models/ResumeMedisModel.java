@@ -150,6 +150,9 @@ public class ResumeMedisModel {
     private String modified_by_name;
 
     @Column
+    private boolean is_hidden; 
+
+    @Column
     private boolean is_flagged;
 
     @Size(max = 400)

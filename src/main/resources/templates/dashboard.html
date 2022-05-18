@@ -224,6 +224,25 @@
                 async: false
             }).responseJSON;
 
+            var keylist = new Array();
+            var index = 0;
+
+            for (var key in jsonData[2]) {
+                keylist[index] = key;
+                index++;
+            }
+
+            console.log(keylist);
+
+            var res = new Array();
+            res[0] = new Array("Jenis Konsultasi", "Jumlah");
+
+            for (let i = 0; i < index; i++) {
+                res[i+1] = new Array(keylist[i],jsonData[2][keylist[i]]);
+            }
+
+            var data = google.visualization.arrayToDataTable(res);
+
             // Optional; add a title and set the width and height of the chart
             var options = {'title':'Jenis Konsultasi', 'width':320, 'height':240};
 
@@ -245,8 +264,8 @@
 
             var res = new Array();
             res[0] = new Array("BPJS", "Non-BPJS");
-            res[1] = new Array("BPJS",jsonData[2]['bpjs']);
-            res[2] = new Array("Non-BPJS",jsonData[2]['nonbpjs']);
+            res[1] = new Array("BPJS",jsonData[3]['bpjs']);
+            res[2] = new Array("Non-BPJS",jsonData[3]['nonbpjs']);
 
             var data = google.visualization.arrayToDataTable(res);
 

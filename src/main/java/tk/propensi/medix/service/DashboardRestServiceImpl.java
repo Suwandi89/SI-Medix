@@ -65,18 +65,50 @@ public class DashboardRestServiceImpl implements DashboardRestService{
 
         arr.add(hash_map2);
 
+        HashMap<String, Integer> hash_map3 = kunjunganDetilService.getJenisKonsultasiHashmap(idrs);
+        HashMap<String, Integer> hash_map3res = new HashMap<String, Integer>();
+
+        if(hash_map3.size() <= 5){
+            arr.add(hash_map3);
+        } else {
+            List<String> top5key = sortHashMap(hash_map3).subList(0, 5);
+            for(String key : top5key){
+                hash_map3res.put(key,hash_map3.get(key));
+            }
+            arr.add(hash_map3res);
+        }
+
         // Creating an empty HashMap
-        HashMap<String, Integer> hash_map3 = new HashMap<String, Integer>();
+        HashMap<String, Integer> hash_map4 = new HashMap<String, Integer>();
 
         int bpjs = kunjunganDetilService.getJumlahBPJS(idrs);
         int nonbpjs = kunjunganDetilService.getJumlahnonBPJS(idrs);
 
-        hash_map3.put("bpjs",bpjs);
-        hash_map3.put("nonbpjs", nonbpjs);
+        hash_map4.put("bpjs",bpjs);
+        hash_map4.put("nonbpjs", nonbpjs);
 
-        arr.add(hash_map3);
+        arr.add(hash_map4);
+
 
         return arr;
 
+    }
+
+    public static List<String> sortHashMap(final HashMap<String, Integer> map) {
+        Set<String> set = map.keySet();
+        List<String> keys = new ArrayList<String>(set);
+
+        Collections.sort(keys, new Comparator<String>() {
+
+            @Override
+            public int compare(String s1, String s2) {
+                if (map.get(s1) < map.get(s2)) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
+
+        return keys;
     }
 }
