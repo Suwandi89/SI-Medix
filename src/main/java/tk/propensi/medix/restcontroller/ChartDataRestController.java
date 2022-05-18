@@ -11,6 +11,7 @@ import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.service.DashboardRestService;
 import tk.propensi.medix.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class ChartDataRestController {
         try {
             return dashboardRestService.getChartData(authUser.getRumahSakit().getId());
         } catch (Exception e) {
+            System.out.println(e);
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "Tidak ada ChartData"
             );

@@ -37,22 +37,18 @@
 
             <div class="card-body">
                 <form th:action="@{/rekamMedis}" class="form-inline m-8 p-2 col-sm-12">
-                        <div class="form-inline col-xs-12 col-sm-8">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Masukkan keyword..." id="keyword" name="keyword" th:value="${keyword}">
-                            </div>
-                            <div class="form-group blu-margin">
-                                <select onchange="this.form.submit()" class="form-control" th:field="${listNamaRS}"  id="filter" name="filter">
-                                    <option value="0">Filter By Rumah Sakit</option>
-                                    <option th:each="namaRS : ${listNamaRS}" th:value="${filter}" th:text="${namaRS}"></option>
-                                </select>
-                            </div>
-                            <span class="search-btn">
-                                 <button class="btn btn-primary" type="Submit">SEARCH</button>
-                            </span>
-                        </div>
-                    &nbsp;
-                    <br>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Masukkan keyword..." id="keyword" name="keyword" th:value="${keyword}">
+                    </div>
+                    <div class="form-group blu-margin">
+                        <select  class="form-control" th:field="${listNamaRS}" id="filter" name="filter">
+                            <option value="0">Filter By Rumah Sakit</option>
+                            <option th:each="namaRS : ${listNamaRS}" th:value="${namaRS}" th:text="${namaRS}"></option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">SEARCH</button>
+                    </div>
                 </form>
                 <div th:if="${listPasien.size() != 0}">
                     <table id="dtUserTable" class="table table-sm table-hover table-bordered" style="margin-top: 10px;">
@@ -63,6 +59,7 @@
                             <th>Nama Lengkap</th>
                             <th>Jenis Kelamin</th>
                             <th>email</th>
+                            <th>RS Rujukan</th>
                             <th>Detail Pendaftar</th>
                             
                         </tr>
@@ -75,6 +72,7 @@
                             <td th:if="${pasien.sex} == 1">Laki-laki</td>
                             <td th:if="${pasien.sex} == 2">Perempuan</td>
                             <td style="width: 18px; overflow:auto;" th:text="${pasien.email}"></td>
+                            <td th:text="${pasien.hospital_name_rujukan}"></td>
                             <td>
                                 <a th:href="@{/rekamMedis/} + ${pasien.personId}" class="btn btn-primary">
                                     Detail

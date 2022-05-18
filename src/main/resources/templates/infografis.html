@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Infografis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar('Infografis')"></nav>
+    <div class="main-content">
+        <div class="row h-100 m-5 p-8">
+            <div class="mx-auto my-auto">
+                <h3>Download Bundling File</h3>
+            </div>
+        </div>
+        <div class="row h-100 m-4 p-7">
+            <div class="mx-auto my-auto">
+                <img class="zip-logo" src="/img/zip_archive.png">
+            </div>
+        </div>
+        <div class="row h-100">
+            <div class="mx-auto my-auto">
+                <h6 style="font-weight: bold;">engine.zip</h6>
+            </div>
+        </div>
+        <div class="row h-100 mt-3">
+            <div class="mx-auto my-auto">
+                <a th:href="@{/download/file/engine.zip}">
+                    <div class="download-button">
+                        <i class="fa fa-download"></i> Download
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row h-100 mt-4">
+            <div class="mx-auto my-auto">
+                <h4 style="text-decoration: underline">Langkah-Langkah Instalasi</h4>
+                <ul>
+                    <li>Download Bundling File di atas</li>
+                    <li>Unzip file engine.zip yang sudah didownload</li>
+                    <li>Double click pada installer</li>
+                    <li>Ikuti perintah yang ditampilkan dan tunggu hingga proses instalasi selesai</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <script type="application/javascript">
+        function showTime(){
+            const date = new Date();
+            var dy = date.getDay();
+            var dt = date.getDate();
+            var mt = date.getMonth();
+            var y = date.getFullYear();
+            var h = date.getHours(); // 0 - 23
+            var m = date.getMinutes(); // 0 - 59
+            var s = date.getSeconds(); // 0 - 59
+            var session = "AM";
+
+            if(dy == 0){
+                dy = "Sun";
+            } else if(dy == 1){
+                dy = "Mon";
+            } else if(dy == 2){
+                dy = "Tue";
+            } else if(dy == 3){
+                dy = "Wed";
+            } else if(dy == 4){
+                dy = "Thu";
+            } else if(dy == 5){
+                dy = "Fri";
+            } else if(dy == 6){
+                dy = "Sat";
+            }
+
+            if(mt == 0){
+                mt = "Jan";
+            } else if(mt == 1){
+                mt = "Feb";
+            } else if(mt == 2){
+                mt = "Mar";
+            } else if(mt == 3){
+                mt = "Apr";
+            } else if(mt == 4){
+                mt = "May";
+            } else if(mt == 5){
+                mt = "Jun";
+            } else if(mt == 6){
+                mt = "Jul";
+            } else if(mt == 7){
+                mt = "Aug";
+            } else if(mt == 8){
+                mt = "Sep";
+            } else if(mt == 9){
+                mt = "Oct";
+            } else if(mt == 10){
+                mt = "Nov";
+            } else if(mt == 11){
+                mt = "Dec";
+            }
+
+            if(h == 0){
+                h = 12;
+            }
+
+            if(h > 12){
+                h = h - 12;
+                session = "PM";
+            }
+
+            h = (h < 10) ? "0" + h : h;
+            m = (m < 10) ? "0" + m : m;
+            s = (s < 10) ? "0" + s : s;
+
+            var time = dy + ", " + dt + " " + mt + " " + y + ", " + h + ":" + m + ":" + s + " " + session;
+            document.getElementById("MyClockDisplay").innerText = time;
+            document.getElementById("MyClockDisplay").textContent = time;
+
+            setTimeout(showTime, 1000);
+
+        }
+
+        showTime();
+    </script>
+</body>
+</html>

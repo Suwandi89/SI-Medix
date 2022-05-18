@@ -19,4 +19,34 @@ public class RekamMedisServiceImpl implements RekamMedisService {
     public List<ResumeMedisModel> getRekamMedisByPersonId (String personId){
         return rekamMedisDB.findAllByPersonId(personId);
     }
+
+    public ResumeMedisModel getRekamMedisByResumeID(String resumeMedisId){
+        return rekamMedisDB.findByResumeMedisID(resumeMedisId);
+
+
+    }
+
+    public void memberiFlag(String resumeMedisID, String komen_flag){
+        ResumeMedisModel flagged_rm = getRekamMedisByResumeID(resumeMedisID);
+        flagged_rm.setKomen_flag(komen_flag);
+        flagged_rm.set_flagged(true);
+        
+
+    }
+
+    @Override
+    public List<ResumeMedisModel> getRekamMedisList(String keyword){
+        if (keyword != null){
+            return rekamMedisDB.search(keyword);
+        }
+        return rekamMedisDB.findAll();
+    }
+
+    public void unflag(String resumeMedisID){
+        ResumeMedisModel flagged_rm = getRekamMedisByResumeID(resumeMedisID);
+        flagged_rm.setKomen_flag(null);
+        flagged_rm.set_flagged(false);
+        
+
+    }
 }

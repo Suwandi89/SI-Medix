@@ -1,9 +1,5 @@
 package tk.propensi.medix.service;
 
-
-
-
-import org.springframework.data.domain.Page;
 import tk.propensi.medix.models.UserModel;
 
 import javax.mail.MessagingException;
