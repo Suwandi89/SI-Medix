@@ -50,7 +50,7 @@ public class KunjunganServiceImpl implements KunjunganService{
     }
 
     @Override
-    public KunjunganModel getKunjunganById(String personId) {
+    public List<KunjunganModel> getKunjunganById(String personId) {
         return kunjunganDb.findByPersonId(personId);
     }
 
@@ -60,5 +60,18 @@ public class KunjunganServiceImpl implements KunjunganService{
             return kunjunganDb.search(keyword);
         }
         return kunjunganDb.findAll();
+    }
+
+    @Override
+    public List<KunjunganModel> filterList(String filter) {
+        if (filter != null) {
+            return kunjunganDb.filter(filter);
+        }
+        return kunjunganDb.findAll();
+    }
+
+    @Override
+    public List<String> getnamaRS() {
+        return kunjunganDb.getAllNamaRS();
     }
 }
