@@ -9,4 +9,6 @@ public interface KunjunganService {
     int getJumlahJenisKelaminWanita(Long idrs);
     List<KunjunganModel> getKunjunganById(String personId);
     List<KunjunganModel> getPasienList(String keyword);
+    List<KunjunganModel> filterList(String filter);
+    List<String>getnamaRS();
 }

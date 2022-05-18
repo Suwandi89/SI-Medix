@@ -61,4 +61,17 @@ public class KunjunganServiceImpl implements KunjunganService{
         }
         return kunjunganDb.findAll();
     }
+
+    @Override
+    public List<KunjunganModel> filterList(String filter) {
+        if (filter != null) {
+            return kunjunganDb.filter(filter);
+        }
+        return kunjunganDb.findAll();
+    }
+
+    @Override
+    public List<String> getnamaRS() {
+        return kunjunganDb.getAllNamaRS();
+    }
 }

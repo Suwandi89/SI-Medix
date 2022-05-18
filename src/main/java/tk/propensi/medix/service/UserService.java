@@ -17,6 +17,7 @@ public interface UserService {
     void updatePassword(UserModel user, String newPassword);
     String encrypt(String password);
     List<UserModel> getUserList(String keyword);
+
     UserModel getUserByUsername(String username);
     UserModel getUserByEmail(String email);
     int getJumlahAdminKhanza();
