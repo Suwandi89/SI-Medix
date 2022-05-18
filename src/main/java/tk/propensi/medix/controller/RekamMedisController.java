@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
 import tk.propensi.medix.models.KunjunganModel;
 import tk.propensi.medix.models.ResumeMedisModel;
 import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.service.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -59,5 +61,59 @@ public class RekamMedisController {
         model.addAttribute("kunjungan", kunjungan);
         model.addAttribute("authuser", authUser);
         return "detailRM";
+    }
+
+    @GetMapping("/rekamMedis/{personId}/{rekamMedisID}")
+    public String detailRM(@PathVariable("personId") String personId, @PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
+        model.addAttribute("rm", rm);
+        model.addAttribute("authuser", authUser);
+        return "detailRekamMedis";
+    }
+
+    @PostMapping("/rekamMedis/flag/{rekamMedisID}")
+    public String flagRM(@PathVariable("rekamMedisID") String rekamMedisID, @RequestParam(value = "komen_flag") String komen_flag, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
+        KunjunganModel kunjungan = kunjunganService.getKunjunganById(rm.getPersonId());
+        rekamMedisService.memberiFlag(rekamMedisID, komen_flag);
+        model.addAttribute("rm", rm);
+        model.addAttribute("authuser", authUser);
+        model.addAttribute("kunjungan", kunjungan);
+        return "redirect:/rekamMedis/" + rm.getPersonId() + "/" + rekamMedisID;
+    }
+
+    @RequestMapping(value = "/viewall-flagged")
+    public String viewAllFlagged(Authentication auth, Model model, @Param("keyword") String keyword) {
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        List<ResumeMedisModel> listRekamMedis = rekamMedisService.getRekamMedisList(keyword);
+        List<ResumeMedisModel> listRekamMedisRes = new ArrayList<>();
+        for (ResumeMedisModel rm : listRekamMedis){
+            if (rm.getKomen_flag() != null){
+                listRekamMedisRes.add(rm);
+            }
+        }
+        model.addAttribute("listRekamMedis", listRekamMedisRes);
+        model.addAttribute("authuser", authUser);
+        return "viewall-flagged";
+    }
+
+    @GetMapping("/rekamMedisFlag/flag/{personId}/{rekamMedisID}")
+    public String detailFlaggedRM(@PathVariable("personId") String personId, @PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
+        model.addAttribute("rm", rm);
+        model.addAttribute("authuser", authUser);
+        return "detailFlaggedRekamMedis";
+    }
+    @GetMapping("/rekamMedisFlag/unflag/{rekamMedisID}")
+    public String unflag(@PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
+        rekamMedisService.unflag(rekamMedisID);
+        model.addAttribute("rm", rm);
+        model.addAttribute("authuser", authUser);
+        return "redirect:/viewall-flagged";
     }
 }

@@ -23,6 +23,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .authorizeRequests()
                 .antMatchers("/signup**").permitAll()
+                .antMatchers("/tenants").permitAll()
                 .antMatchers("/verify**").permitAll()
                 .antMatchers("/resendcode").permitAll()
                 .antMatchers("/css/**").permitAll()
@@ -31,7 +32,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/api/v1/**").permitAll()
                 .antMatchers("/api-docs").permitAll()
                 .antMatchers("/v3/api-docs/**").permitAll()
-                .antMatchers("/pendaftar/**","/viewall").hasAuthority("Admin Medix")
+                .antMatchers("/pendaftar/**","/viewall","/viewall-flagged").hasAuthority("Admin Medix")
+                .antMatchers("/rekamMedis/**").hasAuthority("Admin Khanza")
+                .antMatchers("/rekamMedisFlag/**").hasAuthority("Admin Medix")
+                //.antMatchers("/rumahsakit/**", "/viewall-rumahsakit").permitAll()
+                .antMatchers("/rumahsakit/**", "/viewall-rumahsakit").hasAnyAuthority("Admin Medix", "Admin Khanza")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -60,9 +65,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 //        auth.inMemoryAuthentication()
 //                .passwordEncoder(encoder())
 //                .withUser("kijangSatu").password(encoder().encode("nasiGoreng"))
-//                .roles("Manager Business");
+//                .roles("Admin Medix");
 //    }
-//
+
     @Autowired
     private UserDetailsService userDetailsService;
 

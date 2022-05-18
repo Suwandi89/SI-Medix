@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <object th:include="fragments/fragment :: title (current='Daftar RS')" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar('Daftar RS')"></nav>
+    <div class="main-content">
+        <div class="card p-4 m-5 col-sm-9">
+            <div class="card-body">
+                <div class="justify-content-center">
+                    <h2 th:text="${'Detail' + ' ' + rumahSakit.namaRumahSakit}" ></h2>
+                    <br>
+                    <table class="table" style="width:100%;">
+                        <tr>
+                            <th style="width:30%;"></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>ID</p>
+                                <p>Admin RS</p>
+                                <p>Manajer RS</p>
+                                <p>Jenis</p>
+                                <p>Kelas</p>
+                                <p>Kepemilikan</p>
+                                <br>
+                                <br>
+                                <h6 class="text-primary font-weight-bold"> Alamat Rumah Sakit</h6>
+                                <br>
+                                <p>Jalan</p>
+                                <p>Kelurahan</p>
+                                <p>Kecamatan</p>
+                                <p>Kabupaten/Kota</p>
+                                <p>Provinsi</p>
+                                <p>Kode Pos</p>
+                                <br>
+                                <br>
+                                <h6 class="text-primary font-weight-bold">Kontak Rumah Sakit</h6>
+                                <br>
+                                <p>Nomor Telepon</p>
+                                <p>Email</p>
+                                <p>Admin PJ</p>
+                                <p>Website</p>
+
+                            </td>
+                            <td>
+                                <p th:text="${rumahSakit.id}"></p>
+                                <div th:if="${rumahSakit.id == ''}">
+                                    <p>-</p>
+                                </div>
+                                <p th:text=" ${manajerRumahSakit}"></p>
+                                <div th:if="${manajerRumahSakit == ''}">
+                                    <p>-</p>
+                                </div>
+                                <p th:text="${adminRumahSakit}"></p>
+                                <div th:if="${adminRumahSakit == ''}">
+                                    <p>-</p>
+                                </div>
+                                <p th:text="${rumahSakit.jenis}"></p>
+                                <div th:if="${rumahSakit.jenis == ''}">
+                                    <p>-</p>
+                                </div>
+                                <p th:text="${rumahSakit.kelas}"></p>
+                                <div th:if="${rumahSakit.kelas == ''}">
+                                    <p>-</p>
+                                </div>
+                                <p th:text="${rumahSakit.kepemilikan}"></p>
+                                <div th:if="${rumahSakit.kepemilikan == ''}">
+                                    <p>-</p>
+                                </div>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <p th:text="${rumahSakit.jalan}"></p>
+                                <div th:if="${rumahSakit.jalan == ''}">
+                                    <p>-</p>
+                                </div>
+                                <p th:text="${rumahSakit.kelurahan}"></p>
+                                <div th:if="${rumahSakit.kelurahan == ''}">
+                                    <p>-</p>
+                                </div>
+                                <p th:text="${rumahSakit.kecamatan}"></p>
+                                <div th:if="${rumahSakit.kecamatan == ''}">
+                                    <p>-</p>
+                                </div>
+                                <p th:text="${rumahSakit.kabupaten}"></p>
+                                <div th:if="${rumahSakit.kabupaten == ''}">
+                                    <p>-</p>
+                                </div>
+                                <p th:text="${rumahSakit.provinsi}"></p>
+                                <div th:if="${rumahSakit.provinsi == ''}">
+                                    <p>-</p>
+                                </div>
+                                <p th:text="${rumahSakit.kodepos}"></p>
+                                <div th:if="${rumahSakit.kodepos == ''}">
+                                    <p>-</p>
+                                </div>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <p th:text="${rumahSakit.notelp}"></p>
+                                <div th:if="${rumahSakit.notelp == ''}">
+                                    <p>-</p>
+                                </div>
+                                <p th:text="${rumahSakit.email}"></p>
+                                <div th:if="${rumahSakit.email == ''}">
+                                    <p>-</p>
+                                </div>
+                                <p th:text="${namaManajer}"></p>
+                                <div th:if="${namaManajer == ''}">
+                                    <p>-</p>
+                                </div>
+                                <p th:text="${rumahSakit.website}"></p>
+                                <div th:if="${rumahSakit.website == ''}">
+                                    <p>-</p>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -53,72 +53,99 @@
                        </td>
                    </tr>
                </table>
-           </div>
-       </div>
-   </div>
 
 
    <div th:if="${listRM.size() != 0}">
-        <div class="card p-4 m-5 col-sm-9 card-section" th:each="rm, iterationStatus : ${listRM}">
-            <div class="card-body">
-                <div class="justify-content-center">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h2>Detail Rekam Medis</h2>
-                            </div>
-                            <div class="col-sm-6">
+       <table id="rmTable" class="table table-sm table-hover table-bordered" style="margin-top: 10px;">
+           <thead>
+           <tr><th>No</th>
+               <th>ID</th>
+               <th>Alasan masuk ruang inap</th>
+               <th>Tanggal Dibuat</th>
+               <th>Status</th>
+               <th>Action</th>
 
-                                <h3 style="text-align:right" th:text="${rm.personId}"></h3>
-                            </div>
-                        </div>
-                    </div>
+           </tr>
+           </thead>
+           <tbody >
+           <tr th:each="rm, iterationStatus : ${listRM}">
+               <td th:text="${iterationStatus.count}"></td>
+               <td th:text="${rm.resumeMedisID}"></td>
+               <td th:text="${rm.alasan_masuk_ri}"></td>
+               <td th:text="${rm.created_date}"></td>
+               <td th:if="${rm.is_flagged == true}"><img src="/img/flag-alt-solid-24.png"  width="25" height="25"></td>
+               <td th:if="${rm.is_flagged == false}"></td>
+               <td>
+                   <a th:href="@{/rekamMedis/} + ${rm.personId} + '/' + ${rm.resumeMedisID}" class="btn btn-primary">
+                       Detail
+                   </a>
+               </td>
+           </tr>
+           </tbody>
+       </table>
+   </div>
+           </div>
+       </div>
+<!--        <div class="card p-4 m-5 col-sm-9 card-section" th:each="rm, iterationStatus : ${listRM}">-->
+<!--            <div class="card-body">-->
+<!--                <div class="justify-content-center">-->
+<!--                    <div class="container">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-sm-6">-->
+<!--                                <h2>Detail Rekam Medis</h2>-->
+<!--                            </div>-->
+<!--                            <div class="col-sm-6">-->
 
-                    <table class="table table-hover" style="width:100%;">
-                        <tr>
-                            <td>
-                                <p>No.</p>
-                                <p>Alasan masuk Ruang Inap</p>
-                                <p>Keadaan Umum </p>
-                                <p>Rumah Sakit</p>
-                                <p>Tanggal Dibuat</p>
-                                <p>Tanggal Modifikasi</p>
-                            </td>
-                            <td>
-                                <p th:text="${rm.resume_medis_id}">2021/12/13/000002</p>
-                                <p th:text="${rm.alasan_masuk_ri}">Lorem Ipsum</p>
-                                <p th:text="${rm.keadaan_umum}">Lorem Ipsum</p>
-                                <p th:text="${rm.hospital_id}">RS Mitra Keluarga</p>
-                                <p th:text="${rm.created_date}"> 16/04/2022</p>
-                                <p th:text="${rm.modified_date}">24/04/2022 </p>
-                            </td>
-                        </tr>
-                    </table>
+<!--                                <h3 style="text-align:right" th:text="${rm.personId}"></h3>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
-                    <h4><u>Diagnosa</u></h4>
-                    <ul>
-                       <p th:text="${rm.diagnosa}"></p>
-                    </ul>
+<!--                    <table class="table table-hover" style="width:100%;">-->
+<!--                        <tr>-->
+<!--                            <td>-->
+<!--                                <p>No.</p>-->
+<!--                                <p>Alasan masuk Ruang Inap</p>-->
+<!--                                <p>Keadaan Umum </p>-->
+<!--                                <p>Rumah Sakit</p>-->
+<!--                                <p>Tanggal Dibuat</p>-->
+<!--                                <p>Tanggal Modifikasi</p>-->
+<!--                            </td>-->
+<!--                            <td>-->
+<!--                                <p th:text="${rm.resume_medis_id}">2021/12/13/000002</p>-->
+<!--                                <p th:text="${rm.alasan_masuk_ri}">Lorem Ipsum</p>-->
+<!--                                <p th:text="${rm.keadaan_umum}">Lorem Ipsum</p>-->
+<!--                                <p th:text="${rm.hospital_id}">RS Mitra Keluarga</p>-->
+<!--                                <p th:text="${rm.created_date}"> 16/04/2022</p>-->
+<!--                                <p th:text="${rm.modified_date}">24/04/2022 </p>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
 
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h4><u>Obat Selama Perawatan</u></h4>
-                                    <ul>
-                                        <p th:text="${rm.obat_selama_perawatan}"></p>
-                                    </ul>
-                            </div>
-                            <div class="col-sm-6">
-                                <h3><u>Obat Pulang</u></h3>
-                                <ul>
-                                    <p th:text="${rm.obat_pulang}"></p>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--                    <h4><u>Diagnosa</u></h4>-->
+<!--                    <ul>-->
+<!--                       <p th:text="${rm.diagnosa}"></p>-->
+<!--                    </ul>-->
+
+<!--                    <div class="container">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-sm-6">-->
+<!--                                <h4><u>Obat Selama Perawatan</u></h4>-->
+<!--                                    <ul>-->
+<!--                                        <p th:text="${rm.obat_selama_perawatan}"></p>-->
+<!--                                    </ul>-->
+<!--                            </div>-->
+<!--                            <div class="col-sm-6">-->
+<!--                                <h3><u>Obat Pulang</u></h3>-->
+<!--                                <ul>-->
+<!--                                    <p th:text="${rm.obat_pulang}"></p>-->
+<!--                                </ul>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
    </div>
    <div th:if="${listRM.size() == 0}">
         <div class="card-body">

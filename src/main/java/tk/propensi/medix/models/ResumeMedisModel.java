@@ -7,6 +7,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+
+import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import java.util.Date;
 
 @AllArgsConstructor
@@ -22,7 +25,7 @@ public class ResumeMedisModel {
 
     @Size(max = 50)
     @Column(name = "resume_medis_id")
-    private String resume_medis_id;
+    private String resumeMedisID;
 
     @Size(max = 50)
     @Column(name = "admission_id")
@@ -146,4 +149,10 @@ public class ResumeMedisModel {
     @Column(name = "modified_by_name")
     private String modified_by_name;
 
+    @Column
+    private boolean is_flagged;
+
+    @Size(max = 400)
+    @Column(name = "komen_flag")
+    private String komen_flag;
 }
