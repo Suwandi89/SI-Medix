@@ -93,18 +93,18 @@ public class DashboardRestServiceImpl implements DashboardRestService{
         arr.add(hash_map4);
 
         // Creating an empty HashMap
-        HashMap<String, Integer> hash_map5 = drugOrderService.getDrugOrderHashmap(idrs);
-        HashMap<String, Integer> hash_map5res = new HashMap<String, Integer>();
-
-        if(hash_map5.size() <= 5){
-            arr.add(hash_map5);
-        } else {
-            List<String> top5key = sortHashMap(hash_map5).subList(0, 5);
-            for(String key : top5key){
-                hash_map5res.put(key,hash_map5.get(key));
-            }
-            arr.add(hash_map5res);
-        }
+//        HashMap<String, Integer> hash_map5 = drugOrderService.getDrugOrderHashmap(idrs);
+//        HashMap<String, Integer> hash_map5res = new HashMap<String, Integer>();
+//
+//        if(hash_map5.size() <= 5){
+//            arr.add(hash_map5);
+//        } else {
+//            List<String> top5key = sortHashMap(hash_map5).subList(0, 5);
+//            for(String key : top5key){
+//                hash_map5res.put(key,hash_map5.get(key));
+//            }
+//            arr.add(hash_map5res);
+//        }
 
 
         return arr;
