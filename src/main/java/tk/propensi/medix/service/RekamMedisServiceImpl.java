@@ -42,6 +42,11 @@ public class RekamMedisServiceImpl implements RekamMedisService {
         resumeMedis.set_hidden(true);
     }
 
+    public void unhideData(String resumeMedisID){
+        ResumeMedisModel resumeMedis = getRekamMedisByResumeID(resumeMedisID); 
+        resumeMedis.set_hidden(false);
+    }
+    
     public void memberiFlag(String resumeMedisID, String komen_flag){
         ResumeMedisModel flagged_rm = getRekamMedisByResumeID(resumeMedisID);
         flagged_rm.setKomen_flag(komen_flag);
