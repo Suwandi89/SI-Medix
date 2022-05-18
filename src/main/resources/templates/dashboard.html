@@ -174,7 +174,6 @@
 
             var data = new google.visualization.arrayToDataTable(res);
 
-            //Set options
             var options = {
                 title: 'Jumlah Hasil Lab',
                 hAxis: {title: 'Month'},
@@ -183,8 +182,7 @@
                 series: {5: {type: "line"}}
             };
 
-            // Draw
-            // Create and draw the visualization.
+
             var chart = new google.visualization.ComboChart(document.getElementById('test-val-chart'));
             chart.draw(data, options);
 
@@ -193,7 +191,6 @@
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawPieChart1);
 
-        // Draw the chart and set the chart values
         function drawPieChart1() {
             var jsonData = $.ajax({
                 url: "https://si-medix.herokuapp.com/api/v1/chartdata",
@@ -234,8 +231,6 @@
                 keylist[index] = key;
                 index++;
             }
-
-            console.log(keylist);
 
             var res = new Array();
             res[0] = new Array("Jenis Konsultasi", "Jumlah");
@@ -285,14 +280,28 @@
 
         function drawBarChart() {
             // Define the chart to be drawn.
-            var data = google.visualization.arrayToDataTable([
-                ['Year', 'Asia'],
-                ['2012',  900],
-                ['2013',  1000],
-                ['2014',  1170],
-                ['2015',  1250],
-                ['2016',  1530]
-            ]);
+            var jsonData = $.ajax({
+                url: "https://si-medix.herokuapp.com/api/v1/chartdata",
+                dataType: "json",
+                async: false
+            }).responseJSON;
+
+            var keylist = new Array();
+            var index = 0;
+
+            for (var key in jsonData[4]) {
+                keylist[index] = key;
+                index++;
+            }
+
+            var res = new Array();
+            res[0] = new Array("Tipe Obat", "Jumlah");
+
+            for (let i = 0; i < index; i++) {
+                res[i+1] = new Array(keylist[i],jsonData[4][keylist[i]]);
+            }
+
+            var data = google.visualization.arrayToDataTable(res);
 
             var options = {title: 'Tipe Obat yang Paling Sering Terjual'};
 
