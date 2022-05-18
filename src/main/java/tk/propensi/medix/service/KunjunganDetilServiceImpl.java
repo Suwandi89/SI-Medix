@@ -9,6 +9,7 @@ import tk.propensi.medix.repository.KunjunganDetilDB;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -49,5 +50,29 @@ public class KunjunganDetilServiceImpl implements KunjunganDetilService{
         }
 
         return jumlah;
+    };
+
+    @Override
+    public HashMap<String, Integer> getJenisKonsultasiHashmap(Long idrs){
+        HashMap<String, Integer> hash_map = new HashMap<String, Integer>();
+        ArrayList<String> key_list = new ArrayList<String>();
+
+        Iterable<KunjunganDetilModel> kunjunganListAll = kunjunganDetilDb.findAll();
+
+        List<KunjunganDetilModel> kunjunganList = new ArrayList<>();
+        kunjunganListAll.forEach(kunjunganList::add);
+
+        for (KunjunganDetilModel kunjunganDetil : kunjunganList){
+            if(kunjunganDetil.getRumahSakit().getId() == idrs){
+                if(!key_list.contains(kunjunganDetil.getKonsul())){
+                    key_list.add(kunjunganDetil.getKonsul());
+                    hash_map.put(kunjunganDetil.getKonsul(),1);
+                } else {
+                    hash_map.replace(kunjunganDetil.getKonsul(),hash_map.get(kunjunganDetil.getKonsul())+1);
+                }
+            }
+        }
+
+        return hash_map;
     };
 }
