@@ -42,11 +42,11 @@ public class RekamMedisController {
         List<String> namaRS = kunjunganService.getnamaRS();
         List<KunjunganModel> listPasien = kunjunganService.getPasienList(keyword);
         List<KunjunganModel> listFilter = kunjunganService.filterList(filter);
-        listPasien.retainAll(listFilter);
+//        listPasien.retainAll(listFilter);
         model.addAttribute("keywordnya", keyword);
         model.addAttribute("filternya", filter);
         model.addAttribute("listNamaRS", namaRS);
-        model.addAttribute("listPasien", listPasien);
+        model.addAttribute("listPasien", listFilter);
         model.addAttribute("authuser", authUser);
         return "viewall-RM";
     }
@@ -54,8 +54,7 @@ public class RekamMedisController {
     @GetMapping("/rekamMedis/{personId}")
     public String detailRM(@PathVariable("personId") String personId, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
-        List<KunjunganModel> listKunjungan = kunjunganService.getKunjunganById(personId);
-        KunjunganModel kunjungan = listKunjungan.get(0);
+        KunjunganModel kunjungan = kunjunganService.getKunjunganById(personId);
         List<ResumeMedisModel> listRM = rekamMedisService.getRekamMedisByPersonId(personId);
         List<ResumeMedisModel> listFiltered = rekamMedisService.filterHidden(listRM); 
         model.addAttribute("listRM", listFiltered);

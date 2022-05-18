@@ -10,7 +10,7 @@ import tk.propensi.medix.models.KunjunganModel;
 @Repository
 public interface KunjunganDB extends JpaRepository<KunjunganModel,Long> {
 
-    List<KunjunganModel> findByPersonId(String personId);
+    KunjunganModel findByPersonId(String personId);
 
     @Query("SELECT u FROM KunjunganModel u WHERE CONCAT(u.full_name, u.nik, u.email) LIKE %?1%")
     public List<KunjunganModel> search(String keyword);
