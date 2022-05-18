@@ -66,15 +66,15 @@ public class DashboardRestServiceImpl implements DashboardRestService{
         arr.add(hash_map2);
 
         // Creating an empty HashMap
-//        HashMap<String, Integer> hash_map3 = new HashMap<String, Integer>();
-//
-//        int bpjs = kunjunganDetilService.getJumlahBPJS(idrs);
-//        int nonbpjs = kunjunganDetilService.getJumlahnonBPJS(idrs);
-//
-//        hash_map3.put("bpjs",bpjs);
-//        hash_map3.put("nonbpjs", nonbpjs);
-//
-//        arr.add(hash_map3);
+        HashMap<String, Integer> hash_map3 = new HashMap<String, Integer>();
+
+        int bpjs = kunjunganDetilService.getJumlahBPJS(idrs);
+        int nonbpjs = kunjunganDetilService.getJumlahnonBPJS(idrs);
+
+        hash_map3.put("bpjs",bpjs);
+        hash_map3.put("nonbpjs", nonbpjs);
+
+        arr.add(hash_map3);
 
         return arr;
 
