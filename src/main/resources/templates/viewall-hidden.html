@@ -49,7 +49,7 @@
                         <td th:text="${rm.alasan_masuk_ri}"></td>
                         <td th:text="${rm.created_date}"></td>
                         <td>
-                            <a th:href="@{/rekamMedis/unhide/} + ${rm.resumeMedisID}" class="btn btn-danger" onclick="confirmUnhide()"> 
+                            <a th:href="@{/rekamMedisHide/unhide/} + ${rm.resumeMedisID}" class="btn btn-danger" onclick="confirmUnhide()"> 
                                 Unhide
                             </a>
                         </td>

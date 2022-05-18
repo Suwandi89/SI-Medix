@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import tk.propensi.medix.models.KunjunganModel;
 import tk.propensi.medix.models.ResumeMedisModel;
+import tk.propensi.medix.models.RoleModel;
 import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.service.*;
 
@@ -72,14 +73,13 @@ public class RekamMedisController {
         return "detailRekamMedis";
     }
 
-    @PostMapping("/rekamMedis/hide/{rekamMedisID}")
+    @PostMapping("/rekamMedisHide/hide/{rekamMedisID}")
     public String hideDataRM(@PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
         rekamMedisService.hideData(rekamMedisID);
         model.addAttribute("rm", rm);
         model.addAttribute("authuser", authUser);
-        
         return "redirect:/rekamMedis/" + rm.getPersonId(); 
     }
 
@@ -98,7 +98,7 @@ public class RekamMedisController {
         return "viewall-hidden"; 
     }
 
-    @GetMapping("/rekamMedis/unhide/{rekamMedisID}")
+    @GetMapping("/rekamMedisHide/unhide/{rekamMedisID}")
     public String unhideDataRM(@PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
