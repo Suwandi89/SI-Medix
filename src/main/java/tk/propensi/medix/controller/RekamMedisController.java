@@ -70,8 +70,6 @@ public class RekamMedisController {
         return "hideDataRekamMedis"; 
     }
 
-    @GetMapping("/rekamMedis/hideData{personId}/{rekamMedisID}")
-
     @PostMapping("/rekamMedis/flag/{rekamMedisID}")
     public String flagRM(@PathVariable("rekamMedisID") String rekamMedisID, @RequestParam(value = "komen_flag") String komen_flag, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());

@@ -71,7 +71,7 @@
         <a th:href="@{/rekamMedis/} + ${rm.personId}" class="btn btn-primary">Kembali</a>
       </span>
       <span>
-        <a th:href="@{/rekamMedis/hideData/} + ${rm.personId}" class="btn btn-primary">Hide Data</a>
+        <button type="button" id="toggleButton" class="btn btn-primary" onclick="toggleHide()">Hide Data</button>
       </span>
     </div>
     
@@ -106,34 +106,54 @@
                                 </td>
                                 <td>
                                     <p th:text="${rm.resumeMedisID}"></p>
-                                    <p th:text="${rm.alasan_masuk_ri}"></p>
-                                    <p th:text="${rm.keadaan_umum}"></p>
-                                    <p th:text="${rm.hospital_id}"></p>
-                                    <p th:text="${rm.created_date}"></p>
-                                    <p th:text="${rm.modified_date}"> </p>
+                                    <p id="alasanMasuk" th:text="${rm.alasan_masuk_ri}"></p>
+                                    <p id="keadaanUmum" th:text="${rm.keadaan_umum}"></p>
+                                    <p id="idRS" th:text="${rm.hospital_id}"></p>
+                                    <p id="dataCreate" th:text="${rm.created_date}"></p>
+                                    <p id="dataModif" th:text="${rm.modified_date}"> </p>
+                                </td>
+                                <td style="width: 0px;">
+                                  <button type="button" class="btn btn-primary hideButton" onclick="">Hide</button>
+                                  <button type="button" class="btn btn-primary hideButton" onclick="">Hide</button>
+                                  <button type="button" class="btn btn-primary hideButton" onclick="">Hide</button>
+                                  <button type="button" class="btn btn-primary hideButton" onclick="">Hide</button>
+                                  <button type="button" class="btn btn-primary hideButton" onclick="">Hide</button>
+                                  <button type="button" class="btn btn-primary hideButton" onclick="">Hide</button>
                                 </td>
                             </tr>
+                
                         </table>
-
-                        <h4><u>Diagnosa</u></h4>
-                        <ul>
-                           <p th:text="${rm.diagnosa}"></p>
-                        </ul>
+                        <div class="container">
+                          <div id="diagnosa" class="row">
+                            <h5><u>Diagnosa</u></h5> 
+                            <button type="button" class="btn btn-primary mx-2 hideButton" onclick="">Hide</button>
+                          </div>
+                          <div>
+                            <ul>
+                              <p th:text="${rm.diagnosa}"></p>
+                           </ul>
+                          </div>
+                        </div>
+                        
 
                         <div class="container">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <h4><u>Obat Selama Perawatan</u></h4>
+                            <div id="obat" class="row">
+                                <div class="col-sm-4">
+                                    <h5><u>Obat Selama Perawatan</u></h5>
                                         <ul>
                                             <p th:text="${rm.obat_selama_perawatan}"></p>
                                         </ul>
                                 </div>
-                                <div class="col-sm-6">
-                                    <h3><u>Obat Pulang</u></h3>
+                                <div class="col-sm-4">
+                                    <h5><u>Obat Pulang</u></h5>
                                     <ul>
                                         <p th:text="${rm.obat_pulang}"></p>
                                     </ul>
-                                </div>
+                                  </div>
+                                  <div  class="col-sm-4">
+                                  <button type="button" class="btn btn-primary hideButton" onclick="">Hide</button>
+                                  </div>
+
                             </div>
                         </div>
                         <div class="container" th:if="${rm.is_flagged == false}">
@@ -172,6 +192,24 @@
 </body>
 <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 <script>
+  
+  function toggleHide(){
+    var elem = document.getElementById("toggleButton"); 
+    var buttons = document.getElementsByClassName('hideButton');
+    console.log(buttons); 
+    if (elem.innerHTML=="Hide Data"){
+      elem.innerHTML="Confirm Changes" ; 
+      for (let i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute("hidden", true)
+      }
+    } else if (elem.innerHTML=="Confirm Changes"){
+      elem.innerHTML = "Hide Data" ; 
+      for (let i = 0; i < buttons.length; i++) {
+      buttons[i].removeAttribute("hidden")
+      }
+    }
+  }
+  
   function openForm() {
     document.getElementById("myForm").style.display = "block";
   }
