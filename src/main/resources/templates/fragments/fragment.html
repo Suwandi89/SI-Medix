@@ -95,11 +95,16 @@
                 Rekam Medis
               </a>
             </li>
-
+              <li>
+                  <a th:href="@{/viewall-flagged}" th:classappend="${page == 'Flagged Rekam Medis'} ? active : text-secondary" class="nav-link">
+                      <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                      Flagged Rekam Medis
+                  </a>
+              </li>
             <li>
-              <a href="#" th:classappend="${page == 'Daftar User'} ? active : text-secondary" class="nav-link">
+              <a th:href="@{/infografis}" th:classappend="${page == 'Infografis'} ? active : text-secondary" class="nav-link">
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                Daftar User
+                Infografis
               </a>
             </li>
             <li>
