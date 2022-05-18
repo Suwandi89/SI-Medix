@@ -101,6 +101,12 @@
                       Flagged Rekam Medis
                   </a>
               </li>
+              <li>
+                <a th:href="@{/viewall-hidden}" th:classappend="${page == 'Hidden Rekam Medis'} ? active : text-secondary" class="nav-link">
+                    <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                    Hidden Rekam Medis
+                </a>
+            </li>
             <li>
               <a th:href="@{/infografis}" th:classappend="${page == 'Infografis'} ? active : text-secondary" class="nav-link">
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>

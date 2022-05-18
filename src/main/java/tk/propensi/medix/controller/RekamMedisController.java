@@ -83,6 +83,31 @@ public class RekamMedisController {
         return "redirect:/rekamMedis/" + rm.getPersonId(); 
     }
 
+    @GetMapping("/viewall-hidden")
+    public String viewAllHidden(Authentication auth, Model model, @Param("keyword") String keyword){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        List<ResumeMedisModel> listRekamMedis = rekamMedisService.getRekamMedisList(keyword);
+        List<ResumeMedisModel> listRekamMedisRes = new ArrayList<>();
+        for (ResumeMedisModel rm : listRekamMedis){
+            if (rm.is_hidden()){
+                listRekamMedisRes.add(rm);
+            }
+        }
+        model.addAttribute("listRekamMedis", listRekamMedisRes);
+        model.addAttribute("authuser", authUser);
+        return "viewall-hidden"; 
+    }
+
+    @GetMapping("/rekamMedisFlag/unhide/{rekamMedisID}")
+    public String unhideDataRM(@PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
+        rekamMedisService.unhideData(rekamMedisID);
+        model.addAttribute("rm", rm);
+        model.addAttribute("authuser", authUser);
+        return "redirect:/viewall-hidden";
+    }
+
     @PostMapping("/rekamMedis/flag/{rekamMedisID}")
     public String flagRM(@PathVariable("rekamMedisID") String rekamMedisID, @RequestParam(value = "komen_flag") String komen_flag, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
