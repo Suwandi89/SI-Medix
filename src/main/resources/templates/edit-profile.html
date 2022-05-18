@@ -47,19 +47,13 @@
                             <input type="email" id="email" name="email" placeholder="Email" th:value="*{email}" required>
                         </div>
 
-                        <div class="form-group" th:if="*{role.id != 1}">
-                            <select name="role" class="form-control" th:value="*{role.id}" required>
-                                <option>--Pilih Role--</option>
-                                <option value="2">Admin Khanza</option>
-                                <option value="3">Manajer Rumah Sakit</option>
-                            </select>
-                        </div>
+                        <input name="password" type="hidden" th:value="*{role.id}">
 
                         <input name="password" type="hidden" th:value="*{password}">
 
                         <input name="enabled" type="hidden" th:value="*{enabled}">
 
-                        <input name="role" th:if="*{role.id == 1}" type="hidden" th:value="*{role.id}">
+                        <input name="role" type="hidden" th:value="*{role.id}">
 
                         <input name="link" type="hidden" th:value="*{link}">
 

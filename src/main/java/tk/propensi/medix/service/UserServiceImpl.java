@@ -7,8 +7,10 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import tk.propensi.medix.models.ResumeMedisModel;
 import tk.propensi.medix.models.RumahSakitModel;
 import tk.propensi.medix.models.UserModel;
+import tk.propensi.medix.repository.RekamMedisDB;
 import tk.propensi.medix.repository.RumahSakitDB;
 import tk.propensi.medix.repository.UserDB;
 
@@ -28,6 +30,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private RumahSakitDB rumahsakitDb;
+
+    @Autowired
+    RekamMedisDB rekamMedisDB;
 
     @Autowired
     private JavaMailSender mailSender;
@@ -105,6 +110,40 @@ public class UserServiceImpl implements UserService{
 
         return jumlahAdminKhanza;
     }
+
+    @Override
+    public int getJumlahFlaggedRekamMedis(){
+        int jumlahFlaggedRekamMedis = 0;
+        Iterable<ResumeMedisModel> resumeListAll = rekamMedisDB.findAll();
+
+        List<ResumeMedisModel> resumeList = new ArrayList<>();
+        resumeListAll.forEach(resumeList::add);
+
+        for (ResumeMedisModel rm : resumeList){
+            if (rm.getKomen_flag() != null){
+                jumlahFlaggedRekamMedis++;
+            }
+        }
+
+        return jumlahFlaggedRekamMedis;
+    }
+
+    @Override
+    public int getJumlahPendaftarPending(){
+        int jumlahPending = 0;
+        Iterable<UserModel> userListAll = userDb.findAll();
+
+        List<UserModel> userList = new ArrayList<>();
+        userListAll.forEach(userList::add);
+
+        for(UserModel user : userList){
+            if(user.getStatus()==3){
+                jumlahPending++;
+            }
+        }
+
+        return jumlahPending;
+    };
 
     @Override
     public boolean processRequest(String username, int status, String namaRumahSakit){
