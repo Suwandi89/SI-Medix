@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import tk.propensi.medix.models.KunjunganModel;
 import tk.propensi.medix.models.ResumeMedisModel;
 import tk.propensi.medix.models.UserModel;
@@ -36,16 +35,18 @@ public class RekamMedisController {
     public String viewAllRekamMedis(
             Model model,
             Authentication auth,
-            @RequestParam(value = "filter", required = false) String filter,
-            @RequestParam(value = "keyword", required = false) String keyword
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "filter", required = false) String filter
     ){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         List<String> namaRS = kunjunganService.getnamaRS();
         List<KunjunganModel> listPasien = kunjunganService.getPasienList(keyword);
         List<KunjunganModel> listFilter = kunjunganService.filterList(filter);
-        listPasien.retainAll(listFilter);
-        model.addAttribute("keywordnya", keyword);
-        model.addAttribute("filternya", filter);
+//        ArrayList<KunjunganModel> filteredPasien = new ArrayList<KunjunganModel>();
+//        for(KunjunganModel x: listPasien){
+//            filteredPasien.add(x);
+//        }
+//        filteredPasien.retainAll(listFilter);
         model.addAttribute("listNamaRS", namaRS);
         model.addAttribute("listPasien", listPasien);
         model.addAttribute("authuser", authUser);

@@ -191,7 +191,6 @@
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawPieChart1);
 
-        // Draw the chart and set the chart values
         function drawPieChart1() {
             var jsonData = $.ajax({
                 url: "https://si-medix.herokuapp.com/api/v1/chartdata",

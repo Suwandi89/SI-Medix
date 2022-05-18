@@ -41,8 +41,8 @@
                         <input type="text" class="form-control" placeholder="Masukkan keyword..." id="keyword" name="keyword" th:value="${keyword}">
                     </div>
                     <div class="form-group blu-margin">
-                        <select  class="form-control" th:field="${listNamaRS}" id="filter" name="filter">
-                            <option value="0">Filter By Rumah Sakit</option>
+                        <select  class="form-control" id="filter" name="filter">
+                            <option value="">Filter By Rumah Sakit</option>
                             <option th:each="namaRS : ${listNamaRS}" th:value="${namaRS}" th:text="${namaRS}"></option>
                         </select>
                     </div>

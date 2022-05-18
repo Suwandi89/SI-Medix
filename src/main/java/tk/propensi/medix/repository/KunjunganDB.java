@@ -19,7 +19,6 @@ public interface KunjunganDB extends JpaRepository<KunjunganModel,Long> {
     public List<KunjunganModel> filter(String filter);
 
 
-
     @Query("SELECT DISTINCT hospital_name_rujukan  FROM KunjunganModel WHERE hospital_name_rujukan IS NOT NULL")
     public List<String> getAllNamaRS();
 
