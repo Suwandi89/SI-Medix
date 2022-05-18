@@ -50,7 +50,7 @@ public class KunjunganServiceImpl implements KunjunganService{
     }
 
     @Override
-    public List<KunjunganModel> getKunjunganById(String personId) {
+    public KunjunganModel getKunjunganById(String personId) {
         return kunjunganDb.findByPersonId(personId);
     }
 
