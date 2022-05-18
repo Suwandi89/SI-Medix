@@ -1,9 +1,12 @@
 package tk.propensi.medix.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -435,5 +438,10 @@ public class DrugOrderModel {
     @Column(name = "retur_by_name")
     private String retur_by_name;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private RumahSakitModel rumahSakit;
 }
 
