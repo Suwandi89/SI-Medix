@@ -16,4 +16,7 @@ public interface RekamMedisDB extends JpaRepository<ResumeMedisModel, Long>{
     @Query("SELECT u FROM ResumeMedisModel u WHERE CONCAT(u.personId, u.resumeMedisID) LIKE %?1%")
     public List<ResumeMedisModel> search(String keyword);
 
+
+
+
 }

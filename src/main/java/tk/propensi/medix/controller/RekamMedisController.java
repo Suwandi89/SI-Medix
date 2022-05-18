@@ -16,7 +16,10 @@ import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.service.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Controller
 public class RekamMedisController {
@@ -35,16 +38,35 @@ public class RekamMedisController {
     public String viewAllRekamMedis(
             Model model,
             Authentication auth,
-            @RequestParam(value = "filter", required = false) String filter,
-            @RequestParam(value = "keyword", required = false) String keyword
+            @Param("keyword") String keyword,
+            @Param("filter") String filter
     ){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         List<String> namaRS = kunjunganService.getnamaRS();
         List<KunjunganModel> listPasien = kunjunganService.getPasienList(keyword);
         List<KunjunganModel> listFilter = kunjunganService.filterList(filter);
-//        listPasien.retainAll(listFilter);
-        model.addAttribute("keywordnya", keyword);
-        model.addAttribute("filternya", filter);
+//        List<KunjunganModel> common = listPasien.stream().filter(listFilter::contains).collect(toList());
+//        int size = common.size();
+//        model.addAttribute("size", size);
+        model.addAttribute("listNamaRS", namaRS);
+        model.addAttribute("listPasien", listFilter);
+        model.addAttribute("authuser", authUser);
+        return "viewall-RM";
+    }
+
+    @RequestMapping("/rekamMedis/sorted")
+    public String viewAllRekamMedisSorted(
+            Model model,
+            Authentication auth,
+            @Param("keyword") String keyword,
+            @Param("filter") String filter
+    ){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        List<String> namaRS = kunjunganService.getnamaRS();
+        List<KunjunganModel> listPasien = kunjunganService.getPasienList(keyword);
+        List<KunjunganModel> listFilter = kunjunganService.filterList(filter);
+        List<KunjunganModel> common = listPasien.stream().filter(listFilter::contains).collect(toList());
+        listFilter.sort((o1,o2) -> o1.getTgl_rujukan().compareTo(o2.getTgl_rujukan()));
         model.addAttribute("listNamaRS", namaRS);
         model.addAttribute("listPasien", listFilter);
         model.addAttribute("authuser", authUser);
@@ -54,11 +76,10 @@ public class RekamMedisController {
     @GetMapping("/rekamMedis/{personId}")
     public String detailRM(@PathVariable("personId") String personId, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
-        KunjunganModel kunjungan = kunjunganService.getKunjunganById(personId);
+        List<KunjunganModel> kunjungan = kunjunganService.getKunjunganById(personId);
         List<ResumeMedisModel> listRM = rekamMedisService.getRekamMedisByPersonId(personId);
-        List<ResumeMedisModel> listFiltered = rekamMedisService.filterHidden(listRM); 
-        model.addAttribute("listRM", listFiltered);
-        model.addAttribute("kunjungan", kunjungan);
+        model.addAttribute("listRM", listRM);
+        model.addAttribute("kunjungan", kunjungan.get(0));
         model.addAttribute("authuser", authUser);
         return "detailRM";
     }
@@ -79,19 +100,19 @@ public class RekamMedisController {
         rekamMedisService.hideData(rekamMedisID);
         model.addAttribute("rm", rm);
         model.addAttribute("authuser", authUser);
-        
-        return "redirect:/rekamMedis/" + rm.getPersonId(); 
+
+        return "redirect:/rekamMedis/" + rm.getPersonId();
     }
 
     @PostMapping("/rekamMedis/flag/{rekamMedisID}")
     public String flagRM(@PathVariable("rekamMedisID") String rekamMedisID, @RequestParam(value = "komen_flag") String komen_flag, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
-        KunjunganModel kunjungan = kunjunganService.getKunjunganById(rm.getPersonId());
+        List<KunjunganModel> kunjungan = kunjunganService.getKunjunganById(rm.getPersonId());
         rekamMedisService.memberiFlag(rekamMedisID, komen_flag);
         model.addAttribute("rm", rm);
         model.addAttribute("authuser", authUser);
-        model.addAttribute("kunjungan", kunjungan);
+        model.addAttribute("kunjungan", kunjungan.get(0));
         return "redirect:/rekamMedis/" + rm.getPersonId() + "/" + rekamMedisID;
     }
 

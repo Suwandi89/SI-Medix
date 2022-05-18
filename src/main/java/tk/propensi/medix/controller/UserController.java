@@ -176,6 +176,7 @@ public class UserController {
         return "viewall-rumahsakit"; 
     }
 
+
     @GetMapping(value = "/rumahsakit/{namaRumahSakit}")
     public String viewRumahSakit(@PathVariable String namaRumahSakit, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
