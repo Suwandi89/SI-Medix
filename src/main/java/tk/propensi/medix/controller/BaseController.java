@@ -30,8 +30,9 @@ public class BaseController {
     private String home(HttpServletRequest request, Model model) {
         UserModel user = userService.getUserByUsername(request.getRemoteUser());
         model.addAttribute("authuser",user);
-        model.addAttribute("jumlahAdminKhanza",userService.getJumlahAdminKhanza());
+        model.addAttribute("jumlahFlaggedRekamMedis",userService.getJumlahFlaggedRekamMedis());
         model.addAttribute("jumlahRumahSakit",rumahSakitService.getJumlahRumahSakit());
+        model.addAttribute("jumlahPendaftarPending",userService.getJumlahPendaftarPending());
         return "dashboard";
     }
 

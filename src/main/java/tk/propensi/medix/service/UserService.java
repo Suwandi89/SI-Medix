@@ -17,6 +17,8 @@ public interface UserService {
     UserModel getUserByUsername(String username);
     UserModel getUserByEmail(String email);
     int getJumlahAdminKhanza();
+    int getJumlahFlaggedRekamMedis();
+    int getJumlahPendaftarPending();
     boolean processRequest(String username,int status, String namaRumahSakit);
     void deleteUser(String username);
     int checkIfUserExist(String username, String email);

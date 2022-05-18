@@ -71,14 +71,14 @@
             </li>
 
             <li>
-              <a th:href="@{/viewall}" th:classappend="${page == 'Pendaftar RS'} ? active : text-secondary" class="nav-link">
+              <a th:if="${authuser.role.id} == 1" th:href="@{/viewall}" th:classappend="${page == 'Pendaftar RS'} ? active : text-secondary" class="nav-link">
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
                 Pendaftar Rumah Sakit
               </a>
             </li>
 
             <li>
-              <a th:href="@{/viewall-admin}" th:classappend="${page == 'Daftar Admin'} ? active : text-secondary" class="nav-link">
+              <a th:if="${authuser.role.id} == 1" th:href="@{/viewall-admin}" th:classappend="${page == 'Daftar Admin'} ? active : text-secondary" class="nav-link">
                   <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
                   Daftar Admin Khanza
               </a>
@@ -90,19 +90,19 @@
               </a>
             </li>
             <li>
-              <a th:href="@{/rekamMedis}" th:classappend="${page == 'Rekam Medis'} ? active : text-secondary" class="nav-link">
+              <a th:if="${authuser.role.id} != 1" th:href="@{/rekamMedis}" th:classappend="${page == 'Rekam Medis'} ? active : text-secondary" class="nav-link">
                 <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
                 Rekam Medis
               </a>
             </li>
               <li>
-                  <a th:href="@{/viewall-flagged}" th:classappend="${page == 'Flagged Rekam Medis'} ? active : text-secondary" class="nav-link">
+                  <a th:if="${authuser.role.id} == 1" th:href="@{/viewall-flagged}" th:classappend="${page == 'Flagged Rekam Medis'} ? active : text-secondary" class="nav-link">
                       <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
                       Flagged Rekam Medis
                   </a>
               </li>
               <li>
-                <a th:href="@{/viewall-hidden}" th:classappend="${page == 'Hidden Rekam Medis'} ? active : text-secondary" class="nav-link">
+                <a th:if="${authuser.role.id} == 2" th:href="@{/viewall-hidden}" th:classappend="${page == 'Hidden Rekam Medis'} ? active : text-secondary" class="nav-link">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
                     Hidden Rekam Medis
                 </a>
