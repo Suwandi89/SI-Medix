@@ -98,7 +98,7 @@ public class RekamMedisController {
         return "viewall-hidden"; 
     }
 
-    @GetMapping("/rekamMedisFlag/unhide/{rekamMedisID}")
+    @GetMapping("/rekamMedis/unhide/{rekamMedisID}")
     public String unhideDataRM(@PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
