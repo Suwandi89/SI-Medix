@@ -79,7 +79,13 @@ public class RekamMedisController {
         UserModel authUser = userService.getUserByUsername(auth.getName());
         List<KunjunganModel> kunjungan = kunjunganService.getKunjunganById(personId);
         List<ResumeMedisModel> listRM = rekamMedisService.getRekamMedisByPersonId(personId);
-        model.addAttribute("listRM", listRM);
+        List<ResumeMedisModel> listRekamMedisRes = new ArrayList<>();
+        for (ResumeMedisModel rm : listRM){
+            if (!rm.is_hidden()){
+                listRekamMedisRes.add(rm);
+            }
+        }
+        model.addAttribute("listRM", listRekamMedisRes);
         model.addAttribute("kunjungan", kunjungan.get(0));
         model.addAttribute("authuser", authUser);
         return "detailRM";

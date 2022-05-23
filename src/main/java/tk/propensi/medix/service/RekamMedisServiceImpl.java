@@ -35,7 +35,7 @@ public class RekamMedisServiceImpl implements RekamMedisService {
             }
         }
         return filtered; 
-    }; 
+    }
 
     public void hideData(String resumeMedisID){
         ResumeMedisModel resumeMedis = getRekamMedisByResumeID(resumeMedisID); 
@@ -54,7 +54,7 @@ public class RekamMedisServiceImpl implements RekamMedisService {
         
 
     }
-
+    
     @Override
     public List<ResumeMedisModel> getRekamMedisList(String keyword){
         if (keyword != null){
