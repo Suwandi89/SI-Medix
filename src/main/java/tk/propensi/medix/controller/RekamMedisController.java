@@ -39,18 +39,15 @@ public class RekamMedisController {
     public String viewAllRekamMedis(
             Model model,
             Authentication auth,
-            @Param("keyword") String keyword,
             @Param("filter") String filter
     ){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         List<String> namaRS = kunjunganService.getnamaRS();
-        List<KunjunganModel> listPasien = kunjunganService.getPasienList(keyword);
         List<KunjunganModel> listFilter = kunjunganService.filterList(filter);
-//        List<KunjunganModel> common = listPasien.stream().filter(listFilter::contains).collect(toList());
-//        int size = common.size();
-//        model.addAttribute("size", size);
-        model.addAttribute("listNamaRS", namaRS);
+
         model.addAttribute("listPasien", listFilter);
+
+        model.addAttribute("listNamaRS", namaRS);
         model.addAttribute("authuser", authUser);
         return "viewall-RM";
     }
@@ -59,14 +56,11 @@ public class RekamMedisController {
     public String viewAllRekamMedisSorted(
             Model model,
             Authentication auth,
-            @Param("keyword") String keyword,
             @Param("filter") String filter
     ){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         List<String> namaRS = kunjunganService.getnamaRS();
-        List<KunjunganModel> listPasien = kunjunganService.getPasienList(keyword);
         List<KunjunganModel> listFilter = kunjunganService.filterList(filter);
-        List<KunjunganModel> common = listPasien.stream().filter(listFilter::contains).collect(toList());
         listFilter.sort((o1,o2) -> o1.getTgl_rujukan().compareTo(o2.getTgl_rujukan()));
         model.addAttribute("listNamaRS", namaRS);
         model.addAttribute("listPasien", listFilter);
