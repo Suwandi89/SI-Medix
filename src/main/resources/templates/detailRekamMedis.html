@@ -71,7 +71,7 @@
         <a th:href="@{/rekamMedis/} + ${rm.personId}" class="btn btn-primary">Kembali</a>
       </span>
       <span>
-        <form th:action="@{/rekamMedis/hide/} + ${rekamMedisID}" method="post">
+        <form th:action="@{/rekamMedisHide/hide/} + ${rekamMedisID}" method="post">
           <input  class="btn btn-danger mx-2" type="submit" name="Hide Data" onclick="confirmHide()" value="Hide Data"/>
       </form>
       </span>
@@ -185,8 +185,11 @@
   
   function confirmHide() {
     var txt
+    console.log("Sanity check")
     if (confirm("Apakah Anda ingin menyembunyikan rekam medis?")){
       txt = "Rekam Medis berhasil disembunyikan"
+    } else {
+      event. preventDefault()
     }
   }
 

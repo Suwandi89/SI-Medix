@@ -35,13 +35,18 @@ public class RekamMedisServiceImpl implements RekamMedisService {
             }
         }
         return filtered; 
-    }; 
+    }
 
     public void hideData(String resumeMedisID){
         ResumeMedisModel resumeMedis = getRekamMedisByResumeID(resumeMedisID); 
         resumeMedis.set_hidden(true);
     }
 
+    public void unhideData(String resumeMedisID){
+        ResumeMedisModel resumeMedis = getRekamMedisByResumeID(resumeMedisID); 
+        resumeMedis.set_hidden(false);
+    }
+    
     public void memberiFlag(String resumeMedisID, String komen_flag){
         ResumeMedisModel flagged_rm = getRekamMedisByResumeID(resumeMedisID);
         flagged_rm.setKomen_flag(komen_flag);
@@ -49,7 +54,7 @@ public class RekamMedisServiceImpl implements RekamMedisService {
         
 
     }
-
+    
     @Override
     public List<ResumeMedisModel> getRekamMedisList(String keyword){
         if (keyword != null){

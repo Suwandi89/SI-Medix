@@ -9,6 +9,7 @@ public interface RekamMedisService {
     ResumeMedisModel getRekamMedisByResumeID(String resumeMedisID);
     List<ResumeMedisModel> filterHidden (List<ResumeMedisModel> listResume); 
     void hideData(String resumeMedisID); 
+    void unhideData(String resumeMedisID); 
     void memberiFlag(String resumeMedisID, String komen_flag);
     List<ResumeMedisModel> getRekamMedisList(String keyword);
     void unflag(String resumeMedisID);

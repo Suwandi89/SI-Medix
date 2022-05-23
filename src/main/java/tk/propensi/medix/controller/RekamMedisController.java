@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import tk.propensi.medix.models.KunjunganModel;
 import tk.propensi.medix.models.ResumeMedisModel;
+import tk.propensi.medix.models.RoleModel;
 import tk.propensi.medix.models.UserModel;
 import tk.propensi.medix.service.*;
 
@@ -72,7 +73,13 @@ public class RekamMedisController {
         UserModel authUser = userService.getUserByUsername(auth.getName());
         List<KunjunganModel> kunjungan = kunjunganService.getKunjunganById(personId);
         List<ResumeMedisModel> listRM = rekamMedisService.getRekamMedisByPersonId(personId);
-        model.addAttribute("listRM", listRM);
+        List<ResumeMedisModel> listRekamMedisRes = new ArrayList<>();
+        for (ResumeMedisModel rm : listRM){
+            if (!rm.is_hidden()){
+                listRekamMedisRes.add(rm);
+            }
+        }
+        model.addAttribute("listRM", listRekamMedisRes);
         model.addAttribute("kunjungan", kunjungan.get(0));
         model.addAttribute("authuser", authUser);
         return "detailRM";
@@ -87,15 +94,39 @@ public class RekamMedisController {
         return "detailRekamMedis";
     }
 
-    @PostMapping("/rekamMedis/hide/{rekamMedisID}")
+    @PostMapping("/rekamMedisHide/hide/{rekamMedisID}")
     public String hideDataRM(@PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
         ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
         rekamMedisService.hideData(rekamMedisID);
         model.addAttribute("rm", rm);
         model.addAttribute("authuser", authUser);
-
         return "redirect:/rekamMedis/" + rm.getPersonId();
+    }
+
+    @GetMapping("/viewall-hidden")
+    public String viewAllHidden(Authentication auth, Model model, @Param("keyword") String keyword){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        List<ResumeMedisModel> listRekamMedis = rekamMedisService.getRekamMedisList(keyword);
+        List<ResumeMedisModel> listRekamMedisRes = new ArrayList<>();
+        for (ResumeMedisModel rm : listRekamMedis){
+            if (rm.is_hidden()){
+                listRekamMedisRes.add(rm);
+            }
+        }
+        model.addAttribute("listRekamMedis", listRekamMedisRes);
+        model.addAttribute("authuser", authUser);
+        return "viewall-hidden"; 
+    }
+
+    @GetMapping("/rekamMedisHide/unhide/{rekamMedisID}")
+    public String unhideDataRM(@PathVariable("rekamMedisID") String rekamMedisID, Authentication auth, Model model){
+        UserModel authUser = userService.getUserByUsername(auth.getName());
+        ResumeMedisModel rm = rekamMedisService.getRekamMedisByResumeID(rekamMedisID);
+        rekamMedisService.unhideData(rekamMedisID);
+        model.addAttribute("rm", rm);
+        model.addAttribute("authuser", authUser);
+        return "redirect:/viewall-hidden";
     }
 
     @PostMapping("/rekamMedis/flag/{rekamMedisID}")
