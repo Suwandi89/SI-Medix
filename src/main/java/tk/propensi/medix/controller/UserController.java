@@ -59,6 +59,8 @@ public class UserController {
     @GetMapping("/myprofile")
     public String viewProfile(Authentication auth, Model model){
         UserModel authUser = userService.getUserByUsername(auth.getName());
+        RumahSakitModel rumahsakit = authUser.getRumahSakit();
+        model.addAttribute("rumahsakit", rumahsakit);
         model.addAttribute("error1", false);
         model.addAttribute("error2", false);
         model.addAttribute("success", false);
@@ -119,6 +121,8 @@ public class UserController {
         } else if (flag == 2){
             error2 = true;
         }
+        RumahSakitModel rumahsakit = authUser.getRumahSakit();
+        model.addAttribute("rumahsakit", rumahsakit);
         model.addAttribute("error1", error1);
         model.addAttribute("error2", error2);
         model.addAttribute("success", success);
