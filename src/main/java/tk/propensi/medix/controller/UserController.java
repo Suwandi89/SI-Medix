@@ -273,6 +273,8 @@ public class UserController {
         } else if (flag == 2){
             error2 = true;
         }
+        RumahSakitModel rumahsakit = user.getRumahSakit();
+        model.addAttribute("rumahsakit", rumahsakit);
         model.addAttribute("error1", error1);
         model.addAttribute("error2", error2);
         model.addAttribute("success", success);
