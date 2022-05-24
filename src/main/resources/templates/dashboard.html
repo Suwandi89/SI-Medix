@@ -64,8 +64,39 @@
                 <div id="konsultasi-chart" style="width:320px; height:240px;"></div>
                 <div id="bpjs-chart" style="width:320px; height:240px;"></div>
             </div>
-            <div class="row">
-                <div id="obat-chart" style="width:100vw; height:500px;"></div>
+            <div class="row mt-2">
+                <div class="filter-obat mb-2">
+                    Filter Obat Terjual by Month :
+                    <select class="form-control" id="month">
+                        <option value="0">All</option>
+                        <option value="1">Januari</option>
+                        <option value="2">Februari</option>
+                        <option value="3">Maret</option>
+                        <option value="4">April</option>
+                        <option value="5">Mei</option>
+                        <option value="6">Juni</option>
+                        <option value="7">Juli</option>
+                        <option value="8">Agustus</option>
+                        <option value="9">September</option>
+                        <option value="10">Oktober</option>
+                        <option value="11">November</option>
+                        <option value="12">Desember</option>
+                    </select>
+                    <button class="mt-1" id="btn">Apply</button>
+                </div>
+                <div id="obat-chart-0" style="width:100vw; height:500px;"></div>
+                <div class="hide" id="obat-chart-1" style="width:100vw; height:500px;"></div>
+                <div class="hide" id="obat-chart-2" style="width:100vw; height:500px;"></div>
+                <div class="hide" id="obat-chart-3" style="width:100vw; height:500px;"></div>
+                <div class="hide" id="obat-chart-4" style="width:100vw; height:500px;"></div>
+                <div class="hide" id="obat-chart-5" style="width:100vw; height:500px;"></div>
+                <div class="hide" id="obat-chart-6" style="width:100vw; height:500px;"></div>
+                <div class="hide" id="obat-chart-7" style="width:100vw; height:500px;"></div>
+                <div class="hide" id="obat-chart-8" style="width:100vw; height:500px;"></div>
+                <div class="hide" id="obat-chart-9" style="width:100vw; height:500px;"></div>
+                <div class="hide" id="obat-chart-10" style="width:100vw; height:500px;"></div>
+                <div class="hide" id="obat-chart-11" style="width:100vw; height:500px;"></div>
+                <div class="hide" id="obat-chart-12" style="width:100vw; height:500px;"></div>
             </div>
         </div>
     </div>
@@ -302,14 +333,591 @@
                 res[i+1] = new Array(keylist[i],jsonData[4][keylist[i]]);
             }
 
-            var data = google.visualization.arrayToDataTable(res);
+            if (index == 0) {
+                document.getElementById('obat-chart-0').innerHTML = "No Chart Data";
+                document.getElementById('obat-chart-0').style.marginLeft = '100px';
+            } else {
+                var data = google.visualization.arrayToDataTable(res);
 
-            var options = {title: 'Tipe Obat yang Paling Sering Terjual'};
+                var options = {title: 'Tipe Obat yang Paling Sering Terjual Keseluruhan'};
 
-            // Instantiate and draw the chart.
-            var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart'));
-            chart.draw(data, options);
+                // Instantiate and draw the chart.
+                var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart-0'));
+                chart.draw(data, options);
+            }
         }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawBarChart1);
+
+        function drawBarChart1() {
+            // Define the chart to be drawn.
+            var jsonData = $.ajax({
+                url: "https://si-medix.herokuapp.com/api/v1/chartdata",
+                dataType: "json",
+                async: false
+            }).responseJSON;
+
+            var keylist = new Array();
+            var index = 0;
+
+            for (var key in jsonData[5]) {
+                keylist[index] = key;
+                index++;
+            }
+
+            var res = new Array();
+            res[0] = new Array("Tipe Obat", "Jumlah");
+
+            for (let i = 0; i < index; i++) {
+                res[i+1] = new Array(keylist[i],jsonData[5][keylist[i]]);
+            }
+
+            if (index == 0) {
+                res[1] = new Array("", "");
+            }
+
+            if (index == 0) {
+                document.getElementById('obat-chart-1').innerHTML = "No Chart Data";
+                document.getElementById('obat-chart-1').style.marginLeft = '100px';
+            } else {
+                var data = google.visualization.arrayToDataTable(res);
+
+                var options = {title: 'Tipe Obat yang Paling Sering Terjual Januari 2022'};
+
+                // Instantiate and draw the chart.
+                var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart-1'));
+                chart.draw(data, options);
+            }
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawBarChart2);
+
+        function drawBarChart2() {
+            // Define the chart to be drawn.
+            var jsonData = $.ajax({
+                url: "https://si-medix.herokuapp.com/api/v1/chartdata",
+                dataType: "json",
+                async: false
+            }).responseJSON;
+
+            var keylist = new Array();
+            var index = 0;
+
+            for (var key in jsonData[6]) {
+                keylist[index] = key;
+                index++;
+            }
+
+            var res = new Array();
+            res[0] = new Array("Tipe Obat", "Jumlah");
+
+            for (let i = 0; i < index; i++) {
+                res[i+1] = new Array(keylist[i],jsonData[6][keylist[i]]);
+            }
+
+            if (index == 0) {
+                document.getElementById('obat-chart-2').innerHTML = "No Chart Data";
+                document.getElementById('obat-chart-2').style.marginLeft = '100px';
+            } else {
+                var data = google.visualization.arrayToDataTable(res);
+
+                var options = {title: 'Tipe Obat yang Paling Sering Terjual Februari 2022'};
+
+                // Instantiate and draw the chart.
+                var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart-2'));
+                chart.draw(data, options);
+            }
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawBarChart3);
+
+        function drawBarChart3() {
+            // Define the chart to be drawn.
+            var jsonData = $.ajax({
+                url: "https://si-medix.herokuapp.com/api/v1/chartdata",
+                dataType: "json",
+                async: false
+            }).responseJSON;
+
+            var keylist = new Array();
+            var index = 0;
+
+            for (var key in jsonData[7]) {
+                keylist[index] = key;
+                index++;
+            }
+
+            var res = new Array();
+            res[0] = new Array("Tipe Obat", "Jumlah");
+
+            for (let i = 0; i < index; i++) {
+                res[i+1] = new Array(keylist[i],jsonData[7][keylist[i]]);
+            }
+
+            if (index == 0) {
+                document.getElementById('obat-chart-3').innerHTML = "No Chart Data";
+                document.getElementById('obat-chart-3').style.marginLeft = '100px';
+            } else {
+                var data = google.visualization.arrayToDataTable(res);
+
+                var options = {title: 'Tipe Obat yang Paling Sering Terjual Maret 2022'};
+
+                // Instantiate and draw the chart.
+                var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart-3'));
+                chart.draw(data, options);
+            }
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawBarChart4);
+
+        function drawBarChart4() {
+            // Define the chart to be drawn.
+            var jsonData = $.ajax({
+                url: "https://si-medix.herokuapp.com/api/v1/chartdata",
+                dataType: "json",
+                async: false
+            }).responseJSON;
+
+            var keylist = new Array();
+            var index = 0;
+
+            for (var key in jsonData[8]) {
+                keylist[index] = key;
+                index++;
+            }
+
+            var res = new Array();
+            res[0] = new Array("Tipe Obat", "Jumlah");
+
+            for (let i = 0; i < index; i++) {
+                res[i+1] = new Array(keylist[i],jsonData[8][keylist[i]]);
+            }
+
+            if (index == 0) {
+                document.getElementById('obat-chart-4').innerHTML = "No Chart Data";
+                document.getElementById('obat-chart-4').style.marginLeft = '100px';
+            } else {
+                var data = google.visualization.arrayToDataTable(res);
+
+                var options = {title: 'Tipe Obat yang Paling Sering Terjual April 2022'};
+
+                // Instantiate and draw the chart.
+                var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart-4'));
+                chart.draw(data, options);
+            }
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawBarChart5);
+
+        function drawBarChart5() {
+            // Define the chart to be drawn.
+            var jsonData = $.ajax({
+                url: "https://si-medix.herokuapp.com/api/v1/chartdata",
+                dataType: "json",
+                async: false
+            }).responseJSON;
+
+            var keylist = new Array();
+            var index = 0;
+
+            for (var key in jsonData[9]) {
+                keylist[index] = key;
+                index++;
+            }
+
+            var res = new Array();
+            res[0] = new Array("Tipe Obat", "Jumlah");
+
+            for (let i = 0; i < index; i++) {
+                res[i+1] = new Array(keylist[i],jsonData[9][keylist[i]]);
+            }
+
+            if (index == 0) {
+                document.getElementById('obat-chart-5').innerHTML = "No Chart Data";
+                document.getElementById('obat-chart-5').style.marginLeft = '100px';
+            } else {
+                var data = google.visualization.arrayToDataTable(res);
+
+                var options = {title: 'Tipe Obat yang Paling Sering Terjual Mei 2022'};
+
+                // Instantiate and draw the chart.
+                var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart-5'));
+                chart.draw(data, options);
+            }
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawBarChart6);
+
+        function drawBarChart6() {
+            // Define the chart to be drawn.
+            var jsonData = $.ajax({
+                url: "https://si-medix.herokuapp.com/api/v1/chartdata",
+                dataType: "json",
+                async: false
+            }).responseJSON;
+
+            var keylist = new Array();
+            var index = 0;
+
+            for (var key in jsonData[10]) {
+                keylist[index] = key;
+                index++;
+            }
+
+            var res = new Array();
+            res[0] = new Array("Tipe Obat", "Jumlah");
+
+            for (let i = 0; i < index; i++) {
+                res[i+1] = new Array(keylist[i],jsonData[10][keylist[i]]);
+            }
+
+            if (index == 0) {
+                document.getElementById('obat-chart-6').innerHTML = "No Chart Data";
+                document.getElementById('obat-chart-6').style.marginLeft = '100px';
+            } else {
+                var data = google.visualization.arrayToDataTable(res);
+
+                var options = {title: 'Tipe Obat yang Paling Sering Terjual Juni 2022'};
+
+                // Instantiate and draw the chart.
+                var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart-6'));
+                chart.draw(data, options);
+            }
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawBarChart7);
+
+        function drawBarChart7() {
+            // Define the chart to be drawn.
+            var jsonData = $.ajax({
+                url: "https://si-medix.herokuapp.com/api/v1/chartdata",
+                dataType: "json",
+                async: false
+            }).responseJSON;
+
+            var keylist = new Array();
+            var index = 0;
+
+            for (var key in jsonData[11]) {
+                keylist[index] = key;
+                index++;
+            }
+
+            var res = new Array();
+            res[0] = new Array("Tipe Obat", "Jumlah");
+
+            for (let i = 0; i < index; i++) {
+                res[i+1] = new Array(keylist[i],jsonData[11][keylist[i]]);
+            }
+
+            if (index == 0) {
+                document.getElementById('obat-chart-7').innerHTML = "No Chart Data";
+                document.getElementById('obat-chart-7').style.marginLeft = '100px';
+            } else {
+                var data = google.visualization.arrayToDataTable(res);
+
+                var options = {title: 'Tipe Obat yang Paling Sering Terjual Juli 2022'};
+
+                // Instantiate and draw the chart.
+                var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart-7'));
+                chart.draw(data, options);
+            }
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawBarChart8);
+
+        function drawBarChart8() {
+            // Define the chart to be drawn.
+            var jsonData = $.ajax({
+                url: "https://si-medix.herokuapp.com/api/v1/chartdata",
+                dataType: "json",
+                async: false
+            }).responseJSON;
+
+            var keylist = new Array();
+            var index = 0;
+
+            for (var key in jsonData[12]) {
+                keylist[index] = key;
+                index++;
+            }
+
+            var res = new Array();
+            res[0] = new Array("Tipe Obat", "Jumlah");
+
+            for (let i = 0; i < index; i++) {
+                res[i+1] = new Array(keylist[i],jsonData[12][keylist[i]]);
+            }
+
+            if (index == 0) {
+                document.getElementById('obat-chart-8').innerHTML = "No Chart Data";
+                document.getElementById('obat-chart-8').style.marginLeft = '100px';
+            } else {
+                var data = google.visualization.arrayToDataTable(res);
+
+                var options = {title: 'Tipe Obat yang Paling Sering Terjual Agustus 2022'};
+
+                // Instantiate and draw the chart.
+                var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart-8'));
+                chart.draw(data, options);
+            }
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawBarChart9);
+
+        function drawBarChart9() {
+            // Define the chart to be drawn.
+            var jsonData = $.ajax({
+                url: "https://si-medix.herokuapp.com/api/v1/chartdata",
+                dataType: "json",
+                async: false
+            }).responseJSON;
+
+            var keylist = new Array();
+            var index = 0;
+
+            for (var key in jsonData[13]) {
+                keylist[index] = key;
+                index++;
+            }
+
+            var res = new Array();
+            res[0] = new Array("Tipe Obat", "Jumlah");
+
+            for (let i = 0; i < index; i++) {
+                res[i+1] = new Array(keylist[i],jsonData[13][keylist[i]]);
+            }
+
+            if (index == 0) {
+                document.getElementById('obat-chart-9').innerHTML = "No Chart Data";
+                document.getElementById('obat-chart-9').style.marginLeft = '100px';
+            } else {
+                var data = google.visualization.arrayToDataTable(res);
+
+                var options = {title: 'Tipe Obat yang Paling Sering Terjual September 2022'};
+
+                // Instantiate and draw the chart.
+                var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart-9'));
+                chart.draw(data, options);
+            }
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawBarChart10);
+
+        function drawBarChart10() {
+            // Define the chart to be drawn.
+            var jsonData = $.ajax({
+                url: "https://si-medix.herokuapp.com/api/v1/chartdata",
+                dataType: "json",
+                async: false
+            }).responseJSON;
+
+            var keylist = new Array();
+            var index = 0;
+
+            for (var key in jsonData[14]) {
+                keylist[index] = key;
+                index++;
+            }
+
+            var res = new Array();
+            res[0] = new Array("Tipe Obat", "Jumlah");
+
+            for (let i = 0; i < index; i++) {
+                res[i+1] = new Array(keylist[i],jsonData[14][keylist[i]]);
+            }
+
+            if (index == 0) {
+                document.getElementById('obat-chart-10').innerHTML = "No Chart Data";
+                document.getElementById('obat-chart-10').style.marginLeft = '100px';
+            } else {
+                var data = google.visualization.arrayToDataTable(res);
+
+                var options = {title: 'Tipe Obat yang Paling Sering Terjual Oktober 2022'};
+
+                // Instantiate and draw the chart.
+                var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart-10'));
+                chart.draw(data, options);
+            }
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawBarChart11);
+
+        function drawBarChart11() {
+            // Define the chart to be drawn.
+            var jsonData = $.ajax({
+                url: "https://si-medix.herokuapp.com/api/v1/chartdata",
+                dataType: "json",
+                async: false
+            }).responseJSON;
+
+            var keylist = new Array();
+            var index = 0;
+
+            for (var key in jsonData[15]) {
+                keylist[index] = key;
+                index++;
+            }
+
+            var res = new Array();
+            res[0] = new Array("Tipe Obat", "Jumlah");
+
+            for (let i = 0; i < index; i++) {
+                res[i+1] = new Array(keylist[i],jsonData[15][keylist[i]]);
+            }
+
+            if (index == 0) {
+                document.getElementById('obat-chart-11').innerHTML = "No Chart Data";
+                document.getElementById('obat-chart-11').style.marginLeft = '100px';
+            } else {
+                var data = google.visualization.arrayToDataTable(res);
+
+                var options = {title: 'Tipe Obat yang Paling Sering Terjual November 2022'};
+
+                // Instantiate and draw the chart.
+                var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart-11'));
+                chart.draw(data, options);
+            }
+        }
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawBarChart12);
+
+        function drawBarChart12() {
+            // Define the chart to be drawn.
+            var jsonData = $.ajax({
+                url: "https://si-medix.herokuapp.com/api/v1/chartdata",
+                dataType: "json",
+                async: false
+            }).responseJSON;
+
+            var keylist = new Array();
+            var index = 0;
+
+            for (var key in jsonData[16]) {
+                keylist[index] = key;
+                index++;
+            }
+
+            var res = new Array();
+            res[0] = new Array("Tipe Obat", "Jumlah");
+
+            for (let i = 0; i < index; i++) {
+                res[i+1] = new Array(keylist[i],jsonData[16][keylist[i]]);
+            }
+
+            if (index == 0) {
+                document.getElementById('obat-chart-12').innerHTML = "No Chart Data";
+                document.getElementById('obat-chart-12').style.marginLeft = '100px';
+            } else {
+                var data = google.visualization.arrayToDataTable(res);
+
+                var options = {title: 'Tipe Obat yang Paling Sering Terjual Desember 2022'};
+
+                // Instantiate and draw the chart.
+                var chart = new google.visualization.ColumnChart(document.getElementById('obat-chart-12'));
+                chart.draw(data, options);
+            }
+        }
+
+        const btn = document.querySelector('#btn');
+        const sb = document.querySelector('#month');
+        var index = sb.selectedIndex;
+
+        btn.onclick = (event) => {
+            event.preventDefault();
+            // show the selected index
+            if (sb.selectedIndex == 0){
+                if ($('#obat-chart-0').hasClass('hide')){
+                    $('#obat-chart-0').removeClass('hide');
+                    $('#obat-chart-'+index).addClass('hide');
+                    index = 0;
+                }
+            } else if (sb.selectedIndex == 1){
+                if ($('#obat-chart-1').hasClass('hide')){
+                    $('#obat-chart-1').removeClass('hide');
+                    $('#obat-chart-'+index).addClass('hide');
+                    index = 1;
+                }
+            } else if (sb.selectedIndex == 2){
+                if ($('#obat-chart-2').hasClass('hide')){
+                    $('#obat-chart-2').removeClass('hide');
+                    $('#obat-chart-'+index).addClass('hide');
+                    index = 2;
+                }
+            } else if (sb.selectedIndex == 3){
+                if ($('#obat-chart-3').hasClass('hide')){
+                    $('#obat-chart-3').removeClass('hide');
+                    $('#obat-chart-'+index).addClass('hide');
+                    index = 3;
+                }
+            } else if (sb.selectedIndex == 4){
+                if ($('#obat-chart-4').hasClass('hide')){
+                    $('#obat-chart-4').removeClass('hide');
+                    $('#obat-chart-'+index).addClass('hide');
+                    index = 4;
+                }
+            } else if (sb.selectedIndex == 5){
+                if ($('#obat-chart-5').hasClass('hide')){
+                    $('#obat-chart-5').removeClass('hide');
+                    $('#obat-chart-'+index).addClass('hide');
+                    index = 5;
+                }
+            } else if (sb.selectedIndex == 6){
+                if ($('#obat-chart-6').hasClass('hide')){
+                    $('#obat-chart-6').removeClass('hide');
+                    $('#obat-chart-'+index).addClass('hide');
+                    index = 6;
+                }
+            } else if (sb.selectedIndex == 7){
+                if ($('#obat-chart-7').hasClass('hide')){
+                    $('#obat-chart-7').removeClass('hide');
+                    $('#obat-chart-'+index).addClass('hide');
+                    index = 7;
+                }
+            } else if (sb.selectedIndex == 8){
+                if ($('#obat-chart-8').hasClass('hide')){
+                    $('#obat-chart-8').removeClass('hide');
+                    $('#obat-chart-'+index).addClass('hide');
+                    index = 8;
+                }
+            } else if (sb.selectedIndex == 9){
+                if ($('#obat-chart-9').hasClass('hide')){
+                    $('#obat-chart-9').removeClass('hide');
+                    $('#obat-chart-'+index).addClass('hide');
+                    index = 9;
+                }
+            } else if (sb.selectedIndex == 10){
+                if ($('#obat-chart-10').hasClass('hide')){
+                    $('#obat-chart-10').removeClass('hide');
+                    $('#obat-chart-'+index).addClass('hide');
+                    index = 10;
+                }
+            } else if (sb.selectedIndex == 11){
+                if ($('#obat-chart-11').hasClass('hide')){
+                    $('#obat-chart-11').removeClass('hide');
+                    $('#obat-chart-'+index).addClass('hide');
+                    index = 11;
+                }
+            } else if (sb.selectedIndex == 12){
+                if ($('#obat-chart-12').hasClass('hide')){
+                    $('#obat-chart-12').removeClass('hide');
+                    $('#obat-chart-'+index).addClass('hide');
+                    index = 12;
+                }
+            }
+        };
     </script>
 </body>
 </html>
